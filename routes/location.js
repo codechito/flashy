@@ -6,9 +6,9 @@ var NodeGeocoder = require('node-geocoder');
 var options = {
   provider: 'here',
   httpAdapter: 'https', 
-  appId:'YOSuV5AJuLkuOGi1fjr2',
-  appCode:'iO_9gr6VR5ScPo4tjqagHw',
-  apiKey: 'AIzaSyBlBP7JAQ2uaZRqDBo4mqEACfPI9HBuGws', 
+  appId: config.appId,
+  appCode: config.appCode,
+  apiKey: config.apiKey, 
   formatter: null 
 };
  
