@@ -28,7 +28,8 @@ module.exports = function(emitter){
 
   require('../core/mongo')(emitter,db);
 
-  router.get('/', function(req, res, next) {
+  router.get('/', function(req, res) {
+    console.log(req);
     let content = {};
     if(req.query.content){
       content = JSON.parse(req.query.content);
@@ -51,7 +52,7 @@ module.exports = function(emitter){
 
   });
 
-  router.post('/', function(req, res, next) {
+  router.post('/', function(req, res) {
     if(req.body.content){
       let content = req.body.content;
       var options = {
@@ -68,7 +69,7 @@ module.exports = function(emitter){
 
   });
 
-  router.put('/', function(req, res, next) {
+  router.put('/', function(req, res) {
     if(req.body.content){
       let content = req.body.content;
       var options = {
@@ -85,7 +86,7 @@ module.exports = function(emitter){
 
   });
 
-  router.delete('/', function(req, res, next) {
+  router.delete('/', function(req, res) {
     if(req.body.content){
       let content = req.body.content;
       var options = {
