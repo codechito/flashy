@@ -32,7 +32,6 @@ module.exports = function(emitter){
     r.then(function(content){
       let loc = JSON.parse(content);
       if(loc.lat && loc.lon){
-        console.log(loc);
         geocoder.reverse({lat:loc.lat, lon:loc.lon})
         .then(function(result) {
           res.status(200).json(result);
