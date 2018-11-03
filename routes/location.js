@@ -6,9 +6,8 @@ module.exports = function(emitter){
 
   router.get('/', function(req, res) {
 
-    var ipInfo = getIP(req);
     var getIP = require('ipware')().get_ip;
-
+    var ipInfo = getIP(req);
     var options = {
       url: config.locatorurl + "/" + getIP,            
 	    method: "GET",        
