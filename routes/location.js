@@ -2,8 +2,6 @@ const express = require('express');
 const router = express.Router();
 const config = require("config");
 
-var getIP = require('ipware')().get_ip;
-
 module.exports = function(emitter){
 
   router.get('/', function(req, res) {
