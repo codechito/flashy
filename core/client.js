@@ -2,8 +2,8 @@ var request = require('request');
 
 module.exports = function(emitter){
 
-  emitter.registerHook('client::location',function(options){
-         
+  emitter.registerHook("client::location",function(options){
+    console.log("chito");        
     return new Promise(function(resolve,reject){
 
       request(options,function(error,response,body){
@@ -15,7 +15,8 @@ module.exports = function(emitter){
           resolve(content);
         }
       });
-      
+      console.log("chito");
+
     });
 
   });
