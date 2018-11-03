@@ -22,7 +22,6 @@ module.exports = function(emitter){
       res.status(500).json({ error:err });
     })
 
-    res.status(200).json(ipInfo);
   });
   return router;
 };
