@@ -6,14 +6,14 @@ const config = require("config");
 
 const ProfileSchema = {
   "fname": { type: String, required: true },
-  "lname": { type: String, required: true },
-  "address": { type: String, required: true },
-  "age": { type: String, required: true },
-  "msisdn": { type: String, equired: true },
-  "photo": { type: String, required: true },
-  "description": { type: String, required: true },
+  "lname": { type: String },
+  "address": { type: String },
+  "age": { type: String },
+  "msisdn": { type: String },
+  "photo": { type: String },
+  "description": { type: String },
   "entry": { type: Date, default: Date.now },
-  "status": { type: String, required: true }
+  "status": { type: Boolean, default: true }
 };
 
 var connection = mongoose.createConnection(config.mongodburl,{useNewUrlParser: true});
@@ -29,10 +29,13 @@ module.exports = function(emitter){
   require('../core/mongo')(emitter,db);
 
   router.get('/', function(req, res, next) {
-
+    let content = {};
+    if(req.query.content){
+      content = JSON.parse(req.query.content);
+    }
     var options = {
       table: "Profile",
-      content: {},
+      content: content,
       limit: req.query.limit,
       skip: req.query.skip,
       sort: req.query.sort || {}
@@ -45,6 +48,57 @@ module.exports = function(emitter){
     },function(err){
       res.status(500).json({ error:err });
     })
+
+  });
+
+  router.post('/', function(req, res, next) {
+    if(req.body.content){
+      let content = req.body.content;
+      var options = {
+        table: "Profile",
+        content: content
+      };
+      let r = emitter.invokeHook("db::insertMany",options);
+      r.then(function(content){
+        res.status(200).json(content);
+      },function(err){
+        res.status(500).json({ error:err });
+      })
+    }
+
+  });
+
+  router.put('/', function(req, res, next) {
+    if(req.body.content){
+      let content = req.body.content;
+      var options = {
+        table: "Profile",
+        content: content
+      };
+      let r = emitter.invokeHook("db::update::bulk",options);
+      r.then(function(content){
+        res.status(200).json(content);
+      },function(err){
+        res.status(500).json({ error:err });
+      })
+    }
+
+  });
+
+  router.delete('/', function(req, res, next) {
+    if(req.body.content){
+      let content = req.body.content;
+      var options = {
+        table: "Profile",
+        content: content
+      };
+      let r = emitter.invokeHook("db::remove::bulk",options);
+      r.then(function(content){
+        res.status(200).json(content);
+      },function(err){
+        res.status(500).json({ error:err });
+      })
+    }
 
   });
 

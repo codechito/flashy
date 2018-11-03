@@ -1,3 +1,6 @@
+const mongoose = require('mongoose');
+const ObjectId = mongoose.Types.ObjectId;
+
 module.exports = function(emitter,db){
 
   emitter.registerHook('db::create',function(options){
@@ -49,8 +52,10 @@ module.exports = function(emitter,db){
          
     return new Promise(function(resolve,reject){
       if(db[options.table]){
+        let item = JSON.parse(JSON.stringify(options.content));
+        delete item._id;
         db[options.table]
-          .update({"_id" : options.content._id},{$set:options.content},{multi: true},function(err,result){
+          .update({"_id" : ObjectId(content._id)},{$set:item},{multi: true},function(err,result){
             if(err){
               reject(err);
             }
@@ -72,11 +77,37 @@ module.exports = function(emitter,db){
       if(db[options.table]){
         var Bulk = db[options.table].collection.initializeUnorderedBulkOp();
         options.content.forEach(function(content){
-          Bulk.find({ "_id": content._id })
-              .upsert()
+          let item = JSON.parse(JSON.stringify(content));
+          delete item._id;
+          Bulk.find({ "_id": ObjectId(content._id) })
               .update({
-                "$set": content
+                "$set": item
               });
+        })
+        Bulk.execute(function(err,result){
+          if(err){
+            reject(err);
+          }
+          if(result){
+            resolve(result);
+          }
+        });
+      }
+      else{
+        reject("TABLE_NOT_FOUND");
+      }
+    });
+
+  });
+
+  emitter.registerHook('db::remove::bulk',function(options){
+         
+    return new Promise(function(resolve,reject){
+      if(db[options.table]){
+        var Bulk = db[options.table].collection.initializeUnorderedBulkOp();
+        options.content.forEach(function(content){
+          Bulk.find({ "_id": ObjectId(content._id) })
+              .remove();
         })
         Bulk.execute(function(err,result){
           if(err){
