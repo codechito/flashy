@@ -40,6 +40,9 @@ module.exports = function(emitter){
         res.status(500).json({ error:err });
       })
     }
+    else{
+      res.status(500).json("No record found");
+    }
 
   });
 
@@ -57,6 +60,9 @@ module.exports = function(emitter){
         res.status(500).json({ error:err });
       })
     }
+    else{
+      res.status(500).json("No record found");
+    }
 
   });
 
@@ -73,6 +79,49 @@ module.exports = function(emitter){
       },function(err){
         res.status(500).json({ error:err });
       })
+    }
+    else{
+      res.status(500).json("No record found");
+    }
+
+  });
+
+  router.get('/start/:id', function(req, res) {
+    if(req.params.id){
+
+      let content = JSON.parse(req.body.content);
+      var options = {
+        table: "Campaign",
+        content: content
+      };
+      let r = emitter.invokeHook("db::update::bulk",options);
+      r.then(function(content){
+        res.status(200).json(content);
+      },function(err){
+        res.status(500).json({ error:err });
+      })
+    }
+    else{
+      res.status(500).json("No record found");
+    }
+
+  });
+
+  router.post('/format/rcs', function(req, res) {
+    if(req.body.content){
+      let content = JSON.parse(req.body.content);
+      var options = {
+        message: content  
+      };
+      let r = emitter.invokeHook("rcs::format::message",options);
+      r.then(function(content){
+        res.status(200).json(content);
+      },function(err){
+        res.status(500).json({ error:err });
+      })
+    }
+    else{
+      res.status(500).json("No record found");
     }
 
   });

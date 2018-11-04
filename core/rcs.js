@@ -171,4 +171,138 @@ module.exports = function(emitter){
     });  
   });
 
+  emitter.registerHook('rcs::format::message',function(options){
+
+    return new Promise(function(resolve, reject){
+
+      try{
+
+        let message = options.message;
+        let question = message.question;
+        let suggestions = message.suggestions;
+
+        let contentMessage = {
+          text: question,
+          suggestions : []
+        }; 
+
+        suggestions.forEach(function(suggestion){
+            if(suggestion.Type == "Text"){
+              contentMessage.suggestions.push(
+                {
+                  reply: {
+                      text: suggestion.Value,
+                      postbackData: suggestion.Trigger + '|' + (suggestion._id || uuidv4())
+                  }
+                }
+              );
+            }
+            if(suggestion.Type == "Image"){
+              delete contentMessage.text;
+              if(!contentMessage.richCard){
+                contentMessage.richCard = {
+                  carouselCard :{
+                    cardWidth: 'MEDIUM',
+                    cardContents:[]
+                  }
+                }
+              }
+              let imgObj = {
+                media: {
+                  height: "MEDIUM",
+                  contentInfo: {
+                      fileUrl: suggestion.FileUrl ,
+                      forceRefresh: false,
+                  },
+                },
+                suggestions: [
+                  {
+                    reply: {
+                      text: suggestion.Value,
+                      postbackData: suggestion.Trigger + '|' + (suggestion._id || uuidv4())
+                    }
+                  }
+                ],
+                title: suggestion.Title,
+                description: suggestion.Description
+              };
+              contentMessage.richCard.carouselCard.cardContents.push(imgObj);
+            }
+            if(suggestion.Type == "Product"){
+              if(!contentMessage.richCard){
+                contentMessage.richCard = {
+                  carouselCard :{
+                    cardWidth: 'MEDIUM',
+                    cardContents:[]
+                  }
+                }
+              }
+              let imgObj = {
+                media: {
+                  height: "MEDIUM",
+                  contentInfo: {
+                      fileUrl: suggestion.FileUrl ,
+                      forceRefresh: false,
+                  },
+                },
+                suggestions: [
+                  {
+                    reply: {
+                      text: suggestion.Value,
+                      postbackData: suggestion.Trigger + '|' + (suggestion._id || uuidv4())
+                    }
+                  }
+                ],
+                title: suggestion.Title,
+                description: suggestion.Description
+              };
+              contentMessage.richCard.carouselCard.cardContents.push(imgObj);
+            }
+            if(suggestion.type == "Action"){
+              let option = {
+                action: {
+                    text: suggestion.Value,
+                    postbackData: suggestion.Trigger + '|' + (suggestion._id || uuidv4())
+                }
+              };
+              if(suggestion.action == "Dial"){
+                option.action["dialAction"] = {
+                  phoneNumber: suggestion.Phone
+                }
+              }
+              if(suggestion.action == "View Location"){
+                option.action["viewLocationAction"] = {
+                  latLong: {
+                    latitude: suggestion.Latitude,
+                    longitude: suggestion.Longitude
+                  },
+                  label: suggestion.Value
+                }
+              }
+              if(suggestion.action == "Create Calendar"){
+                option.action["createCalendarEventAction"] = {
+                  startTime: suggestion.Start,
+                  endTime: suggestion.End,
+                  title: suggestion.Value,
+                  description: suggestion.Description
+                }
+              }
+              if(suggestion.Action == "Open URL"){
+                option.action["openUrlAction"] = {
+                  url: suggestion.Url
+                }
+              }
+              contentMessage.suggestions.push(option);
+            }
+        });
+
+        resolve(contentMessage);
+      }
+      catch(e){
+        reject(e);
+      }
+      
+    });  
+  });
+
 }
