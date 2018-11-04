@@ -166,9 +166,10 @@ Response
 ```
 
 ## Example Location transaction
+Note: this may not accurate for some provider like Globe Telecom
 
 ### get current location
-GET http://localhost:3000/profile?content={"name":"chito1"}
+GET http://localhost:3000/location
 
 Response
 ```
@@ -200,3 +201,65 @@ Response
 ]
 ```
 
+## Example RCS transaction
+
+### invite tester's phone
+GET http://localhost:3000/campaign/rcs/invite?msisdn=+639297700514
+
+Response
+```
+[
+  {
+    status: 200,
+    statusText: "OK"
+  }
+]
+```
+
+### send agent event 
+POST http://localhost:3000/campaign/rcs/event/send
+
+Request
+```
+{
+  "msisdn":"+61444507129",
+  "resource": {"eventType": "IS_TYPING"}
+}
+
+```
+
+Response
+```
+[
+  {
+    status: 200,
+    statusText: "OK"
+  }
+]
+```
+
+### send agent message 
+POST http://localhost:3000/campaign/rcs/message/send
+
+Request
+```
+{
+  "msisdn":"+61444507129",
+  "resource": {
+  	"contentMessage": {
+    	"text": "Test message using API"
+  	}
+  }
+}
+
+```
+
+Response
+```
+[
+  {
+    status: 200,
+    statusText: "OK"
+  }
+]
+```
