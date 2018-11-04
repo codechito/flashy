@@ -45,7 +45,6 @@ module.exports = function(emitter){
             
               emitter._rbmApi = rbmApi;
               emitter._authClient = authClient;
-            //  console.log(err, tokens);
               resolve(true);
           }
         });
