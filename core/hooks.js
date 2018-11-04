@@ -8,7 +8,7 @@ class AppEmitter extends EventEmitter {}
 let emitter = new AppEmitter();
 
 emitter.invokeHook = function(hn,options){
-
+  console.log(hn);
 	let ctrRspns = 0;
 	let responses = [];
 	let errors = [];

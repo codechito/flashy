@@ -27,7 +27,6 @@ module.exports = function(emitter){
   emitter.registerHook('init::rbmapi',function(options){
 
     return new Promise(function(resolve,reject){
-      console.log(!emitter._rbmApi || !emitter._authClient);
       if(!emitter._rbmApi || !emitter._authClient){
         try{
         let authClient = new google.auth.JWT(
