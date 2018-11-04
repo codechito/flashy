@@ -57,7 +57,21 @@
       "items": [
         {
           "type": "button",
-          "title": "Invite"
+          "title": "Invite",
+          "onClick": function (evt) {
+            var values = $('form.tester').jsonFormValue();
+            $.ajax({
+              type: "POST",
+              url: '/campaign/rcs/invite',
+              data: values
+            }).done(function (result) {
+              console.log("result",result);
+              alert(result[0].statusText);
+            }).fail(function (error) {
+              console.log("error",error);
+              alert(error.responseText);
+            });
+          }
         }
       ]
     }
@@ -84,6 +98,9 @@
           "question": {
             "type": "string",
             "title": "Question"
+          },
+          "sequence": {
+            "type": "number"
           },
           "suggestions": {
             "type": "array",
@@ -141,11 +158,11 @@
                   "type": "string",
                   "title": "Query"
                 },
-                "start": {
+                "Start": {
                   "type": "string",
                   "title": "Start Time"
                 },
-                "end": {
+                "End": {
                   "type": "string",
                   "title": "End Time"
                 },
@@ -168,6 +185,9 @@
                 "FileUrl": {
                   "type": "string",
                   "title": "File Url"
+                },
+                "Sequence": {
+                  "type": "number",
                 },
                 "ThumbnailUrl": {
                   "type": "string",
@@ -222,6 +242,11 @@
             "key": "messages[].question"
           },
           {
+            "key" : "messages[].sequence",
+            "value": "{{idx}}",
+            "type": "hidden"
+          },
+          {
             "type": "array",
             "items": [
               {
@@ -243,7 +268,12 @@
                         "key" : "messages[].suggestions[].Trigger",
                         "fieldHtmlClass": "trigger"
                       },
-                      "messages[].suggestions[].Value"
+                      "messages[].suggestions[].Value",
+                      {
+                        "key" : "messages[].suggestions[].Sequence",
+                        "value": "{{idx}}",
+                        "type": "hidden"
+                      }
                     ]
                   },
                   {
@@ -276,13 +306,18 @@
                           {
                             "type": "fieldset",
                             "items": [
-                              "messages[].suggestions[].start",
-                              "messages[].suggestions[].end",
+                              "messages[].suggestions[].Start",
+                              "messages[].suggestions[].End",
                               "messages[].suggestions[].Description"
                             ]
                           },
                           "messages[].suggestions[].Url",
-                          "messages[].suggestions[].Phone"
+                          "messages[].suggestions[].Phone",
+                          {
+                            "key" : "messages[].suggestions[].Sequence",
+                            "value": "{{idx}}",
+                            "type": "hidden"
+                          }
                         ]
                       }
                     ]
@@ -294,7 +329,12 @@
                       "messages[].suggestions[].Title",
                       "messages[].suggestions[].FileUrl",
                       "messages[].suggestions[].ThumbnailUrl",
-                      "messages[].suggestions[].Value"
+                      "messages[].suggestions[].Value",
+                      {
+                        "key" : "messages[].suggestions[].Sequence",
+                        "value": "{{idx}}",
+                        "type": "hidden"
+                      }
                     ]
                   },
                   {
@@ -304,17 +344,213 @@
                       "messages[].suggestions[].Price",
                       "messages[].suggestions[].FileUrl",
                       "messages[].suggestions[].ThumbnailUrl",
-                      "messages[].suggestions[].Value"
+                      "messages[].suggestions[].Value",
+                      {
+                        "key" : "messages[].suggestions[].Sequence",
+                        "value": "{{idx}}",
+                        "type": "hidden"
+                      }
                     ]
                   },
                   {
                     "type": "fieldset",
                     "items": [
                       "messages[].suggestions[].UserInfo",
-                      "messages[].suggestions[].Value"
+                      "messages[].suggestions[].Value",
+                      {
+                        "key" : "messages[].suggestions[].Sequence",
+                        "value": "{{idx}}",
+                        "type": "hidden"
+                      }
                     ]
                   }
                 ]
+              }
+            ]
+          },
+          {
+            "type": "actions",
+            "items": [
+              {
+                "type": "button",
+                "title": "Test {{idx}}",
+                "onClick": function (evt) {
+                  var idx = Number($(evt.target).html().replace("Test ",""));
+                  var values = $('form.set').jsonFormValue();
+                  var suggestions = values.messages[idx-1].suggestions;
+
+                  let contentMessage = {
+                    text: values.messages[idx-1].question,
+                    suggestions : []
+                  }; 
+                  suggestions.forEach(function(suggestion){
+                      if(suggestion.Type == "Text"){
+                        contentMessage.suggestions.push(
+                          {
+                            reply: {
+                                text: suggestion.Value,
+                                postbackData: suggestion.Value
+                            }
+                          }
+                        );
+                      }
+                      if(suggestion.Type == "Image"){
+                        delete contentMessage.text;
+                        if(!contentMessage.richCard){
+                          contentMessage.richCard = {
+                            carouselCard :{
+                              cardWidth: 'MEDIUM',
+                              cardContents:[]
+                            }
+                          }
+                        }
+                        let imgObj = {
+                          media: {
+                            height: "MEDIUM",
+                            contentInfo: {
+                                fileUrl: suggestion.FileUrl ,
+                                forceRefresh: false,
+                            },
+                          },
+                          suggestions: [
+                            {
+                              reply: {
+                                text: suggestion.Value,
+                                postbackData: suggestion.Value
+                              }
+                            }
+                          ],
+                          title: suggestion.Title,
+                          description: suggestion.Description
+                        };
+                        contentMessage.richCard.carouselCard.cardContents.push(imgObj);
+                      }
+                      if(suggestion.Type == "Product"){
+                        if(!contentMessage.richCard){
+                          contentMessage.richCard = {
+                            carouselCard :{
+                              cardWidth: 'MEDIUM',
+                              cardContents:[]
+                            }
+                          }
+                        }
+                        let imgObj = {
+                          media: {
+                            height: "MEDIUM",
+                            contentInfo: {
+                                fileUrl: suggestion.FileUrl ,
+                                forceRefresh: false,
+                            },
+                          },
+                          suggestions: [
+                            {
+                              reply: {
+                                text: suggestion.Value,
+                                postbackData: suggestion.Value
+                              }
+                            }
+                          ],
+                          title: suggestion.Title,
+                          description: suggestion.Description
+                        };
+                        contentMessage.richCard.carouselCard.cardContents.push(imgObj);
+                      }
+                      if(suggestion.type == "Action"){
+                        let option = {
+                          action: {
+                              text: suggestion.Value,
+                              postbackData: suggestion.Value
+                          }
+                        };
+                        if(suggestion.action == "Dial"){
+                          option.action["dialAction"] = {
+                            phoneNumber: suggestion.Phone
+                          }
+                        }
+                        if(suggestion.action == "View Location"){
+                          option.action["viewLocationAction"] = {
+                            latLong: {
+                              latitude: suggestion.Latitude,
+                              longitude: suggestion.Longitude
+                            },
+                            label: suggestion.Value
+                          }
+                        }
+                        if(suggestion.action == "Create Calendar"){
+                          option.action["createCalendarEventAction"] = {
+                            startTime: suggestion.Start,
+                            endTime: suggestion.End,
+                            title: suggestion.Value,
+                            description: suggestion.Description
+                          }
+                        }
+                        if(suggestion.Action == "Open URL"){
+                          option.action["openUrlAction"] = {
+                            url: suggestion.Url
+                          }
+                        }
+                        contentMessage.suggestions.push(option);
+                      }
+                  });
+
+                  if(contentMessage.text){
+                    var rcsformat = {
+                          "contentMessage": contentMessage
+                        };
+
+                    var content = {resource : JSON.stringify(rcsformat), msisdn : values.msisdn  };
+                    $.ajax({
+                        type: "POST",
+                        url: '/campaign/rcs/message/send',
+                        data: content
+                      }).done(function (result) {
+                        console.log("result",result);
+                        alert(result[0]);
+                      }).fail(function (error) {
+                        console.log("error",error);
+                        alert(error.responseText);
+                    });
+                  }
+                  else{
+                    var rcsformat1 = {
+                      "contentMessage": {
+                        text: values.messages[idx-1].question
+                      }
+                    };
+                    
+                    var content = {resource : JSON.stringify(rcsformat1), msisdn : values.msisdn  };
+                    $.ajax({
+                        type: "POST",
+                        url: '/campaign/rcs/message/send',
+                        data: content
+                      }).done(function (result) {
+                        var rcsformat = {
+                          "contentMessage": contentMessage
+                        };
+                        var content = {resource : JSON.stringify(rcsformat), msisdn : values.msisdn  };
+                        $.ajax({
+                            type: "POST",
+                            url: '/campaign/rcs/message/send',
+                            data: content
+                          }).done(function (result) {
+                            console.log("result",result);
+                            alert(result[0]);
+                          }).fail(function (error) {
+                            console.log("error",error);
+                            alert(error.responseText);
+                        });
+                      }).fail(function (error) {
+                        console.log("error",error);
+                        alert(error.responseText);
+                    });
+                  }
+
+                  
+
+                  
+    
+                  
+                }
               }
             ]
           }
@@ -327,7 +563,21 @@
       "items": [
         {
           "type": "button",
-          "title": "Send"
+          "title": "Create",
+          "onClick": function (evt) {
+            var values = JSON.stringify($('form.set').jsonFormValue());
+            $.ajax({
+              type: "POST",
+              url: '/campaign',
+              data: {content : values}
+            }).done(function (result) {
+              console.log("result",result);
+              alert(result[0]);
+            }).fail(function (error) {
+              console.log("error",error);
+              alert(error.responseText);
+            });
+          }
         }
       ]
     }

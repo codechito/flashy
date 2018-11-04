@@ -3,10 +3,12 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var emitter = require('./core/hooks.js');
+var emitter = require('./core/hooks');
+require('./core/mongo')(emitter);
 var profile = require('./routes/profile')(emitter);
 var location = require('./routes/location')(emitter);
 var rcscampaign = require('./routes/rcscampaign')(emitter);
+var campaign = require('./routes/campaign')(emitter);
 
 var app = express();
 
@@ -22,5 +24,6 @@ app.use("/campaign",express.static(path.join(__dirname, 'public')));
 app.use('/profile', profile);
 app.use('/location', location);
 app.use('/campaign/rcs', rcscampaign);
+app.use('/campaign', campaign);
 
 module.exports = app;

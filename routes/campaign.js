@@ -9,7 +9,7 @@ module.exports = function(emitter){
       content = JSON.parse(req.query.content);
     }
     var options = {
-      table: "Profile",
+      table: "Campaign",
       content: content,
       limit: req.query.limit,
       skip: req.query.skip,
@@ -28,9 +28,9 @@ module.exports = function(emitter){
 
   router.post('/', function(req, res) {
     if(req.body.content){
-      let content = req.body.content;
+      let content = JSON.parse(req.body.content);
       var options = {
-        table: "Profile",
+        table: "Campaign",
         content: content
       };
       let r = emitter.invokeHook("db::insertMany",options);
@@ -45,9 +45,9 @@ module.exports = function(emitter){
 
   router.put('/', function(req, res) {
     if(req.body.content){
-      let content = req.body.content;
+      let content = JSON.parse(req.body.content);
       var options = {
-        table: "Profile",
+        table: "Campaign",
         content: content
       };
       let r = emitter.invokeHook("db::update::bulk",options);
@@ -62,9 +62,9 @@ module.exports = function(emitter){
 
   router.delete('/', function(req, res) {
     if(req.body.content){
-      let content = req.body.content;
+      let content = JSON.parse(req.body.content);
       var options = {
-        table: "Profile",
+        table: "Campaign",
         content: content
       };
       let r = emitter.invokeHook("db::remove::bulk",options);

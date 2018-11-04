@@ -1,7 +1,68 @@
 const mongoose = require('mongoose');
 const ObjectId = mongoose.Types.ObjectId;
+const Schema = mongoose.Schema;
+const config = require("config");
 
-module.exports = function(emitter,db){
+const ProfileSchema = {
+  "fname": { type: String, required: true },
+  "lname": { type: String },
+  "address": { type: String },
+  "age": { type: String },
+  "msisdn": { type: String },
+  "photo": { type: String },
+  "description": { type: String },
+  "entry": { type: Date, default: Date.now },
+  "status": { type: Boolean, default: true }
+};
+
+const SuggestionSchema = {
+  "Type": { type: String, required: true },
+  "Trigger": { type: String },
+  "Value": { type: String, required: true },
+  "Action": { type: String },
+  "Phone": { type: String },
+  "Latitude": { type: String },
+  "Longitude": { type: String },
+  "Query": { type: String },
+  "Start": { type: String },
+  "End": { type: String },
+  "Description": { type: String },
+  "Url": { type: String },
+  "Title": { type: String },
+  "Price": { type: String },
+  "FileUrl": { type: String },
+  "ThumbnailUrl": { type: String },
+  "UserInfo": { type: String },
+  "Sequence": { type: Number },
+  "entry": { type: Date, default: Date.now },
+  "status": { type: Boolean, default: true }
+};
+const MessageSchema = {
+  "name": { type: String, required: true },
+  "question": { type: String },
+  "suggestions": [SuggestionSchema],
+  "sequence": { type: Number },
+  "status": { type: Boolean, default: true }
+};
+
+const CampaignSchema = {
+  "messages": [MessageSchema],
+  "msisdn": { type: String, required: true },
+  "entry": { type: Date, default: Date.now },
+  "status": { type: Boolean, default: true }
+};
+
+var connection = mongoose.createConnection(config.mongodburl,{useNewUrlParser: true});
+
+var profile = connection.model('Profile',new Schema(ProfileSchema,{collection: 'Profile',versionKey: false}));
+var campaign = connection.model('Campaign',new Schema(CampaignSchema,{collection: 'Campaign',versionKey: false}));
+
+var db = {
+  Profile : profile,
+  Campaign : campaign
+};
+
+module.exports = function(emitter){
 
   emitter.registerHook('db::create',function(options){
          

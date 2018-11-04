@@ -204,7 +204,15 @@ Response
 ## Example RCS transaction
 
 ### invite tester's phone
-GET http://localhost:3000/campaign/rcs/invite?msisdn=+639297700514
+POST http://localhost:3000/campaign/rcs/invite
+
+Request
+```
+{
+  "msisdn":"+61444507129"
+}
+
+```
 
 Response
 ```
