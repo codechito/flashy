@@ -54,5 +54,9 @@ module.exports = function(emitter){
 
   });
 
+  router.get('/', function(req, res, next) {
+    res.render('rcs');
+  });
+
   return router;
 };
