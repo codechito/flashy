@@ -29,7 +29,6 @@ module.exports = function(emitter){
   require('../core/mongo')(emitter,db);
 
   router.get('/', function(req, res) {
-    console.log(req);
     let content = {};
     if(req.query.content){
       content = JSON.parse(req.query.content);

@@ -16,7 +16,8 @@ var geocoder = NodeGeocoder(options);
 
 module.exports = function(emitter){
 
-  require('../core/client')(emitter);
+  require('../core/wrapper')(emitter);
+
   router.get('/', function(req, res) {
 
     var getIP = require('ipware')().get_ip;
@@ -27,7 +28,7 @@ module.exports = function(emitter){
 	    method: "GET"       
     };
     
-    let r = emitter.invokeHook("client::location",options);
+    let r = emitter.invokeHook("wrapper::api",options);
     
     r.then(function(content){
       let loc = JSON.parse(content);
@@ -38,7 +39,6 @@ module.exports = function(emitter){
         },function(err){
           res.status(500).json({ error:err });
         });
-
       }
       else{
         res.status(200).json(JSON.parse(content));
