@@ -166,7 +166,7 @@ module.exports = function(emitter){
     };
     let s = emitter.invokeHook("rbm::agent::receive::message",options);
     s.then(function(result){
-      console.log(result);
+      res.status(200).json(result);
     });
   });
 

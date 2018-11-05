@@ -14,8 +14,8 @@
         </div>
       <div class="row">
           <div class="col-xs-5 col-md-2"></div>
-          <div class="col-xs-9 col-md-4"><h2>Invite a Tester</h2><p>After pressing the invite, you will receive a text message asking if you would like to become a tester. Select "Make me a tester" and then use you Mobile number when testing and creating rcs campaign below to experience the demo.</p><form class="tester well"></form></div>
-          <div class="col-xs-9 col-md-4"><h2>Start the Campaign</h2><p>Once you created a campaign, you can start sending it from here, just refresh the browser and look for the campaign name here then press start</p><form class="start well"></form></div>
+          <div class="col-xs-9 col-md-4"><h2>Invite a Tester</h2><p>After pressing the invite, you will receive a text message asking if you would like to become a tester. Select "Make me a tester".</p><form class="tester well"></form></div>
+          <div class="col-xs-9 col-md-4"><h2>Start the Campaign</h2><p>Once you created a campaign, you can start sending it from here, just refresh the browser and look for the campaign name then press start</p><form class="start well"></form></div>
           <div class="col-xs-5 col-md-2"></div>
       </div>
       <div class="row">
@@ -132,15 +132,17 @@
   ]
 });
 
-		$('form.set').jsonForm({
+$('form.set').jsonForm({
   "schema": {
     "name": {
       "type": "string",
-      "title": "Campaign Name"
+      "title": "Campaign Name",
+      "description": 'After creating the campaign, refreshing these page will listed this name in the dropdown under "Start the Campaign" form above',
     },
     "msisdn": {
       "type": "string",
-      "title": "Mobile Number"
+      "title": "Mobile Number",
+      "description": "This Mobile Number is required when you want to Send Test Message and Create Campaign",
     },
     "messages": {
       "type": "array",
@@ -151,11 +153,13 @@
         "properties": {
           "name": {
             "type": "string",
-            "title": "Name"
+            "title": "Name",
+            "description": "The name each suggestion trigger will reference",
           },
           "question": {
             "type": "string",
-            "title": "Question"
+            "title": "Question",
+            "description": "The actual message that will be sent to the user followed by the below options",
           },
           "sequence": {
             "type": "number"

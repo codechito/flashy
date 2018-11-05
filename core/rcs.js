@@ -374,7 +374,7 @@ module.exports = function(emitter){
         let message = getMessageBody(userEvent);
         let messageId = userEvent.messageId;
 
-        let r = emitter.invokeHook("rbm::agent::event::create",{msisdn: msisdn, resource: {"eventType": "READ"} }); 
+        let r = emitter.invokeHook("rbm::agent::event::create",{msisdn: msisdn, resource: {"eventType": "READ","messageId": messageId} }); 
         r.then(function(_content){
           
           let trigger = message.split("|")[0];
@@ -393,11 +393,17 @@ module.exports = function(emitter){
                 }
               });
               if(msg){
-                let p = emitter.invokeHook("rcs::smart::send",{ content: msg, msisdn: msisdn,question: msg.question});
-                p.then(function(scontent){
-                  res.status(200).json(scontent);
+                let t = emitter.invokeHook("rcs::format::message",{ message: msg });
+                t.then(function(tcontent){
+                  console.log(tcontent);
+                  let p = emitter.invokeHook("rcs::smart::send",{ content: tcontent[0], msisdn: msisdn,question: msg.question});
+                  p.then(function(pcontent){
+                    console.log("pcontent",pcontent);
+                  },function(err){
+                    console.log("chito======error",err);
+                  });
                 },function(err){
-                  res.status(500).json({ error:err });
+                  console.log("chito======error",err);
                 });
               }
               else{
@@ -419,7 +425,10 @@ module.exports = function(emitter){
     };
 
     if(options && options.force){
-      handleMessage(options.userEvent);
+      return new Promise(function(resolve){
+        handleMessage(options.userEvent);
+        resolve("done");
+      });
     }
     else{
 
