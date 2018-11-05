@@ -47,6 +47,7 @@ const MessageSchema = {
 
 const CampaignSchema = {
   "messages": [MessageSchema],
+  "name": { type: String, required: true },
   "msisdn": { type: String, required: true },
   "entry": { type: Date, default: Date.now },
   "status": { type: Boolean, default: true }
@@ -88,6 +89,9 @@ module.exports = function(emitter){
          
     return new Promise(function(resolve,reject){
       if(db[options.table]){
+        if(options.content._id){
+          options.content._id = ObjectId(options.content._id);
+        }
         db[options.table]
           .find(options.content)
           .skip(options.skip || 0)

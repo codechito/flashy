@@ -22,7 +22,7 @@ module.exports = function(emitter){
       res.status(200).json(content);
     },function(err){
       res.status(500).json({ error:err });
-    })
+    });
 
   });
 
@@ -89,17 +89,48 @@ module.exports = function(emitter){
   router.get('/start/:id', function(req, res) {
     if(req.params.id){
 
-      let content = JSON.parse(req.body.content);
       var options = {
         table: "Campaign",
-        content: content
+        content: { _id : req.params.id},
+        limit: req.query.limit,
+        skip: req.query.skip,
+        sort: req.query.sort || {}
       };
-      let r = emitter.invokeHook("db::update::bulk",options);
+  
+      let r = emitter.invokeHook("db::find",options);
+  
       r.then(function(content){
-        res.status(200).json(content);
+        if(content[0][0]){
+          let firstMessage = {};
+          content[0][0].messages.forEach(function(message){
+            if(message.sequence === 1){
+              firstMessage = message;
+            }
+          });
+          if(firstMessage){
+            let r = emitter.invokeHook("rcs::format::message",{ message: firstMessage });
+            r.then(function(fcontent){
+              let p = emitter.invokeHook("rcs::smart::send",{ content: fcontent[0], msisdn: content[0][0].msisdn,question: firstMessage.question});
+              p.then(function(scontent){
+                res.status(200).json(scontent);
+              },function(err){
+                res.status(500).json({ error:err });
+              });
+            },function(err){
+              res.status(500).json({ error:err });
+            });
+          }
+          else{
+            res.status(500).json("Record has no 1st sequence found");
+          }
+
+        }
+        else{
+          res.status(500).json("No record found");
+        }
       },function(err){
         res.status(500).json({ error:err });
-      })
+      });
     }
     else{
       res.status(500).json("No record found");

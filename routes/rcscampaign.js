@@ -55,7 +55,25 @@ module.exports = function(emitter){
   });
 
   router.get('/', function(req, res, next) {
-    res.render('rcs');
+    
+    var options = {
+      table: "Campaign",
+      content: {name:{"$ne": null},status:true},
+      limit: req.query.limit,
+      skip: req.query.skip,
+      sort: req.query.sort || {}
+    };
+
+    let r = emitter.invokeHook("db::find",options);
+
+    r.then(function(content){
+      res.render('rcs',{campaigns:JSON.stringify(content[0])});
+    },function(err){
+      console.log("chito");
+      res.status(500).json({ error:err });
+    })
+
+    
   });
 
   return router;

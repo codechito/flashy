@@ -3,20 +3,25 @@
 
 <head>
 	<meta charset="utf-8" />
-	<title>Getting started with JSON Form</title>
+	<title>RCS Campaign Creator</title>
 	<link rel="stylesheet" type="text/css" href="deps/opt/bootstrap.css" />
 </head>
 
 <body>
-	<h1>RCS Campaign Creator</h1>
 	<div class="container-fluid">
       <div class="row">
-          <div class="col-xs-6 col-md-4"><h2>Invite a Tester</h2><form class="tester well"></form></div>
-          <div class="col-xs-12 col-md-8"></div>
+          <div class="col-xs-23 col-md-12" style="text-align:center;"><h2><b>RCS Campaign Creator</b></h2></div>
         </div>
       <div class="row">
+          <div class="col-xs-5 col-md-2"></div>
+          <div class="col-xs-9 col-md-4"><h2>Invite a Tester</h2><form class="tester well"></form></div>
+          <div class="col-xs-9 col-md-4"><h2>Start the Campaign</h2><form class="start well"></form></div>
+          <div class="col-xs-5 col-md-2"></div>
+      </div>
+      <div class="row">
+        <div class="col-xs-5 col-md-2"></div>
         <div class="col-xs-13 col-md-8"><h2>Send an RCS Campaign</h2><form class="set well"></form></div>
-        <div class="col-xs-5 col-md-4"></div>
+        <div class="col-xs-5 col-md-2"></div>
       </div>
     </div>
 	<div id="res" class="alert"></div>
@@ -42,6 +47,55 @@
           jQuery.browser.version = RegExp.$1;
       }
   })();
+  var campaigns = <%- campaigns %>;
+
+  var optCampaignIds = [];
+  var optCampaigns = {};
+
+  campaigns.forEach(function(campaign){
+    optCampaignIds.push(campaign._id);
+    optCampaigns[campaign._id] = campaign.name;
+  });
+
+
+  $('form.start').jsonForm({
+  "schema": {
+    "campaign": {
+      "type": "string",
+      "title": "Campaign",
+      "enum": optCampaignIds
+    }
+  },
+  "form": [
+    {
+      "key" : "campaign",
+      "titleMap": optCampaigns
+    },
+    {
+      "type": "actions",
+      "items": [
+        {
+          "type": "button",
+          "title": "Start",
+          "onClick": function (evt) {
+            var values = $('form.start').jsonFormValue();
+
+            $.ajax({
+              type: "GET",
+              url: '/campaign/start/' + values.campaign
+            }).done(function (result) {
+              console.log("result",result);
+              alert(result[0][0].statusText);
+            }).fail(function (error) {
+              console.log("error",error);
+              alert(error.responseText);
+            });
+          }
+        }
+      ]
+    }
+  ]
+});
 
   $('form.tester').jsonForm({
   "schema": {
@@ -80,6 +134,10 @@
 
 		$('form.set').jsonForm({
   "schema": {
+    "name": {
+      "type": "string",
+      "title": "Campaign Name"
+    },
     "msisdn": {
       "type": "string",
       "title": "Mobile Number"
@@ -210,6 +268,7 @@
     }
   },
   "form": [
+    "name",
     {
       "type": "tabarray",
       "items": {
@@ -385,9 +444,9 @@
             "items": [
               {
                 "type": "button",
-                "title": "Test {{idx}}",
+                "title": "Send Test Message {{idx}}",
                 "onClick": function (evt) {
-                  var idx = Number($(evt.target).html().replace("Test ",""));
+                  var idx = Number($(evt.target).html().replace("Send Test Message ",""));
                   var values = $('form.set').jsonFormValue();
                   var message = values.messages[idx-1];
 
@@ -409,7 +468,7 @@
                           data: content
                         }).done(function (result) {
                           console.log("result",result);
-                          alert(result[0]);
+                          alert(result[0].statusText);
                         }).fail(function (error) {
                           console.log("error",error);
                           alert(error.responseText);
@@ -438,7 +497,7 @@
                               data: content
                             }).done(function (result) {
                               console.log("result",result);
-                              alert(result[0]);
+                              alert(result[0].statusText);
                             }).fail(function (error) {
                               console.log("error",error);
                               alert(error.responseText);
@@ -453,14 +512,6 @@
                     console.log("error",error);
                     alert(error.responseText);
                   });
-
-   
-
-                  
-
-                  
-    
-                  
                 }
               }
             ]
@@ -483,7 +534,7 @@
               data: {content : values}
             }).done(function (result) {
               console.log("result",result);
-              alert(result[0]);
+              alert(result[0][0]._id);
             }).fail(function (error) {
               console.log("error",error);
               alert(error.responseText);

@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "export GOOGLE_APPLICATION_CREDENTIALS='/Users/TimeLord/Work/flashy/config/default.json' && node ./bin/www"
+    "start": "export GOOGLE_APPLICATION_CREDENTIALS='config/default.json' && node ./bin/www"
   },
   "dependencies": {
     "@google-cloud/pubsub": "^0.20.1",

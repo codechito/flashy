@@ -171,6 +171,56 @@ module.exports = function(emitter){
     });  
   });
 
+  emitter.registerHook('rcs::smart::send',function(options){
+
+    const sendRCS = function(msisdn,resource){
+      return new Promise(function(resolve,reject){
+        if(msisdn && resource){
+          let r = emitter.invokeHook("rbm::agent::message::create",{msisdn: msisdn, resource: resource }); 
+          r.then(function(scontent){
+            resolve(scontent);
+          },function(err){
+            reject(err);
+          });
+        }
+        else{
+          reject("Mobile Number and Content Message is required!");
+        }
+
+      });
+    };
+
+    return new Promise(function(resolve, reject){
+
+      let contentMessage = options.content;
+      let msisdn = options.msisdn;
+      let question = options.question;
+      if(contentMessage.text){
+        let p = sendRCS(msisdn,{contentMessage:contentMessage});
+        p.then(function(scontent){
+          resolve(scontent);
+        },function(err){
+          reject(err);
+        });
+      }
+      else{
+        let p = sendRCS(msisdn,{contentMessage:{text:question}});
+        p.then(function(scontent){
+          let q = sendRCS(msisdn,{contentMessage:contentMessage});
+          q.then(function(scontent){
+            resolve(scontent);
+          },function(err){
+            reject(err);
+          });
+        },function(err){
+          reject(err);
+        });
+      }
+
+    });
+
+  });
+
   emitter.registerHook('rcs::format::message',function(options){
 
     return new Promise(function(resolve, reject){
