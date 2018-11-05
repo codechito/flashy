@@ -154,7 +154,7 @@ module.exports = function(emitter){
 
   });
   
-  router.post('/force/response', function(req, res){
+  router.get('/force/response', function(req, res){
 
     let options = {
       force: true,
