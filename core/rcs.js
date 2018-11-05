@@ -356,8 +356,7 @@ module.exports = function(emitter){
     });  
   });
 
-  emitter.registerHook('rbm::agent::receive::message',function(){
-
+  emitter.registerHook('rbm::agent::receive::message',function(options){
 
     var getMessageBody = function(userEvent) {
       if (userEvent.text != undefined) {
@@ -419,24 +418,30 @@ module.exports = function(emitter){
       }
     };
 
-    return new Promise(function(resolve){
+    if(options && options.force){
+      handleMessage(options.userEvent);
+    }
+    else{
 
-      let r = emitter.invokeHook("init::pubsub",{	
-        projectId: config.project_id,
-        keyFilename: config.keyFilename,
-        subscriptionName: config.subscriptionName
-      }); 
+      return new Promise(function(resolve){
 
-      r.then(function(result){
-        emitter._subscription.on('message',function(message){ 
-          let userEvent = JSON.parse(message.data);
-          handleMessage(userEvent);
-          message.ack();
+        let r = emitter.invokeHook("init::pubsub",{	
+          projectId: config.project_id,
+          keyFilename: config.keyFilename,
+          subscriptionName: config.subscriptionName
+        }); 
+
+        r.then(function(result){
+          emitter._subscription.on('message',function(message){ 
+            let userEvent = JSON.parse(message.data);
+            handleMessage(userEvent);
+            message.ack();
+          });
+          resolve("Subscription is running");
         });
-        resolve("Subscription is running");
-      });
 
-    });
+      });
+    }
 
   });
 

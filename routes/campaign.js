@@ -153,6 +153,22 @@ module.exports = function(emitter){
     }
 
   });
+  
+  router.post('/force/response', function(req, res){
+
+    let options = {
+      force: true,
+      userEvent: {
+        senderPhoneNumber: req.query.msisdn,
+        messageId: req.query.messageId,
+        text:req.query.text
+      }
+    };
+    let s = emitter.invokeHook("rbm::agent::receive::message",options);
+    s.then(function(result){
+      console.log(result);
+    });
+  });
 
   return router;
 };
