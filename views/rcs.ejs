@@ -10,18 +10,21 @@
 <body>
 	<div class="container-fluid">
       <div class="row">
-          <div class="col-xs-23 col-md-12" style="text-align:center;"><h2><b>RCS Campaign Creator</b></h2></div>
+          <div class="col-xs-23 col-md-12" style="text-align:center;"><h4><b>RCS Campaign Creator</b></h4></div>
         </div>
       <div class="row">
           <div class="col-xs-5 col-md-2"></div>
-          <div class="col-xs-9 col-md-4"><h2>Invite a Tester</h2><p>After pressing the invite, you will receive a text message asking if you would like to become a tester. Select "Make me a tester".</p><form class="tester well"></form></div>
-          <div class="col-xs-9 col-md-4"><h2>Start the Campaign</h2><p>Once you created a campaign, you can start sending it from here, just refresh the browser and look for the campaign name then press start</p><form class="start well"></form></div>
+          <div class="col-xs-9 col-md-5">
+              <h4>Send an RCS Campaign</h4>
+              <form class="set well"></form>
+          </div>
+          <div class="col-xs-9 col-md-3">
+              <h4>Invite a Tester</h4>
+              <form class="tester well"></form>
+            <h4>Start the Campaign</h4>
+            <form class="start well"></form>
+          </div>
           <div class="col-xs-5 col-md-2"></div>
-      </div>
-      <div class="row">
-        <div class="col-xs-5 col-md-2"></div>
-        <div class="col-xs-13 col-md-8"><h2>Send an RCS Campaign</h2><p>You can send test message to your phone per each tab to see if it is correct by clicking the "Send Test Message {{idx}}", just make sure the bottom mobile number is not empty NOTE : Send Test Message only work with sending, response is ignored</p><form class="set well"></form></div>
-        <div class="col-xs-5 col-md-2"></div>
       </div>
     </div>
 	<div id="res" class="alert"></div>
@@ -136,13 +139,11 @@ $('form.set').jsonForm({
   "schema": {
     "name": {
       "type": "string",
-      "title": "Campaign Name",
-      "description": 'After creating the campaign, refreshing these page will listed this name in the dropdown under "Start the Campaign" form above',
+      "title": "Campaign Name"
     },
     "msisdn": {
       "type": "string",
-      "title": "Mobile Number",
-      "description": "This Mobile Number is required when you want to Send Test Message and Create Campaign",
+      "title": "Mobile Number"
     },
     "messages": {
       "type": "array",
@@ -153,13 +154,11 @@ $('form.set').jsonForm({
         "properties": {
           "name": {
             "type": "string",
-            "title": "Name",
-            "description": "The name each suggestion trigger will reference",
+            "title": "Name"
           },
           "question": {
             "type": "string",
-            "title": "Question",
-            "description": "The actual message that will be sent to the user followed by the below options",
+            "title": "Question"
           },
           "sequence": {
             "type": "number"

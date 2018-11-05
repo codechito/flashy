@@ -11,6 +11,7 @@ const ProfileSchema = {
   "msisdn": { type: String },
   "photo": { type: String },
   "description": { type: String },
+  "transaction": { type: String },
   "entry": { type: Date, default: Date.now },
   "status": { type: Boolean, default: true }
 };
