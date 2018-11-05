@@ -91,10 +91,7 @@ module.exports = function(emitter){
 
       var options = {
         table: "Campaign",
-        content: { _id : req.params.id},
-        limit: req.query.limit,
-        skip: req.query.skip,
-        sort: req.query.sort || {}
+        content: { _id : req.params.id}
       };
   
       let r = emitter.invokeHook("db::find",options);

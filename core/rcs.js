@@ -195,6 +195,7 @@ module.exports = function(emitter){
       let contentMessage = options.content;
       let msisdn = options.msisdn;
       let question = options.question;
+      console.log(JSON.stringify(contentMessage));
       if(contentMessage.text){
         let p = sendRCS(msisdn,{contentMessage:contentMessage});
         p.then(function(scontent){
@@ -353,6 +354,90 @@ module.exports = function(emitter){
       }
       
     });  
+  });
+
+  emitter.registerHook('rbm::agent::receive::message',function(){
+
+
+    var getMessageBody = function(userEvent) {
+      if (userEvent.text != undefined) {
+          return userEvent.text;
+      } else if (userEvent.suggestionResponse != undefined) {
+          return userEvent.suggestionResponse.postbackData;
+      }
+  
+      return false;
+    };
+
+    var handleMessage = function(userEvent){
+      if (userEvent.senderPhoneNumber != undefined) {
+        let msisdn = userEvent.senderPhoneNumber;
+        let message = getMessageBody(userEvent);
+        let messageId = userEvent.messageId;
+
+        let r = emitter.invokeHook("rbm::agent::event::create",{msisdn: msisdn, resource: {"eventType": "READ"} }); 
+        r.then(function(_content){
+          
+          let trigger = message.split("|")[0];
+          let suid = message.split("|")[1];
+          var options = {
+            table: "Campaign",
+            content: { "messages.suggestions._id" : suid}
+          };    
+          let s = emitter.invokeHook("db::find",options);
+          s.then(function(scontent){
+            if(scontent[0] && scontent[0][0]){
+              let msg;
+              scontent[0][0].messages.forEach(function(smsg){
+                if(smsg.name === trigger){
+                  msg = smsg;
+                }
+              });
+              if(msg){
+                let p = emitter.invokeHook("rcs::smart::send",{ content: msg, msisdn: msisdn,question: msg.question});
+                p.then(function(scontent){
+                  res.status(200).json(scontent);
+                },function(err){
+                  res.status(500).json({ error:err });
+                });
+              }
+              else{
+                console.log(message,"message not found for these callback!!");
+              }
+            }
+            else{
+              console.log(message,"campaign not found for these callback!!");
+            }
+            
+          },function(err){
+            console.log(err);
+          });
+
+        },function(err){
+          console.log(err);
+        });
+      }
+    };
+
+    return new Promise(function(resolve){
+
+      let r = emitter.invokeHook("init::pubsub",{	
+        projectId: config.project_id,
+        keyFilename: config.keyFilename,
+        subscriptionName: config.subscriptionName
+      }); 
+
+      r.then(function(result){
+        emitter._subscription.on('message',function(message){ 
+          let userEvent = JSON.parse(message.data);
+          handleMessage(userEvent);
+          message.ack();
+        });
+        resolve("Subscription is running");
+      });
+
+    });
+
   });
 
 }

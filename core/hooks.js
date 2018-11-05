@@ -11,7 +11,10 @@ emitter.invokeHook = function(hn,options){
   console.log(hn);
 	let ctrRspns = 0;
 	let responses = [];
-	let errors = [];
+  let errors = [];
+  if(!options){
+    options = {};
+  }
 	options.uid = uuidv4();	
 	return new Promise(function(resolve, reject) {
     emitter.on(hn + '_response_' + options.uid,function(err,response){

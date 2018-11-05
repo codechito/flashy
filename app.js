@@ -26,4 +26,9 @@ app.use('/location', location);
 app.use('/campaign/rcs', rcscampaign);
 app.use('/campaign', campaign);
 
+let s = emitter.invokeHook("rbm::agent::receive::message");
+s.then(function(result){
+  console.log(result);
+});
+
 module.exports = app;
