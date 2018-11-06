@@ -19,7 +19,7 @@ const ProfileSchema = {
 const SuggestionSchema = {
   "Type": { type: String, required: true },
   "Trigger": { type: String },
-  "Value": { type: String, required: true },
+  "Value": { type: String },
   "Action": { type: String },
   "Phone": { type: String },
   "Latitude": { type: String },
@@ -31,6 +31,7 @@ const SuggestionSchema = {
   "Url": { type: String },
   "Title": { type: String },
   "Price": { type: String },
+  "Quantity": { type: String },
   "FileUrl": { type: String },
   "ThumbnailUrl": { type: String },
   "UserInfo": { type: String },
@@ -50,6 +51,7 @@ const CampaignSchema = {
   "messages": [MessageSchema],
   "name": { type: String, required: true },
   "msisdn": { type: String, required: true },
+  "responses": { type: String },
   "entry": { type: Date, default: Date.now },
   "status": { type: Boolean, default: true }
 };
@@ -121,7 +123,7 @@ module.exports = function(emitter){
         let item = JSON.parse(JSON.stringify(options.content));
         delete item._id;
         db[options.table]
-          .update({"_id" : ObjectId(content._id)},{$set:item},{multi: true},function(err,result){
+          .updateOne({"_id" : ObjectId(options.content._id)},{$set:item},{multi: true},function(err,result){
             if(err){
               reject(err);
             }

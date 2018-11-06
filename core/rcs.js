@@ -280,6 +280,7 @@ module.exports = function(emitter){
               contentMessage.richCard.carouselCard.cardContents.push(imgObj);
             }
             if(suggestion.Type == "Product"){
+              delete contentMessage.text;
               if(!contentMessage.richCard){
                 contentMessage.richCard = {
                   carouselCard :{
@@ -299,13 +300,13 @@ module.exports = function(emitter){
                 suggestions: [
                   {
                     reply: {
-                      text: suggestion.Value,
+                      text: suggestion.Description,
                       postbackData: suggestion.Trigger + '|' + (suggestion._id || uuidv4())
                     }
                   }
                 ],
-                title: suggestion.Title,
-                description: suggestion.Description
+                title: suggestion.Description,
+                description: suggestion.Quantity + " " + suggestion.Description + " for only " + suggestion.Price
               };
               contentMessage.richCard.carouselCard.cardContents.push(imgObj);
             }
@@ -357,7 +358,7 @@ module.exports = function(emitter){
   });
 
   emitter.registerHook('rbm::agent::receive::message',function(options){
-
+    
     var getMessageBody = function(userEvent) {
       if (userEvent.text != undefined) {
           return userEvent.text;
@@ -368,8 +369,28 @@ module.exports = function(emitter){
       return false;
     };
 
+    var replaceUserInfo = function(user,str){
+      var fields = str.match(/\[.*?\]/g);
+      if(fields && fields.length){
+        fields.forEach(function(field){
+          var fieldname = field.replace("[","").replace("]","");
+          if(user[fieldname]){
+            if( typeof user[fieldname] === 'object'){
+              str = str.replace(field,user[fieldname].Value);
+            }
+            else{
+              str = str.replace(field,user[fieldname]);
+            }
+            
+          }
+        });
+      }
+      return str;
+      
+    };
+
     var handleMessage = function(userEvent){
-      if (userEvent.senderPhoneNumber != undefined) {
+      if (userEvent.senderPhoneNumber != undefined && (userEvent.text || userEvent.suggestionResponse)) {
         let msisdn = userEvent.senderPhoneNumber;
         let message = getMessageBody(userEvent);
         let messageId = userEvent.messageId;
@@ -386,40 +407,79 @@ module.exports = function(emitter){
           let s = emitter.invokeHook("db::find",options);
           s.then(function(scontent){
             if(scontent[0] && scontent[0][0]){
-              let msg;
+              let msg, sgstn, tmsg;
               scontent[0][0].messages.forEach(function(smsg){
                 if(smsg.name === trigger){
                   msg = smsg;
                 }
-              });
-              if(msg){
-                let t = emitter.invokeHook("rcs::format::message",{ message: msg });
-                t.then(function(tcontent){
-                  console.log(tcontent);
-                  let p = emitter.invokeHook("rcs::smart::send",{ content: tcontent[0], msisdn: msisdn,question: msg.question});
-                  p.then(function(pcontent){
-                    console.log("pcontent",pcontent);
-                  },function(err){
-                    console.log("chito======error",err);
-                  });
-                },function(err){
-                  console.log("chito======error",err);
+                smsg.suggestions.forEach(function(ssgstn){
+                  if(ssgstn._id == suid){
+                    sgstn = ssgstn;
+                    tmsg = smsg.name;
+                  }
                 });
+              });
+
+              let responses = JSON.parse(scontent[0][0].responses||null);
+
+              if(!responses){
+                responses = {};
+              }
+              if(responses && !responses[msisdn]){
+                responses[msisdn] = {}
+              }
+              if(sgstn.Type == "Product"){
+                responses[msisdn][tmsg] = {
+                  Quantity : sgstn.Quantity,
+                  Description : sgstn.Description,
+                  Price : sgstn.Price,
+                  Value : sgstn.Quantity + " X " + sgstn.Description + " - $" + sgstn.Price + "\n"
+                }
               }
               else{
-                console.log(message,"message not found for these callback!!");
+                responses[msisdn][tmsg] = {
+                  Value : sgstn.Value
+                }
               }
+              
+              let u = emitter.invokeHook("db::update",{ table: "Campaign", content: {responses: JSON.stringify(responses), _id: scontent[0][0]._id} });
+              u.then(function(ucontent){
+                if(msg){
+                  let user = {
+                    address : "L6, #1 Kings St, Sydney 2000"
+                  };
+                  msg.question = replaceUserInfo(responses[msisdn],msg.question);
+                  msg.question = replaceUserInfo(user,msg.question);
+                  let t = emitter.invokeHook("rcs::format::message",{ message: msg });
+                  t.then(function(tcontent){
+
+                    let p = emitter.invokeHook("rcs::smart::send",{ content: tcontent[0], msisdn: msisdn,question: msg.question});
+                    p.then(function(pcontent){
+                      console.log(pcontent);
+                    },function(err){
+                      console.error(err);
+                    });
+                  },function(err){
+                    console.error(err);
+                  });
+                }
+                else{
+                  console.error(message,"message not found for these callback!!");
+                }
+              },function(err){
+                console.error(err);
+              });
             }
             else{
-              console.log(message,"campaign not found for these callback!!");
+              console.error(message,"campaign not found for these callback!!");
             }
             
           },function(err){
-            console.log(err);
+            console.error(err);
           });
 
         },function(err){
-          console.log(err);
+          console.error(err);
         });
       }
     };
@@ -443,6 +503,7 @@ module.exports = function(emitter){
         r.then(function(result){
           emitter._subscription.on('message',function(message){ 
             let userEvent = JSON.parse(message.data);
+            console.log(userEvent);
             handleMessage(userEvent);
             message.ack();
           });

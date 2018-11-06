@@ -147,7 +147,7 @@ $('form.set').jsonForm({
     },
     "messages": {
       "type": "array",
-      "maxItems": 10,
+      "maxItems": 20,
       "items": {
         "type": "object",
         "title": "Message Set",
@@ -166,7 +166,7 @@ $('form.set').jsonForm({
           "suggestions": {
             "type": "array",
             "minItems": 1,
-            "maxItems": 5,
+            "maxItems": 10,
             "items": {
               "type": "object",
               "title": "Suggestion",
@@ -242,6 +242,10 @@ $('form.set').jsonForm({
                 "Price": {
                   "type": "string",
                   "title": "Price"
+                },
+                "Quantity": {
+                  "type": "number",
+                  "title": "Quantity"
                 },
                 "FileUrl": {
                   "type": "string",
@@ -410,7 +414,7 @@ $('form.set').jsonForm({
                         "key" : "messages[].suggestions[].Trigger",
                         "fieldHtmlClass": "trigger"
                       },
-                      "messages[].suggestions[].Value",
+                      "messages[].suggestions[].Quantity",
                       "messages[].suggestions[].Description",
                       "messages[].suggestions[].Price",
                       "messages[].suggestions[].FileUrl",
