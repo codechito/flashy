@@ -71,8 +71,33 @@ module.exports = function(emitter){
     },function(err){
       console.log("chito");
       res.status(500).json({ error:err });
-    })
+    });
 
+  });
+
+  router.get('/:id', function(req, res, next) {
+    
+    var options = {
+      table: "Campaign",
+      content: {name:{"$ne": null},status:true},
+      limit: req.query.limit,
+      skip: req.query.skip,
+      sort: req.query.sort || {}
+    };
+
+    let r = emitter.invokeHook("db::find",options);
+
+    r.then(function(campaigns){
+      campaigns[0].forEach(function(campaign){
+        if(req.params.id == campaign._id){
+          res.render('editrcs',{campaigns:JSON.stringify(campaigns[0]), campaign: JSON.stringify(campaign)});
+        }
+      });
+      
+    },function(err){
+      console.log("chito");
+      res.status(500).json({ error:err });
+    });
     
   });
 

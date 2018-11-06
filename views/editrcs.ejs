@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8" />
 	<title>RCS Campaign Creator</title>
-	<link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
+	<link rel="stylesheet" type="text/css" href="/campaign/stylesheets/style.css" />
 </head>
 
 <body>
@@ -28,15 +28,15 @@
       </div>
     </div>
 	<div id="res" class="alert"></div>
-	<script type="text/javascript" src="deps/jquery.min.js"></script>
-  <script type="text/javascript" src="deps/underscore.js"></script>
-  <script type="text/javascript" src="deps/opt/jsv.js"></script>
-  <script type="text/javascript" src="deps/opt/jquery.ui.core.js"></script>
-  <script type="text/javascript" src="deps/opt/jquery.ui.widget.js"></script>
-  <script type="text/javascript" src="deps/opt/jquery.ui.mouse.js"></script>
-  <script type="text/javascript" src="deps/opt/jquery.ui.sortable.js"></script>
-  <script type="text/javascript" src="deps/opt/bootstrap-dropdown.js"></script>
-  <script type="text/javascript" src="lib/jsonform.js"></script>
+	<script type="text/javascript" src="/campaign/deps/jquery.min.js"></script>
+  <script type="text/javascript" src="/campaign/deps/underscore.js"></script>
+  <script type="text/javascript" src="/campaign/deps/opt/jsv.js"></script>
+  <script type="text/javascript" src="/campaign/deps/opt/jquery.ui.core.js"></script>
+  <script type="text/javascript" src="/campaign/deps/opt/jquery.ui.widget.js"></script>
+  <script type="text/javascript" src="/campaign/deps/opt/jquery.ui.mouse.js"></script>
+  <script type="text/javascript" src="/campaign/deps/opt/jquery.ui.sortable.js"></script>
+  <script type="text/javascript" src="/campaign/deps/opt/bootstrap-dropdown.js"></script>
+  <script type="text/javascript" src="/campaign/lib/jsonform.js"></script>
   <script type="text/javascript">
   jQuery.browser = {};
   jQuery.curCSS = function(element, prop, val) {
@@ -51,14 +51,22 @@
       }
   })();
   var campaigns = <%- campaigns %>;
+  var campaign = <%- campaign %>;
 
   var optCampaignIds = [];
+  var optMessageNames = [];
   var optCampaigns = {};
 
   campaigns.forEach(function(campaign){
     optCampaignIds.push(campaign._id);
     optCampaigns[campaign._id] = campaign.name;
   });
+
+  campaign.messages.forEach(function(message){
+    optMessageNames.push(message.name);
+  })
+
+  optMessageNames.push("End");
 
 
   $('form.start').jsonForm({
@@ -149,6 +157,10 @@ $('form.set').jsonForm({
       "type": "string",
       "title": "Campaign Name"
     },
+    "_id": {
+      "type": "string",
+      "disabled": true
+    },
     "msisdn": {
       "type": "string",
       "title": "Mobile Number"
@@ -160,6 +172,9 @@ $('form.set').jsonForm({
         "type": "object",
         "title": "Message Set",
         "properties": {
+          "_id": {
+            "type": "string"
+          },
           "name": {
             "type": "string",
             "title": "Name"
@@ -179,6 +194,9 @@ $('form.set').jsonForm({
               "type": "object",
               "title": "Suggestion",
               "properties": {
+                "_id": {
+                  "type": "string"
+                },
                 "Type": {
                   "type": "string",
                   "title": "Type",
@@ -193,9 +211,7 @@ $('form.set').jsonForm({
                 "Trigger": {
                   "type": "string",
                   "title": "Trigger",
-                  "enum": [
-                    "End"
-                  ]
+                  "enum": optMessageNames
                 },
                 "Value": {
                   "type": "string",
@@ -283,6 +299,10 @@ $('form.set').jsonForm({
     }
   },
   "form": [
+    {
+      "key": "_id",
+      "type": "hidden"
+    },
     "name",
     {
       "type": "tabarray",
@@ -312,6 +332,10 @@ $('form.set').jsonForm({
               
             }
           },
+          {
+            "key": "messages[]._id",
+            "type": "hidden"
+          },  
           { 
             "key": "messages[].question"
           },
@@ -449,6 +473,10 @@ $('form.set').jsonForm({
                         "type": "hidden"
                       },
                     ]
+                  },
+                  {
+                    "key": "messages[].suggestions[]._id",
+                    "type": "hidden"
                   }
                 ]
               }
@@ -540,16 +568,17 @@ $('form.set').jsonForm({
       "items": [
         {
           "type": "button",
-          "title": "Create",
+          "title": "Update",
           "onClick": function (evt) {
-            var values = JSON.stringify($('form.set').jsonFormValue());
+            var values = $('form.set').jsonFormValue();
+            console.log("values",values);
             $.ajax({
-              type: "POST",
+              type: "PUT",
               url: '/campaign',
-              data: {content : values}
+              data: {content : JSON.stringify([values])}
             }).done(function (result) {
               console.log("result",result);
-              alert(result[0][0]._id);
+              alert(result);
             }).fail(function (error) {
               console.log("error",error);
               alert(error.responseText);
@@ -558,7 +587,8 @@ $('form.set').jsonForm({
         }
       ]
     }
-  ]
+  ],
+  value: <%- campaign %>
 });
 	</script>
 </body>
