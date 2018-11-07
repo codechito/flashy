@@ -5,7 +5,6 @@ var logger = require('morgan');
 
 var emitter = require('./core/hooks');
 require('./core/mongo')(emitter);
-var profile = require('./routes/profile')(emitter);
 var location = require('./routes/location')(emitter);
 var rcscampaign = require('./routes/rcscampaign')(emitter);
 var campaign = require('./routes/campaign')(emitter);
@@ -21,7 +20,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use("/campaign",express.static(path.join(__dirname, 'public')));
 
-app.use('/profile', profile);
 app.use('/location', location);
 app.use('/campaign/rcs', rcscampaign);
 app.use('/campaign', campaign);

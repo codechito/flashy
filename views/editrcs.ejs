@@ -315,6 +315,7 @@ $('form.set').jsonForm({
             "fieldHtmlClass": "setname",
             "valueInLegend": true,
             "onChange": function (evt) {
+              
               $('form.set').find("select.trigger").each(function(){
                   $(this).html("");
               });
@@ -329,6 +330,8 @@ $('form.set').jsonForm({
                 let option = new Option("End", "End");
                 $(this).append($(option));
               });
+
+              $('form.set').find("select.trigger").change();
               
             }
           },

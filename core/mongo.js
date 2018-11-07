@@ -3,19 +3,6 @@ const ObjectId = mongoose.Types.ObjectId;
 const Schema = mongoose.Schema;
 const config = require("config");
 
-const ProfileSchema = {
-  "fname": { type: String, required: true },
-  "lname": { type: String },
-  "address": { type: String },
-  "age": { type: String },
-  "msisdn": { type: String },
-  "photo": { type: String },
-  "description": { type: String },
-  "transaction": { type: String },
-  "entry": { type: Date, default: Date.now },
-  "status": { type: Boolean, default: true }
-};
-
 const SuggestionSchema = {
   "Type": { type: String, required: true },
   "Trigger": { type: String },
@@ -58,11 +45,9 @@ const CampaignSchema = {
 
 var connection = mongoose.createConnection(config.mongodburl,{useNewUrlParser: true});
 
-var profile = connection.model('Profile',new Schema(ProfileSchema,{collection: 'Profile',versionKey: false}));
 var campaign = connection.model('Campaign',new Schema(CampaignSchema,{collection: 'Campaign',versionKey: false}));
 
 var db = {
-  Profile : profile,
   Campaign : campaign
 };
 
