@@ -560,6 +560,11 @@ $('form.set').jsonForm({
     }
   ]
 });
+    window.setInterval( function() {  
+      $('form.set').find("select.nav").each(function(){
+                    $(this).change();
+      });
+    },5);
 	</script>
 </body>
 
