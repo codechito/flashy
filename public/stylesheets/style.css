@@ -49,4 +49,12 @@ form.jsonform-hasrequired:after {
 .btn.btn-default {
   margin-bottom:20px;
 }
+
+.emulator {
+  background-image: url(../images/emulator.png); 
+  margin-top: 20px;
+  height: 950px; 
+  width: 450px;
+  background-size: cover;
+}
     
