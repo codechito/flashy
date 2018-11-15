@@ -141,13 +141,15 @@ div.emulator .content ul li div .carousel{
 }
 
 div.emulator .content ul li div .carousel img{
-  width: 250px;
+  width: 246px;
   height: 180px;
-  border-radius: 20px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
   background-size: contain; 
   background-repeat: no-repeat; 
   background-position: center;
   display: inline-block;
+  background-color:rgb(12, 119, 182);
 }
 
 div.emulator .content ul li div.him .message{
