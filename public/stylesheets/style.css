@@ -132,13 +132,22 @@ div.emulator .content ul li div .button{
 
 div.emulator .content ul li div .carousel{
   display: inline-block;
-  padding: 10px;
   border-radius: 20px;
   margin-bottom: 10px;
   font-size: 15px;
   border: 2px solid #eee;
   width: 250px;
   height: 300px;
+}
+
+div.emulator .content ul li div .carousel img{
+  width: 250px;
+  height: 180px;
+  border-radius: 20px;
+  background-size: contain; 
+  background-repeat: no-repeat; 
+  background-position: center;
+  display: inline-block;
 }
 
 div.emulator .content ul li div.him .message{
