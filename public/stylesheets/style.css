@@ -130,6 +130,68 @@ div.emulator .content ul li div .button{
   border: 2px solid #eee;
 }
 
+
+div.emulator .content ul li div .call img{
+  background-image: url(../images/call.png);
+  background-size: contain; 
+  background-repeat: no-repeat; 
+  background-position: left;
+  width: 20px;
+  transform: scale(2);
+  padding-right: 5px;
+}
+div.emulator .content ul li div .call{
+
+  min-width: 100px;
+  padding-left: 50px;
+  display: inline-block;
+  padding: 10px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+  font-size: 15px;
+  border: 2px solid #eee;
+}
+
+div.emulator .content ul li div .calendar img{
+  background-image: url(../images/calendar.png);
+  background-size: contain; 
+  background-repeat: no-repeat; 
+  background-position: left;
+  width: 20px;
+  transform: scale(2);
+  padding-right: 5px;
+}
+
+div.emulator .content ul li div .calendar{
+  max-width: 250px;
+  display: inline-block;
+  padding: 10px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+  font-size: 15px;
+  border: 2px solid #eee;
+}
+
+div.emulator .content ul li div .location img{
+  background-image: url(../images/loc.png);
+  background-size: contain; 
+  background-repeat: no-repeat; 
+  background-position: left;
+  width: 20px;
+  transform: scale(2);
+  padding-right: 5px;
+}
+
+div.emulator .content ul li div .location{
+  max-width: 250px;
+  display: inline-block;
+  padding: 10px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+  font-size: 15px;
+  border: 2px solid #eee;
+}
+
 div.emulator .content ul li div .carousel{
   display: inline-block;
   border-radius: 20px;
