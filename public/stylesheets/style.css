@@ -49,4 +49,186 @@ form.jsonform-hasrequired:after {
 .btn.btn-default {
   margin-bottom:20px;
 }
+
+.emulator {
+  background-image: url(../images/emulator.png); 
+  margin-top: 20px;
+  height: 950px; 
+  width: 450px;
+  background-size: cover;
+  
+}
+
+div.emulator .title{
+  padding-top: 85px;
+    height: 130px;
+    padding-left: 60px;
+    padding-right: 85px;
+}
+
+div.emulator .content {
+  height: 770px;
+  width: 430px;
+  padding-left: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  overflow: auto;
+
+}
     
+div.emulator .content ul{
+  padding-inline-start: 5px;
+}
+
+div.emulator .content ul li{
+  list-style-type: none;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+div.emulator .content ul li div.him{
+  float: left;
+  clear: both;
+}
+
+div.emulator .content ul li div.me{
+  float: right;
+  clear: both;
+}
+
+div.emulator .content ul li div.action{
+  float: right;
+  clear: both;
+}
+
+div.emulator .content ul li div.image-container{
+  clear: both;
+  width:400px;
+  overflow-x:auto;
+}
+div.emulator .content ul li div.image{
+  clear: both;
+  max-width:1500px;
+  min-width:510px;
+}
+
+div.emulator .content ul li div .message{
+  max-width: 250px;
+  display: inline-block;
+  padding: 10px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+  font-size: 15px;
+}
+
+div.emulator .content ul li div .button{
+  max-width: 250px;
+  display: inline-block;
+  padding: 10px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+  font-size: 15px;
+  border: 2px solid #eee;
+}
+
+
+div.emulator .content ul li div .call img{
+  background-image: url(../images/call.png);
+  background-size: contain; 
+  background-repeat: no-repeat; 
+  background-position: left;
+  width: 20px;
+  transform: scale(2);
+  padding-right: 5px;
+}
+div.emulator .content ul li div .call{
+
+  min-width: 100px;
+  padding-left: 50px;
+  display: inline-block;
+  padding: 10px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+  font-size: 15px;
+  border: 2px solid #eee;
+}
+
+div.emulator .content ul li div .calendar img{
+  background-image: url(../images/calendar.png);
+  background-size: contain; 
+  background-repeat: no-repeat; 
+  background-position: left;
+  width: 20px;
+  transform: scale(2);
+  padding-right: 5px;
+}
+
+div.emulator .content ul li div .calendar{
+  max-width: 250px;
+  display: inline-block;
+  padding: 10px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+  font-size: 15px;
+  border: 2px solid #eee;
+}
+
+div.emulator .content ul li div .location img{
+  background-image: url(../images/loc.png);
+  background-size: contain; 
+  background-repeat: no-repeat; 
+  background-position: left;
+  width: 20px;
+  transform: scale(2);
+  padding-right: 5px;
+}
+
+div.emulator .content ul li div .location{
+  max-width: 250px;
+  display: inline-block;
+  padding: 10px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+  font-size: 15px;
+  border: 2px solid #eee;
+}
+
+div.emulator .content ul li div .carousel{
+  display: inline-block;
+  border-radius: 20px;
+  margin-bottom: 10px;
+  font-size: 15px;
+  border: 2px solid #eee;
+  width: 250px;
+  height: 300px;
+}
+
+div.emulator .content ul li div .carousel img{
+  width: 246px;
+  height: 180px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  background-size: contain; 
+  background-repeat: no-repeat; 
+  background-position: center;
+  display: inline-block;
+  background-color:rgb(12, 119, 182);
+}
+
+div.emulator .content ul li div.him .message{
+  background: #eee;
+}
+
+div.emulator .content ul li div.me .message{
+  background: #0084ff;
+  color: #fff;
+}
+
+div.emulator .content ul li div .logo{
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  background-size: contain; 
+  background-repeat: no-repeat; 
+  background-position: center;
+  display: inline-block;
+}

@@ -73,10 +73,36 @@ module.exports = function(emitter){
 
   });
 
+  emitter.registerHook('db::findById',function(options){
+         
+    return new Promise(function(resolve,reject){
+      if(db[options.table]){
+        db[options.table]
+          .find(options.content)
+          .skip(options.skip || 0)
+          .limit(options.limit || 100)
+          .sort(options.sort || {})
+          .exec(function(err,result){
+            if(err){
+              reject(err);
+            }
+            if(result){
+              resolve(result);
+            }
+          });
+      }
+      else{
+        reject("TABLE_NOT_FOUND");
+      }
+    });
+
+  });
+  
   emitter.registerHook('db::find',function(options){
          
     return new Promise(function(resolve,reject){
       if(db[options.table]){
+        console.log(options.content._id);
         if(options.content._id){
           options.content._id = ObjectId(options.content._id);
         }
@@ -90,6 +116,35 @@ module.exports = function(emitter){
               reject(err);
             }
             if(result){
+              resolve(result);
+            }
+          });
+      }
+      else{
+        reject("TABLE_NOT_FOUND");
+      }
+    });
+
+  });
+  
+  emitter.registerHook('db::findOne',function(options){
+    
+    return new Promise(function(resolve,reject){
+      
+      options.content["messages.suggestions._id"] = ObjectId(options.content["messages.suggestions._id"]);
+       console.log("chito",options.content);  
+      if(db[options.table]){
+        db[options.table]
+          .findOne(options.content)
+          .exec(function(err,result){
+         
+            if(err){
+                console.log("chitosss");  
+              reject(err);
+            }
+            if(result){
+                console.log("chitosss");  
+              console.log(result);
               resolve(result);
             }
           });

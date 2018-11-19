@@ -25,6 +25,7 @@ module.exports = function(emitter){
   router.post('/message/send', function(req, res) {
 
     if(req.body.msisdn && req.body.resource){
+      console.log(req.body.resource);
       let r = emitter.invokeHook("rbm::agent::message::create",{msisdn: req.body.msisdn, resource: JSON.parse(req.body.resource) }); 
       r.then(function(content){
         res.status(200).json(content);

@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const uuidv4 = require('uuid/v4');
 
 module.exports = function(emitter){
 
@@ -55,8 +56,10 @@ module.exports = function(emitter){
       };
       let r = emitter.invokeHook("db::update::bulk",options);
       r.then(function(content){
+        console.log(content);
         res.status(200).json(content);
       },function(err){
+        console.log(err);
         res.status(500).json({ error:err });
       })
     }
@@ -105,7 +108,7 @@ module.exports = function(emitter){
             }
           });
           if(firstMessage){
-            let r = emitter.invokeHook("rcs::format::message",{ message: firstMessage });
+            let r = emitter.invokeHook("rcs::format::message",{ message: firstMessage, id: content[0][0]._id});
             r.then(function(fcontent){
               let p = emitter.invokeHook("rcs::smart::send",{ content: fcontent[0], msisdn: content[0][0].msisdn,question: firstMessage.question});
               p.then(function(scontent){
@@ -139,7 +142,8 @@ module.exports = function(emitter){
     if(req.body.content){
       let content = JSON.parse(req.body.content);
       var options = {
-        message: content  
+        message: content,
+        id: req.body.id
       };
       let r = emitter.invokeHook("rcs::format::message",options);
       r.then(function(content){
