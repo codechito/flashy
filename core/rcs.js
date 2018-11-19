@@ -3,6 +3,8 @@ const config = require("config");
 const uuidv4 = require('uuid/v4');
 let {google} = require('googleapis');
 let rbm = require(__dirname + '/../rcsbusinessmessaging/v1');
+const mongoose = require('mongoose');
+const ObjectId = mongoose.Types.ObjectId;
 
 module.exports = function(emitter){
   emitter._authClient = false; 
@@ -227,8 +229,8 @@ module.exports = function(emitter){
     return new Promise(function(resolve, reject){
 
       try{
-
         let message = options.message;
+        let cid = options.id
         let question = message.question;
         let suggestions = message.suggestions;
 
@@ -237,13 +239,15 @@ module.exports = function(emitter){
           suggestions : []
         }; 
 
+        
         suggestions.forEach(function(suggestion){
+          
             if(suggestion.Type == "Text"){
               contentMessage.suggestions.push(
                 {
                   reply: {
                       text: suggestion.Value,
-                      postbackData: suggestion.Trigger + '|' + (suggestion._id || uuidv4())
+                      postbackData: suggestion.Trigger + '|' + (suggestion._id || uuidv4()) + '|' + (cid || uuidv4())
                   }
                 }
               );
@@ -270,7 +274,7 @@ module.exports = function(emitter){
                   {
                     reply: {
                       text: suggestion.Value,
-                      postbackData: suggestion.Trigger + '|' + (suggestion._id || uuidv4())
+                      postbackData: suggestion.Trigger + '|' + (suggestion._id || uuidv4()) + '|' + (cid || uuidv4())
                     }
                   }
                 ],
@@ -301,7 +305,7 @@ module.exports = function(emitter){
                   {
                     reply: {
                       text: suggestion.Description,
-                      postbackData: suggestion.Trigger + '|' + (suggestion._id || uuidv4())
+                      postbackData: suggestion.Trigger + '|' + (suggestion._id || uuidv4()) + '|' + (cid || uuidv4())
                     }
                   }
                 ],
@@ -310,19 +314,21 @@ module.exports = function(emitter){
               };
               contentMessage.richCard.carouselCard.cardContents.push(imgObj);
             }
-            if(suggestion.type == "Action"){
+            
+            if(suggestion.Type === "Action"){
+ 
               let option = {
                 action: {
                     text: suggestion.Value,
-                    postbackData: suggestion.Trigger + '|' + (suggestion._id || uuidv4())
+                    postbackData: suggestion.Trigger + '|' + (suggestion._id || uuidv4()) + '|' + (cid || uuidv4())
                 }
               };
-              if(suggestion.action == "Dial"){
+              if(suggestion.Action == "Dial"){
                 option.action["dialAction"] = {
                   phoneNumber: suggestion.Phone
                 }
               }
-              if(suggestion.action == "View Location"){
+              if(suggestion.Action == "View Location"){
                 option.action["viewLocationAction"] = {
                   latLong: {
                     latitude: suggestion.Latitude,
@@ -331,7 +337,7 @@ module.exports = function(emitter){
                   label: suggestion.Value
                 }
               }
-              if(suggestion.action == "Create Calendar"){
+              if(suggestion.Action == "Create Calendar"){
                 option.action["createCalendarEventAction"] = {
                   startTime: suggestion.Start,
                   endTime: suggestion.End,
@@ -400,12 +406,15 @@ module.exports = function(emitter){
           
           let trigger = message.split("|")[0];
           let suid = message.split("|")[1];
-          var options = {
+          let cid = message.split("|")[2];
+          let options = {
             table: "Campaign",
-            content: { "messages.suggestions._id" : suid}
-          };    
+            content: { "_id" : cid}
+          }; 
+          console.log("cid",cid);
           let s = emitter.invokeHook("db::find",options);
           s.then(function(scontent){
+            console.log(scontent);
             if(scontent[0] && scontent[0][0]){
               let msg, sgstn, tmsg;
               scontent[0][0].messages.forEach(function(smsg){
@@ -450,7 +459,7 @@ module.exports = function(emitter){
                   };
                   msg.question = replaceUserInfo(responses[msisdn],msg.question);
                   msg.question = replaceUserInfo(user,msg.question);
-                  let t = emitter.invokeHook("rcs::format::message",{ message: msg });
+                  let t = emitter.invokeHook("rcs::format::message",{ message: msg, id: scontent[0][0]._id});
                   t.then(function(tcontent){
 
                     let p = emitter.invokeHook("rcs::smart::send",{ content: tcontent[0], msisdn: msisdn,question: msg.question});
@@ -493,7 +502,6 @@ module.exports = function(emitter){
     else{
 
       return new Promise(function(resolve){
-
         let r = emitter.invokeHook("init::pubsub",{	
           projectId: config.project_id,
           keyFilename: config.keyFilename,
