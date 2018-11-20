@@ -2,8 +2,10 @@ const mongoose = require('mongoose');
 const ObjectId = mongoose.Types.ObjectId;
 const Schema = mongoose.Schema;
 const config = require("config");
+const uuidv4 = require('uuid/v4');
 
 const SuggestionSchema = {
+  "_id": { type: String, default: uuidv4() },
   "Type": { type: String, required: true },
   "Trigger": { type: String },
   "Value": { type: String },
@@ -163,7 +165,7 @@ module.exports = function(emitter){
         let item = JSON.parse(JSON.stringify(options.content));
         delete item._id;
         db[options.table]
-          .updateOne({"_id" : ObjectId(options.content._id)},{$set:item},{multi: true},function(err,result){
+          .updateOne({"_id" : ObjectId(options.content._id)},item,{multi: true},function(err,result){
             if(err){
               reject(err);
             }
