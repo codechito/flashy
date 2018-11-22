@@ -1,174 +1,8 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-	<meta charset="utf-8" />
-	<title>RCS Campaign Creator</title>
-	<link rel="stylesheet" type="text/css" href="/campaign/stylesheets/style.css" />
-</head>
-
-<body>
-	<div class="container-fluid">
-      <div class="row">
-          <div class="col-xs-23 col-md-12" style="text-align:center;"><h4><b>RCS Campaign Creator</b></h4></div>
-        </div>
-        <div class="row">
-          <div class="col-xs-5 col-md-2"></div>
-          <div class="col-xs-9 col-md-4">
-            <h4>Invite a Tester</h4>
-            <form class="tester well"></form>
-          </div>
-          <div class="col-xs-9 col-md-4">           
-            <h4>Start the Campaign</h4>
-            <form class="start well"></form>   
-          </div>
-          <div class="col-xs-5 col-md-2"></div>
-      </div>
-      <div class="row">
-          <div class="col-xs-5 col-md-2"></div>
-          <div class="col-xs-9 col-md-5">
-              <h4>Send an RCS Campaign</h4>
-              <form class="set well"></form>
-          </div>
-          <div class="col-xs-9 col-md-3">
-              <div class="emulator"></div>
-          </div>
-          <div class="col-xs-5 col-md-2"></div>
-      </div>
-    </div>
-	<div id="res" class="alert"></div>
-	<script type="text/javascript" src="/campaign/deps/jquery.min.js"></script>
-  <script type="text/javascript" src="/campaign/deps/underscore.js"></script>
-  <script type="text/javascript" src="/campaign/deps/opt/jsv.js"></script>
-  <script type="text/javascript" src="/campaign/deps/opt/jquery.ui.core.js"></script>
-  <script type="text/javascript" src="/campaign/deps/opt/jquery.ui.widget.js"></script>
-  <script type="text/javascript" src="/campaign/deps/opt/jquery.ui.mouse.js"></script>
-  <script type="text/javascript" src="/campaign/deps/opt/jquery.ui.sortable.js"></script>
-  <script type="text/javascript" src="/campaign/deps/opt/bootstrap-dropdown.js"></script>
-  <script type="text/javascript" src="/campaign/lib/jsonform.js"></script>
-  <script type="text/javascript">
-  jQuery.browser = {};
-  jQuery.curCSS = function(element, prop, val) {
-    return jQuery(element).css(prop, val);
-  };
-  (function () {
-      jQuery.browser.msie = false;
-      jQuery.browser.version = 0;
-      if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
-          jQuery.browser.msie = true;
-          jQuery.browser.version = RegExp.$1;
-      }
-  })();
-  var campaigns = <%- campaigns %>;
-  var campaign = <%- campaign %>;
-
-  var optCampaignIds = [];
-  var optMessageNames = [];
-  var optCampaigns = {};
-
-  campaigns.forEach(function(campaign){
-    optCampaignIds.push(campaign._id);
-    optCampaigns[campaign._id] = campaign.name;
-  });
-
-  campaign.messages.forEach(function(message){
-    optMessageNames.push(message.name);
-  })
-
-  optMessageNames.push("End");
-
-
-  $('form.start').jsonForm({
-  "schema": {
-    "campaign": {
-      "type": "string",
-      "title": "Campaign",
-      "enum": optCampaignIds
-    }
-  },
-  "form": [
-    {
-      "key" : "campaign",
-      "titleMap": optCampaigns
-    },
-    {
-      "type": "actions",
-      "items": [
-        {
-          "type": "button",
-          "title": "Start",
-          "onClick": function (evt) {
-            var values = $('form.start').jsonFormValue();
-
-            $.ajax({
-              type: "GET",
-              url: '/campaign/start/' + values.campaign
-            }).done(function (result) {
-              console.log("result",result);
-              alert(result[0][0].statusText);
-            }).fail(function (error) {
-              console.log("error",error);
-              alert(error.responseText);
-            });
-          }
-        },
-        {
-          "type": "button",
-          "title": "Load",
-          "onClick": function (evt) {
-            var values = $('form.start').jsonFormValue();
-            window.location.href = '/campaign/rcs/' + values.campaign;
-          }
-        }
-      ]
-    }
-  ]
-});
-
-  $('form.tester').jsonForm({
-  "schema": {
-    "msisdn": {
-      "type": "string",
-      "title": "Mobile Number"
-    }
-  },
-  "form": [
-    "msisdn",
-    {
-      "type": "actions",
-      "items": [
-        {
-          "type": "button",
-          "title": "Invite",
-          "onClick": function (evt) {
-            var values = $('form.tester').jsonFormValue();
-            $.ajax({
-              type: "POST",
-              url: '/campaign/rcs/invite',
-              data: values
-            }).done(function (result) {
-              console.log("result",result);
-              alert(result[0].statusText);
-            }).fail(function (error) {
-              console.log("error",error);
-              alert(error.responseText);
-            });
-          }
-        }
-      ]
-    }
-  ]
-});
-
 $('form.set').jsonForm({
   "schema": {
     "name": {
       "type": "string",
       "title": "Campaign Name"
-    },
-    "_id": {
-      "type": "string",
-      "disabled": true
     },
     "msisdn": {
       "type": "string",
@@ -181,9 +15,6 @@ $('form.set').jsonForm({
         "type": "object",
         "title": "Message Set",
         "properties": {
-          "_id": {
-            "type": "string"
-          },
           "name": {
             "type": "string",
             "title": "Name"
@@ -203,9 +34,6 @@ $('form.set').jsonForm({
               "type": "object",
               "title": "Suggestion",
               "properties": {
-                "_id": {
-                  "type": "string"
-                },
                 "Type": {
                   "type": "string",
                   "title": "Type",
@@ -220,7 +48,9 @@ $('form.set').jsonForm({
                 "Trigger": {
                   "type": "string",
                   "title": "Trigger",
-                  "enum": optMessageNames
+                  "enum": [
+                    "End"
+                  ]
                 },
                 "Value": {
                   "type": "string",
@@ -308,10 +138,6 @@ $('form.set').jsonForm({
     }
   },
   "form": [
-    {
-      "key": "_id",
-      "type": "hidden"
-    },
     "name",
     {
       "type": "tabarray",
@@ -324,7 +150,6 @@ $('form.set').jsonForm({
             "fieldHtmlClass": "setname",
             "valueInLegend": true,
             "onChange": function (evt) {
-              
               $('form.set').find("select.trigger").each(function(){
                   $(this).html("");
               });
@@ -339,15 +164,9 @@ $('form.set').jsonForm({
                 let option = new Option("End", "End");
                 $(this).append($(option));
               });
-
-              $('form.set').find("select.trigger").change();
               
             }
           },
-          {
-            "key": "messages[]._id",
-            "type": "hidden"
-          },  
           { 
             "key": "messages[].question"
           },
@@ -382,10 +201,6 @@ $('form.set').jsonForm({
                       {
                         "key" : "messages[].suggestions[].Sequence",
                         "value": "{{idx}}",
-                        "type": "hidden"
-                      },
-                      {
-                        "key": "messages[].suggestions[]._id",
                         "type": "hidden"
                       }
                     ]
@@ -431,10 +246,6 @@ $('form.set').jsonForm({
                             "key" : "messages[].suggestions[].Sequence",
                             "value": "{{idx}}",
                             "type": "hidden"
-                          },
-                          {
-                            "key": "messages[].suggestions[]._id",
-                            "type": "hidden"
                           }
                         ]
                       }
@@ -456,10 +267,6 @@ $('form.set').jsonForm({
                         "key" : "messages[].suggestions[].Sequence",
                         "value": "{{idx}}",
                         "type": "hidden"
-                      },
-                      {
-                        "key": "messages[].suggestions[]._id",
-                        "type": "hidden"
                       }
                     ]
                   },
@@ -479,10 +286,6 @@ $('form.set').jsonForm({
                         "key" : "messages[].suggestions[].Sequence",
                         "value": "{{idx}}",
                         "type": "hidden"
-                      },
-                      {
-                        "key": "messages[].suggestions[]._id",
-                        "type": "hidden"
                       }
                     ]
                   },
@@ -500,15 +303,7 @@ $('form.set').jsonForm({
                         "value": "{{idx}}",
                         "type": "hidden"
                       },
-                      {
-                        "key": "messages[].suggestions[]._id",
-                        "type": "hidden"
-                      }
                     ]
-                  },
-                  {
-                    "key": "messages[].suggestions[]._id",
-                    "type": "hidden"
                   }
                 ]
               }
@@ -600,36 +395,32 @@ $('form.set').jsonForm({
       "items": [
         {
           "type": "button",
-          "title": "Update",
+          "title": "Create",
           "onClick": function (evt) {
-            var values = $('form.set').jsonFormValue();
-            console.log("values",values);
-            $.ajax({
-              type: "PUT",
-              url: '/campaign',
-              data: {content : JSON.stringify([values])}
-            }).done(function (result) {
-              console.log("result",result);
-              alert(JSON.stringify(result));
-            }).fail(function (error) {
-              console.log("error",JSON.stringify(error));
-              alert(JSON.stringify(error));
-            });
+            
+            var values = JSON.stringify($('form.set').jsonFormValue());
+            console.log(values);
+            
+            // $.ajax({
+            //   type: "POST",
+            //   url: '/campaign',
+            //   data: {content : values}
+            // }).done(function (result) {
+            //   console.log("result",result);
+            //   alert(result[0][0]._id);
+            // }).fail(function (error) {
+            //   console.log("error",error);
+            //   alert(error.responseText);
+            // });
           }
         }
       ]
     }
-  ],
-  value: <%- campaign %>
+  ]
 });
-  
-  window.setInterval( function() {  
-    $('form.set').find("select.nav").each(function(){
-                  $(this).change();
-    });
-},5);
-      
-	</script>
-</body>
 
-</html>
+    window.setInterval( function() {  
+      $('form.set').find("select.nav").each(function(){
+                    $(this).change();
+      });
+    },5);

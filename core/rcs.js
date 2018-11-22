@@ -411,7 +411,7 @@ module.exports = function(emitter){
             table: "Campaign",
             content: { "_id" : cid}
           }; 
-          console.log("cid",cid);
+          
           let s = emitter.invokeHook("db::find",options);
           s.then(function(scontent){
             console.log(scontent);
@@ -428,7 +428,7 @@ module.exports = function(emitter){
                   }
                 });
               });
-
+              console.log("trigger",trigger,"suid",suid,"cid",cid);
               let responses = JSON.parse(scontent[0][0].responses||null);
 
               if(!responses){
