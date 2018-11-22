@@ -50,6 +50,7 @@ module.exports = function(emitter){
   router.put('/', function(req, res) {
     if(req.body.content){
       let content = JSON.parse(req.body.content);
+      
       var options = {
         table: "Campaign",
         content: content
