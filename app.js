@@ -23,6 +23,11 @@ app.use("/campaign",express.static(path.join(__dirname, 'public')));
 app.use('/location', location);
 app.use('/campaign/rcs', rcscampaign);
 app.use('/campaign', campaign);
+app.all('/whatsapp/webhook', function(req,res){
+   console.log("thank you for sending these:","query",req.query,"body",req.body);
+   res.json("thank you for sending these");
+});
+
 
 let s = emitter.invokeHook("rbm::agent::receive::message");
 s.then(function(result){

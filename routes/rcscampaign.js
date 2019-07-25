@@ -22,6 +22,23 @@ module.exports = function(emitter){
 
   });
 
+  router.post('/message/send/json', function(req, res) {
+
+    if(req.body.msisdn && req.body.resource){
+      console.log(req.body.resource);
+      let r = emitter.invokeHook("rbm::agent::message::create",{msisdn: req.body.msisdn, resource: req.body.resource  }); 
+      r.then(function(content){
+        res.status(200).json(content);
+      },function(err){
+        res.status(500).json({ error:err });
+      });
+    }
+    else{
+      res.status(500).json({ error:"Mobile Number and Content Message is required!" });
+    }
+
+  });
+
   router.post('/message/send', function(req, res) {
 
     if(req.body.msisdn && req.body.resource){
@@ -75,6 +92,19 @@ module.exports = function(emitter){
     });
 
   });
+
+  router.get('/card', function(req, res, next) {
+    
+    res.render('card');
+
+ });
+
+  router.get('/basic', function(req, res, next) {
+    
+    res.render('basic');
+
+  });
+
 
   router.get('/:id', function(req, res, next) {
     

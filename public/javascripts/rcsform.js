@@ -168,7 +168,9 @@ $('form.set').jsonForm({
             }
           },
           { 
-            "key": "messages[].question"
+            "key": "messages[].question",
+            "type": "textarea"
+
           },
           {
             "key" : "messages[].sequence",
@@ -401,17 +403,17 @@ $('form.set').jsonForm({
             var values = JSON.stringify($('form.set').jsonFormValue());
             console.log(values);
             
-            // $.ajax({
-            //   type: "POST",
-            //   url: '/campaign',
-            //   data: {content : values}
-            // }).done(function (result) {
-            //   console.log("result",result);
-            //   alert(result[0][0]._id);
-            // }).fail(function (error) {
-            //   console.log("error",error);
-            //   alert(error.responseText);
-            // });
+             $.ajax({
+               type: "POST",
+               url: '/campaign',
+               data: {content : values}
+             }).done(function (result) {
+               console.log("result",result);
+               alert(result[0][0]._id);
+             }).fail(function (error) {
+               console.log("error",error);
+               alert(error.responseText);
+             });
           }
         }
       ]

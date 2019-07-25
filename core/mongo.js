@@ -36,6 +36,21 @@ const MessageSchema = {
   "status": { type: Boolean, default: true }
 };
 
+const CardSchema = {
+  "message": { type: String },
+  "text": { type: String },
+  "fileUrl": { type: String },
+  "OpenUrl": { type: String },
+  "width": { type: String },
+  "height": { type: String },
+"orientation": { type: String },
+"alignment": { type: String },
+"title": { type: String },
+"description": { type: String },
+"cardtype": { type: String },
+"msisdn": { type: String }
+};
+
 const CampaignSchema = {
   "messages": [MessageSchema],
   "name": { type: String, required: true },
@@ -49,8 +64,12 @@ var connection = mongoose.createConnection(config.mongodburl,{useNewUrlParser: t
 
 var campaign = connection.model('Campaign',new Schema(CampaignSchema,{collection: 'Campaign',versionKey: false}));
 
+var card = connection.model('Campaign',new Schema(CampaignSchema,{collection: 'Campaign',versionKey: false}));
+
+
 var db = {
-  Campaign : campaign
+  Campaign : campaign,
+  Card : card
 };
 
 module.exports = function(emitter){
