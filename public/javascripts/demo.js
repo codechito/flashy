@@ -235,6 +235,10 @@ $('form.set').jsonForm({
           "type": "object",
           "title": "Message Set",
           "properties": {
+            "sequence": {
+              "type": "string",
+              "title": "Sequence"
+            },
             "type": {
               "type": "string",
               "title": "Message Types",
@@ -347,6 +351,11 @@ $('form.set').jsonForm({
                 "type": "fieldset",
                 "items": [
                   {
+                    "key" : "messages[].sequence",
+                    "value": "{{idx}}",
+                    "type": "hidden"
+                  },
+                  {
                     "key" : "messages[].message",
                     "type": "textarea"
                   },
@@ -355,6 +364,11 @@ $('form.set').jsonForm({
               {
                 "type": "fieldset",
                 "items": [
+                  {
+                    "key" : "messages[].sequence",
+                    "value": "{{idx}}",
+                    "type": "hidden"
+                  },
                   {
                     "key" : "messages[].imageurl",
                     "type": "url"
@@ -365,6 +379,11 @@ $('form.set').jsonForm({
               {
                 "type": "fieldset",
                 "items": [
+                  {
+                    "key" : "messages[].sequence",
+                    "value": "{{idx}}",
+                    "type": "hidden"
+                  },
                   {
                     "key" : "messages[].orientation",
                   },
@@ -398,6 +417,11 @@ $('form.set').jsonForm({
               {
                 "type": "fieldset",
                 "items": [
+                  {
+                    "key" : "messages[].sequence",
+                    "value": "{{idx}}",
+                    "type": "hidden"
+                  },
                   {
                     "key" : "messages[].width",
                   },
@@ -446,12 +470,23 @@ $('form.set').jsonForm({
             "type": "button",
             "title": "Save",
             "onClick": function (evt) {
-              alert ("under construction");
+              var values = $('form.set').jsonFormValue();
+              $.ajax({
+                type: "POST",
+                url: '/campaign/template',
+                data: {content : values}
+              }).done(function (result) {
+                console.log("result",result);
+                alert(result[0][0]._id);
+              }).fail(function (error) {
+                console.log("error",error);
+                alert(error.responseText);
+              });
             }
           }
         ]
       }
-    ]
+    ],
   });
   
       window.setInterval( function() {  
