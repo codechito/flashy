@@ -220,147 +220,114 @@ $('form.set').jsonForm({
     "form": [
       "msisdn",
       {
-        "type": "selectfieldset",
-        "key": "messages[].type",
-        "title": "Message Type",
-        "titleMap": {
-          "Text": "Text",
-          "Image": "Image",
-          "Standalonecard": "Standalone Card",
-          "Carouselcard": "Carousel Card"
-        },
-        "items": [
+        type: "array",
+        items:[
           {
-            "type": "fieldset",
+            "type": "selectfieldset",
+            "key": "messages[].type",
+            "title": "Message Type",
+            "titleMap": {
+              "Text": "Text",
+              "Image": "Image",
+              "Standalonecard": "Standalone Card",
+              "Carouselcard": "Carousel Card"
+            },
             "items": [
               {
-                "key" : "messages[].message",
-                "type": "textarea"
-              },
-              {
-                "type": "actions",
+                "type": "fieldset",
                 "items": [
                   {
-                    "type": "button",
-                    "title": "Test Template {{idx}}",
-                    "onClick": sendMessage
-                  }
+                    "key" : "messages[].message",
+                    "type": "textarea"
+                  },
                 ]
-              }
-            ]
-          },
-          {
-            "type": "fieldset",
-            "items": [
-              {
-                "key" : "messages[].imageurl",
-                "type": "url"
               },
               {
-                "type": "actions",
+                "type": "fieldset",
                 "items": [
                   {
-                    "type": "button",
-                    "title": "Test Template {{idx}}",
-                    "onClick": sendMessage
-                  }
+                    "key" : "messages[].imageurl",
+                    "type": "url"
+                  },
+
                 ]
-              }
-            ]
-          },
-          {
-            "type": "fieldset",
-            "items": [
-              {
-                "key" : "messages[].orientation",
               },
               {
-                "key" : "messages[].alignment",
-              },
-              {
-                "key" : "messages[].height",
-              },
-              {
-                "key" : "messages[].imageurl",
-                "type": "url"
-              },
-              {
-                "key" : "messages[].title",
-              }
-              ,{
-                "key" : "messages[].description",
-                "type": "textarea"
-              },
-              {
-                "key" : "messages[].label",
-              },
-              {
-                "key" : "messages[].url",
-                "type": "url"
-              },
-              {
-                "type": "actions",
+                "type": "fieldset",
                 "items": [
                   {
-                    "type": "button",
-                    "title": "Test Template {{idx}}",
-                    "onClick": sendMessage
+                    "key" : "messages[].orientation",
+                  },
+                  {
+                    "key" : "messages[].alignment",
+                  },
+                  {
+                    "key" : "messages[].height",
+                  },
+                  {
+                    "key" : "messages[].imageurl",
+                    "type": "url"
+                  },
+                  {
+                    "key" : "messages[].title",
                   }
+                  ,{
+                    "key" : "messages[].description",
+                    "type": "textarea"
+                  },
+                  {
+                    "key" : "messages[].label",
+                  },
+                  {
+                    "key" : "messages[].url",
+                    "type": "url"
+                  },
+
                 ]
-              }
-            ]
-          },
-          {
-            "type": "fieldset",
-            "items": [
-              {
-                "key" : "messages[].width",
               },
               {
-                "type": "tabarray",
-                "items": {
-                  "type": "section",
-                  "legend": "Carousel Image {{idx}}",
-                  "items": [
-                    {
-                      "key" : "messages[].images[].height",
-                    },
-                    {
-                      "key" : "messages[].images[].imageurl",
-                      "type": "url"
-                    },
-                    {
-                      "key" : "messages[].images[].title",
+                "type": "fieldset",
+                "items": [
+                  {
+                    "key" : "messages[].width",
+                  },
+                  {
+                    "type": "tabarray",
+                    "items": {
+                      "type": "section",
+                      "legend": "Carousel Image {{idx}}",
+                      "items": [
+                        {
+                          "key" : "messages[].images[].height",
+                        },
+                        {
+                          "key" : "messages[].images[].imageurl",
+                          "type": "url"
+                        },
+                        {
+                          "key" : "messages[].images[].title",
+                        }
+                        ,{
+                          "key" : "messages[].images[].description",
+                          "type": "textarea"
+                        },
+                        {
+                          "key" : "messages[].images[].label",
+                        },
+                        {
+                          "key" : "messages[].images[].url",
+                          "type": "url"
+                        },
+                      ]
                     }
-                    ,{
-                      "key" : "messages[].images[].description",
-                      "type": "textarea"
-                    },
-                    {
-                      "key" : "messages[].images[].label",
-                    },
-                    {
-                      "key" : "messages[].images[].url",
-                      "type": "url"
-                    },
-                  ]
-                }
-              },
-              
-              {
-                "type": "actions",
-                "items": [
-                  {
-                    "type": "button",
-                    "title": "Test Template {{idx}}",
-                    "onClick": sendMessage
-                  }
+                  },
                 ]
-              }
+              },
             ]
-          },
+          }
         ]
-      },
+      }
+      ,
       {
         "type": "actions",
         "items": [
