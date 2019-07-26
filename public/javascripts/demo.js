@@ -153,15 +153,17 @@ $.ajax({
   type: "GET",
   url: '/campaign/template',
 }).done(function (result) {
-  var templates = ["Load saved template"];
+  var templates = {"--":"Load saved template"};
+  var templateids = ["--"];
   result[0].forEach(function(template){
-    templates.push(template.name);
+    templateids.push(template._id);
+    templates[template._id] = template._id
   });
   $('form.load').jsonForm({
     "schema": {
       "templates": {
         "type": "string",
-        enum: templates
+        enum: templateids
       }
     },
     "form": [
@@ -169,6 +171,7 @@ $.ajax({
         key: "templates",
         "htmlClass":"col-lg-8",
         "notitle": true,
+        "titleMap": templates
         
       },
       {
@@ -179,18 +182,8 @@ $.ajax({
             "type": "button",
             "title": "LOAD",
             "onClick": function (evt) {
-              var values = $('form.tester').jsonFormValue();
-              $.ajax({
-                type: "POST",
-                url: '/campaign/rcs/invite',
-                data: values
-              }).done(function (result) {
-                console.log("result",result);
-                alert(result[0].statusText);
-              }).fail(function (error) {
-                console.log("error",error);
-                alert(error.responseText);
-              });
+              var values = $('form.load').jsonFormValue();
+              window.location.href = '/campaign/rcs/demo' + values.templates;
             }
           }
         ]
