@@ -339,7 +339,6 @@ $('form.set').jsonForm({
       }
     },
     "form": [
-      "msisdn",
       {
         type: "array",
         items:[
@@ -455,7 +454,7 @@ $('form.set').jsonForm({
         "items": [
           {
             "type": "button",
-            "title": "Save Template",
+            "title": "Save",
             "onClick": function (evt) {
               alert ("under construction");
             }
