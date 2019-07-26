@@ -157,7 +157,7 @@ $.ajax({
   var templateids = ["--"];
   result[0].forEach(function(template){
     templateids.push(template._id);
-    templates[template._id] = template._id
+    templates[template._id] = template.name
   });
   $('form.load').jsonForm({
     "schema": {
