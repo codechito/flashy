@@ -59,8 +59,8 @@ function createTemplate(value){
           },
           suggestions: [{
             action: {
-              text: image.text,
-              postbackData: image.text,
+              text: image.label,
+              postbackData: image.label,
               openUrlAction: { url: image.url }
             }
           }],
