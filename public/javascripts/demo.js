@@ -183,7 +183,7 @@ $.ajax({
             "title": "LOAD",
             "onClick": function (evt) {
               var values = $('form.load').jsonFormValue();
-              window.location.href = '/campaign/rcs/demo' + values.templates;
+              window.location.href = '/campaign/rcs/demo/' + values.templates;
             }
           }
         ]
