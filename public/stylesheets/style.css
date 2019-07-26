@@ -22,6 +22,14 @@
         background-color: inherit;
       }
 
+      .form-control {
+        width: 300px;
+      }
+      
+      .controls {
+        width: 600px;
+      }
+
       .expandable > legend:before {
         content: '\25B8';
         padding-right: 5px;
@@ -45,6 +53,7 @@
         color: red;
         padding-top: 1em;
       }
+
 
 .btn.btn-default {
   margin-bottom:20px;
@@ -231,4 +240,9 @@ div.emulator .content ul li div .logo{
   background-repeat: no-repeat; 
   background-position: center;
   display: inline-block;
+}
+
+form.tester.well {
+  padding-bottom: 50px;
+  align-items: "right"
 }

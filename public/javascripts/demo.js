@@ -51,7 +51,7 @@ function createTemplate(value){
       images.push(
         {
           media: {
-            height: image.height,
+            height: value.height,
             contentInfo: {
               fileUrl: image.imageurl,
               forceRefresh: false
@@ -108,6 +108,127 @@ function sendMessage(evt){
     });
   }
 }
+
+$('form.tester').jsonForm({
+  "schema": {
+    "msisdn": {
+      "type": "string",
+    }
+  },
+  "form": [
+    {
+      key: "msisdn",
+      "htmlClass":"col-lg-8",
+      "notitle": true,
+      "placeholder": "+61XXXXXX"
+    },
+    {
+      "type": "actions",
+      "htmlClass":"col-lg-2",
+      "items": [
+        {
+          "type": "button",
+          "title": "INVITE",
+          "onClick": function (evt) {
+            var values = $('form.tester').jsonFormValue();
+            $.ajax({
+              type: "POST",
+              url: '/campaign/rcs/invite',
+              data: values
+            }).done(function (result) {
+              console.log("result",result);
+              alert(result[0].statusText);
+            }).fail(function (error) {
+              console.log("error",error);
+              alert(error.responseText);
+            });
+          }
+        }
+      ]
+    }
+  ]
+});
+
+$('form.load').jsonForm({
+  "schema": {
+    "msisdn": {
+      "type": "string",
+      enum: ["Load saved template"]
+    }
+  },
+  "form": [
+    {
+      key: "msisdn",
+      "htmlClass":"col-lg-8",
+      "notitle": true,
+      
+    },
+    {
+      "type": "actions",
+      "htmlClass":"col-lg-2",
+      "items": [
+        {
+          "type": "button",
+          "title": "LOAD",
+          "onClick": function (evt) {
+            var values = $('form.tester').jsonFormValue();
+            $.ajax({
+              type: "POST",
+              url: '/campaign/rcs/invite',
+              data: values
+            }).done(function (result) {
+              console.log("result",result);
+              alert(result[0].statusText);
+            }).fail(function (error) {
+              console.log("error",error);
+              alert(error.responseText);
+            });
+          }
+        }
+      ]
+    }
+  ]
+});
+
+$('form.send').jsonForm({
+  "schema": {
+    "msisdn": {
+      "type": "string",
+    }
+  },
+  "form": [
+    {
+      key: "msisdn",
+      "htmlClass":"col-lg-8",
+      "notitle": true,
+      "placeholder": "+61XXXXXXXX, +61XXXXXXXX, +61XXXXXXXX"
+    },
+    {
+      "type": "actions",
+      "htmlClass":"col-lg-2",
+      "items": [
+        {
+          "type": "button",
+          "title": "SEND",
+          "onClick": function (evt) {
+            var values = $('form.tester').jsonFormValue();
+            $.ajax({
+              type: "POST",
+              url: '/campaign/rcs/invite',
+              data: values
+            }).done(function (result) {
+              console.log("result",result);
+              alert(result[0].statusText);
+            }).fail(function (error) {
+              console.log("error",error);
+              alert(error.responseText);
+            });
+          }
+        }
+      ]
+    }
+  ]
+});
 
 $('form.set').jsonForm({
 
@@ -292,14 +413,15 @@ $('form.set').jsonForm({
                     "key" : "messages[].width",
                   },
                   {
+                    "key" : "messages[].height",
+                  },
+                  {
                     "type": "tabarray",
                     "items": {
                       "type": "section",
                       "legend": "Carousel Image {{idx}}",
                       "items": [
-                        {
-                          "key" : "messages[].images[].height",
-                        },
+                        
                         {
                           "key" : "messages[].images[].imageurl",
                           "type": "url"
