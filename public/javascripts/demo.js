@@ -149,46 +149,62 @@ $('form.tester').jsonForm({
   ]
 });
 
-$('form.load').jsonForm({
-  "schema": {
-    "msisdn": {
-      "type": "string",
-      enum: ["Load saved template"]
-    }
-  },
-  "form": [
-    {
-      key: "msisdn",
-      "htmlClass":"col-lg-8",
-      "notitle": true,
-      
+$.ajax({
+  type: "GET",
+  url: '/campaign/template',
+}).done(function (result) {
+  console.log("result",result);
+  alert(result[0][0]._id);
+  var templates = ["Load saved template"];
+  result.forEach(function(template){
+    templates.push(template.name);
+  });
+  $('form.load').jsonForm({
+    "schema": {
+      "templates": {
+        "type": "string",
+        enum: templates
+      }
     },
-    {
-      "type": "actions",
-      "htmlClass":"col-lg-2",
-      "items": [
-        {
-          "type": "button",
-          "title": "LOAD",
-          "onClick": function (evt) {
-            var values = $('form.tester').jsonFormValue();
-            $.ajax({
-              type: "POST",
-              url: '/campaign/rcs/invite',
-              data: values
-            }).done(function (result) {
-              console.log("result",result);
-              alert(result[0].statusText);
-            }).fail(function (error) {
-              console.log("error",error);
-              alert(error.responseText);
-            });
+    "form": [
+      {
+        key: "msisdn",
+        "htmlClass":"col-lg-8",
+        "notitle": true,
+        
+      },
+      {
+        "type": "actions",
+        "htmlClass":"col-lg-2",
+        "items": [
+          {
+            "type": "button",
+            "title": "LOAD",
+            "onClick": function (evt) {
+              var values = $('form.tester').jsonFormValue();
+              $.ajax({
+                type: "POST",
+                url: '/campaign/rcs/invite',
+                data: values
+              }).done(function (result) {
+                console.log("result",result);
+                alert(result[0].statusText);
+              }).fail(function (error) {
+                console.log("error",error);
+                alert(error.responseText);
+              });
+            }
           }
-        }
-      ]
-    }
-  ]
+        ]
+      }
+    ]
+  });
+}).fail(function (error) {
+  console.log("error",error);
+  alert(error.responseText);
 });
+
+
 
 $('form.send').jsonForm({
   "schema": {
