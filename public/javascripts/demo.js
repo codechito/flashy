@@ -27,7 +27,8 @@ function createTemplate(value){
               height: value.height,
               contentInfo: {
                 fileUrl: value.imageurl,
-                forceRefresh: false
+                thumbnailUrl: value.tnurl,
+                forceRefresh: true
               }
             },
             suggestions: [{
@@ -269,6 +270,10 @@ $('form.set').jsonForm({
               "title": "Thumbnail Alignment",
               "enum": ["LEFT","RIGHT"]
             },
+            "tnurl": {
+              "type": "string",
+              "title": "Thumbnail URL",
+            },
             "height": {
               "type": "string",
               "title": "Image Height",
@@ -402,6 +407,10 @@ $('form.set').jsonForm({
                   },
                   {
                     "key" : "messages[].imageurl",
+                    "type": "url"
+                  },
+                  {
+                    "key" : "messages[].tnurl",
                     "type": "url"
                   },
                   {
