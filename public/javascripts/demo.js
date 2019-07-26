@@ -153,10 +153,8 @@ $.ajax({
   type: "GET",
   url: '/campaign/template',
 }).done(function (result) {
-  console.log("result",result);
-  alert(result[0][0]._id);
   var templates = ["Load saved template"];
-  result.forEach(function(template){
+  result[0].forEach(function(template){
     templates.push(template.name);
   });
   $('form.load').jsonForm({
@@ -168,7 +166,7 @@ $.ajax({
     },
     "form": [
       {
-        key: "msisdn",
+        key: "templates",
         "htmlClass":"col-lg-8",
         "notitle": true,
         
