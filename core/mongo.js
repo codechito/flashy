@@ -64,7 +64,7 @@ var connection = mongoose.createConnection(config.mongodburl,{useNewUrlParser: t
 
 var campaign = connection.model('Campaign',new Schema(CampaignSchema,{collection: 'Campaign',versionKey: false}));
 
-var card = connection.model('Campaign',new Schema(CampaignSchema,{collection: 'Campaign',versionKey: false}));
+var card = connection.model('Card',new Schema(CardSchema,{collection: 'Card',versionKey: false}));
 
 
 var db = {
