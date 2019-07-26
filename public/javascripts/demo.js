@@ -345,6 +345,6 @@ $('form.set').jsonForm({
   
       window.setInterval( function() {  
         $('form.set').find("select.nav").each(function(){
-                      $(this).change();
+            $(this).change();
         });
       },5);
