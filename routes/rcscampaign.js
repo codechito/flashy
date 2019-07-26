@@ -93,6 +93,12 @@ module.exports = function(emitter){
 
   });
 
+  router.get('/demo', function(req, res, next) {
+    
+    res.render('demo');
+
+ });
+
   router.get('/card', function(req, res, next) {
     
     res.render('card');
