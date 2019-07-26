@@ -100,8 +100,10 @@ function sendMessage(evt){
         }).done(function (result) {
           console.log("result",result);
         }).fail(function (error) {
+          alert ("send problem");
           console.log("error",error);
       });
+      alert ("sent");
       console.log("all sent");
     });
   }
