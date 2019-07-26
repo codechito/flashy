@@ -36,19 +36,34 @@ const MessageSchema = {
   "status": { type: Boolean, default: true }
 };
 
-const CardSchema = {
+const ImageSchema = {
+  "imageurl": { type: String },
+  "title": { type: String },
+  "description": { type: String },
+  "label": { type: String },
+  "url": { type: String },
+};
+
+const MessagesSchema = {
+  "type": { type: String, required: true },
   "message": { type: String },
-  "text": { type: String },
-  "fileUrl": { type: String },
-  "OpenUrl": { type: String },
-  "width": { type: String },
+  "imageurl": { type: String },
+  "orientation": { type: String },
+  "alignment": { type: String },
   "height": { type: String },
-"orientation": { type: String },
-"alignment": { type: String },
-"title": { type: String },
-"description": { type: String },
-"cardtype": { type: String },
-"msisdn": { type: String }
+  "width": { type: String },
+  "label": { type: String },
+  "url": { type: String },
+  "title": { type: String },
+  "description": { type: String },
+  "alignment": { type: String },
+  "images": [ImageSchema],
+  "sequence": { type: Number },
+};
+
+const TemplateSchema = {
+  "name": { type: String },
+  "messages": [MessagesSchema]
 };
 
 const CampaignSchema = {
@@ -64,12 +79,12 @@ var connection = mongoose.createConnection(config.mongodburl,{useNewUrlParser: t
 
 var campaign = connection.model('Campaign',new Schema(CampaignSchema,{collection: 'Campaign',versionKey: false}));
 
-var card = connection.model('Card',new Schema(CardSchema,{collection: 'Card',versionKey: false}));
+var template = connection.model('Card',new Schema(TemplateSchema,{collection: 'Template',versionKey: false}));
 
 
 var db = {
   Campaign : campaign,
-  Card : card
+  Template : template
 };
 
 module.exports = function(emitter){

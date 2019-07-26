@@ -70,13 +70,13 @@ module.exports = function(emitter){
 
   });
 
-  router.get('/card', function(req, res) {
+  router.get('/template', function(req, res) {
     let content = {};
     if(req.query.content){
       content = JSON.parse(req.query.content);
     }
     var options = {
-      table: "card",
+      table: "Template",
       content: content,
       limit: req.query.limit,
       skip: req.query.skip,
@@ -93,11 +93,11 @@ module.exports = function(emitter){
 
   });
 
-  router.post('/card', function(req, res) {
+  router.post('/template', function(req, res) {
     if(req.body.content){
       let content = JSON.parse(req.body.content);
       var options = {
-        table: "card",
+        table: "Template",
         content: content
       };
       let r = emitter.invokeHook("db::insertMany",options);
@@ -113,12 +113,12 @@ module.exports = function(emitter){
 
   });
 
-  router.put('/card', function(req, res) {
+  router.put('/template', function(req, res) {
     if(req.body.content){
       let content = JSON.parse(req.body.content);
       
       var options = {
-        table: "card",
+        table: "Template",
         content: content
       };
       let r = emitter.invokeHook("db::update::bulk",options);

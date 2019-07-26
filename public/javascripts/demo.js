@@ -82,15 +82,15 @@ function createTemplate(value){
     };
   } 
 }
-function sendMessage(evt){
+function sendMessage(){
   var values = $('form.set').jsonFormValue();
-  var idx = Number($(evt.target).html().replace("Test Template ",""));
-  if(idx){
-    var value = values.messages[idx - 1];
+  var sendvalues = $('form.send').jsonFormValue();
+ console.log("sendvalues",sendvalues);
+  values.messages.forEach(function(value){
     var template = createTemplate(value);
-    var msisdn = values.msisdn ? values.msisdn.split(",") : [];
-    console.log(msisdn);
-    console.log(template);
+    var msisdn = sendvalues.msisdn ? sendvalues.msisdn.split(",") : [];
+    console.log("msisdn",msisdn);
+    console.log("template",template);
     msisdn.forEach(function(phone){
       var content = {resource : JSON.stringify(template), msisdn : phone  };
       $.ajax({
@@ -106,7 +106,7 @@ function sendMessage(evt){
       alert ("sent");
       console.log("all sent");
     });
-  }
+  });
 }
 
 $('form.tester').jsonForm({
@@ -210,20 +210,7 @@ $('form.send').jsonForm({
         {
           "type": "button",
           "title": "SEND",
-          "onClick": function (evt) {
-            var values = $('form.tester').jsonFormValue();
-            $.ajax({
-              type: "POST",
-              url: '/campaign/rcs/invite',
-              data: values
-            }).done(function (result) {
-              console.log("result",result);
-              alert(result[0].statusText);
-            }).fail(function (error) {
-              console.log("error",error);
-              alert(error.responseText);
-            });
-          }
+          "onClick": sendMessage
         }
       ]
     }
@@ -233,9 +220,13 @@ $('form.send').jsonForm({
 $('form.set').jsonForm({
 
     "schema": {
-      "msisdn": {
+      "_id": {
         "type": "string",
-        "title": "Recipients"
+        "title": "Campaign ID"
+      },
+      "name": {
+        "type": "string",
+        "title": "Campaign Name"
       },
       "messages": {
         "type": "array",
@@ -293,6 +284,10 @@ $('form.set').jsonForm({
               "type": "string",
               "title": "Link Url"
             },
+            "sequence": {
+              "type": "number",
+              "title": "Sequence"
+            },
             "images": {
               "type": "array",
               "minItems": 2,
@@ -304,16 +299,6 @@ $('form.set').jsonForm({
                   "imageurl": {
                     "type": "string",
                     "title": "Image Url"
-                  },
-                  "height": {
-                    "type": "string",
-                    "title": "Image Height",
-                    "enum": ["SHORT","MEDIUM", "TALL"]
-                  },
-                  "width": {
-                    "type": "string",
-                    "title": "Image Width",
-                    "enum": ["SMALL","MEDIUM"]
                   },
                   "title": {
                     "type": "string",
@@ -339,6 +324,11 @@ $('form.set').jsonForm({
       }
     },
     "form": [
+      {
+        type: "hidden",
+        key: "_id"
+      },
+      "name",
       {
         type: "array",
         items:[
