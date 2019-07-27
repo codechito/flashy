@@ -503,6 +503,7 @@ $('form.set').jsonForm({
         ]
       }
     ],
+    value: template
   });
   
       window.setInterval( function() {  
