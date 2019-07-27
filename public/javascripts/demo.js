@@ -104,10 +104,10 @@ function sendMessage(){
           alert ("send problem");
           console.log("error",error);
       });
-      alert ("sent");
       console.log("all sent");
     });
   });
+  alert ("sent");
 }
 
 $('form.tester').jsonForm({
