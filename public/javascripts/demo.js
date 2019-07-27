@@ -244,6 +244,7 @@ var form = {
     },
     "messages": {
       "type": "array",
+      "minItems": 1,
       "maxItems": 20,
       "items": {
         "type": "object",
