@@ -96,7 +96,6 @@ module.exports = function(emitter){
     
     var options = {
       table: "Template",
-      content: {name:{"$ne": null}},
       limit: req.query.limit,
       skip: req.query.skip,
       sort: req.query.sort || {}
