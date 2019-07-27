@@ -273,7 +273,7 @@ $('form.set').jsonForm({
             },
             "alignment": {
               "type": "string",
-              "title": "Thumbnail Alignment",
+              "title": "Thumbnail Alignment (apply only to horizontal )",
               "enum": ["LEFT","RIGHT"]
             },
             "tnurl": {
