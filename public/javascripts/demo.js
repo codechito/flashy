@@ -534,3 +534,10 @@ $('form.set').jsonForm(form);
             $(this).change();
         });
       },5);
+
+      document.addEventListener("drop", function(event) {
+        event.preventDefault();
+        $('form.set').find("select.nav").each(function(){
+          $(this).change();
+      });
+      });
