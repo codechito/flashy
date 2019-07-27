@@ -48,6 +48,7 @@ const MessagesSchema = {
   "type": { type: String, required: true },
   "message": { type: String },
   "imageurl": { type: String },
+  "tnurl": { type: String },
   "orientation": { type: String },
   "alignment": { type: String },
   "height": { type: String },

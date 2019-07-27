@@ -92,7 +92,31 @@ module.exports = function(emitter){
     });
 
   });
+  router.get('/demo/:id', function(req, res, next) {
+    
+    var options = {
+      table: "Template",
+      content: {name:{"$ne": null}},
+      limit: req.query.limit,
+      skip: req.query.skip,
+      sort: req.query.sort || {}
+    };
 
+    let r = emitter.invokeHook("db::find",options);
+
+    r.then(function(templates){
+      templates[0].forEach(function(template){
+        if(req.params.id == template._id){
+          res.render('demoedit',{templates:JSON.stringify(templates[0]), template: JSON.stringify(template)});
+        }
+      });
+      
+    },function(err){
+      console.log("chito");
+      res.status(500).json({ error:err });
+    });
+
+ });
   router.get('/demo', function(req, res, next) {
     
     res.render('demo');
