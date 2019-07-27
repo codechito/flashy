@@ -231,298 +231,302 @@ $('form.send').jsonForm({
   ]
 });
 
-$('form.set').jsonForm({
+var form = {
 
-    "schema": {
-      "_id": {
-        "type": "string",
-        "title": "Campaign ID"
-      },
-      "name": {
-        "type": "string",
-        "title": "Campaign Name"
-      },
-      "messages": {
-        "type": "array",
-        "maxItems": 20,
-        "items": {
-          "type": "object",
-          "title": "Message Set",
-          "properties": {
-            "sequence": {
-              "type": "string",
-              "title": "Sequence"
-            },
-            "type": {
-              "type": "string",
-              "title": "Message Types",
-              "enum": ["Text", "Image", "Standalonecard", "Carouselcard"]
-            },
-            "message": {
-              "type": "string",
-              "title": "Message"
-            },
-            "imageurl": {
-              "type": "string",
-              "title": "Image Url"
-            },
-            "orientation": {
-              "type": "string",
-              "title": "Card Orientation",
-              "enum": ["HORIZONTAL","VERTICAL"]
-            },
-            "alignment": {
-              "type": "string",
-              "title": "Thumbnail Alignment (apply only to horizontal )",
-              "enum": ["LEFT","RIGHT"]
-            },
-            "tnurl": {
-              "type": "string",
-              "title": "Thumbnail URL",
-            },
-            "height": {
-              "type": "string",
-              "title": "Image Height",
-              "enum": ["SHORT","MEDIUM", "TALL"]
-            },
-            "width": {
-              "type": "string",
-              "title": "Image Width",
-              "enum": ["SMALL","MEDIUM"]
-            },
-            "title": {
-              "type": "string",
-              "title": "Title Text"
-            },
-            "description": {
-              "type": "string",
-              "title": "Description Text"
-            },
-            "label": {
-              "type": "string",
-              "title": "Link Label"
-            },
-            "url": {
-              "type": "string",
-              "title": "Link Url"
-            },
-            "sequence": {
-              "type": "number",
-              "title": "Sequence"
-            },
-            "images": {
-              "type": "array",
-              "minItems": 2,
-              "maxItems": 10,
-              "items": {
-                "type": "object",
-                "title": "Image Set",
-                "properties": {
-                  "imageurl": {
-                    "type": "string",
-                    "title": "Image Url"
-                  },
-                  "title": {
-                    "type": "string",
-                    "title": "Title Text"
-                  },
-                  "description": {
-                    "type": "string",
-                    "title": "Description Text"
-                  },
-                  "label": {
-                    "type": "string",
-                    "title": "Link Label"
-                  },
-                  "url": {
-                    "type": "string",
-                    "title": "Link Url"
-                  }
+  "schema": {
+    "_id": {
+      "type": "string",
+      "title": "Campaign ID"
+    },
+    "name": {
+      "type": "string",
+      "title": "Campaign Name"
+    },
+    "messages": {
+      "type": "array",
+      "maxItems": 20,
+      "items": {
+        "type": "object",
+        "title": "Message Set",
+        "properties": {
+          "sequence": {
+            "type": "string",
+            "title": "Sequence"
+          },
+          "type": {
+            "type": "string",
+            "title": "Message Types",
+            "enum": ["Text", "Image", "Standalonecard", "Carouselcard"]
+          },
+          "message": {
+            "type": "string",
+            "title": "Message"
+          },
+          "imageurl": {
+            "type": "string",
+            "title": "Image Url"
+          },
+          "orientation": {
+            "type": "string",
+            "title": "Card Orientation",
+            "enum": ["HORIZONTAL","VERTICAL"]
+          },
+          "alignment": {
+            "type": "string",
+            "title": "Thumbnail Alignment (apply only to horizontal )",
+            "enum": ["LEFT","RIGHT"]
+          },
+          "tnurl": {
+            "type": "string",
+            "title": "Thumbnail URL",
+          },
+          "height": {
+            "type": "string",
+            "title": "Image Height",
+            "enum": ["SHORT","MEDIUM", "TALL"]
+          },
+          "width": {
+            "type": "string",
+            "title": "Image Width",
+            "enum": ["SMALL","MEDIUM"]
+          },
+          "title": {
+            "type": "string",
+            "title": "Title Text"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description Text"
+          },
+          "label": {
+            "type": "string",
+            "title": "Link Label"
+          },
+          "url": {
+            "type": "string",
+            "title": "Link Url"
+          },
+          "sequence": {
+            "type": "number",
+            "title": "Sequence"
+          },
+          "images": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 10,
+            "items": {
+              "type": "object",
+              "title": "Image Set",
+              "properties": {
+                "imageurl": {
+                  "type": "string",
+                  "title": "Image Url"
+                },
+                "title": {
+                  "type": "string",
+                  "title": "Title Text"
+                },
+                "description": {
+                  "type": "string",
+                  "title": "Description Text"
+                },
+                "label": {
+                  "type": "string",
+                  "title": "Link Label"
+                },
+                "url": {
+                  "type": "string",
+                  "title": "Link Url"
                 }
               }
             }
           }
         }
       }
+    }
+  },
+  "form": [
+    {
+      type: "hidden",
+      key: "_id"
     },
-    "form": [
-      {
-        type: "hidden",
-        key: "_id"
-      },
-      "name",
-      {
-        type: "array",
-        items:[
-          {
-            "type": "selectfieldset",
-            "key": "messages[].type",
-            "title": "Message Type",
-            "titleMap": {
-              "Text": "Text",
-              "Image": "Image",
-              "Standalonecard": "Standalone Card",
-              "Carouselcard": "Carousel Card"
+    "name",
+    {
+      type: "array",
+      items:[
+        {
+          "type": "selectfieldset",
+          "key": "messages[].type",
+          "title": "Message Type",
+          "titleMap": {
+            "Text": "Text",
+            "Image": "Image",
+            "Standalonecard": "Standalone Card",
+            "Carouselcard": "Carousel Card"
+          },
+          "items": [
+            {
+              "type": "fieldset",
+              "items": [
+                {
+                  "key" : "messages[].sequence",
+                  "value": "{{idx}}",
+                  "type": "hidden"
+                },
+                {
+                  "key" : "messages[].message",
+                  "type": "textarea"
+                },
+              ]
             },
-            "items": [
-              {
-                "type": "fieldset",
-                "items": [
-                  {
-                    "key" : "messages[].sequence",
-                    "value": "{{idx}}",
-                    "type": "hidden"
-                  },
-                  {
-                    "key" : "messages[].message",
-                    "type": "textarea"
-                  },
-                ]
-              },
-              {
-                "type": "fieldset",
-                "items": [
-                  {
-                    "key" : "messages[].sequence",
-                    "value": "{{idx}}",
-                    "type": "hidden"
-                  },
-                  {
-                    "key" : "messages[].imageurl",
-                    "type": "url"
-                  },
+            {
+              "type": "fieldset",
+              "items": [
+                {
+                  "key" : "messages[].sequence",
+                  "value": "{{idx}}",
+                  "type": "hidden"
+                },
+                {
+                  "key" : "messages[].imageurl",
+                  "type": "url"
+                },
 
-                ]
-              },
-              {
-                "type": "fieldset",
-                "items": [
-                  {
-                    "key" : "messages[].sequence",
-                    "value": "{{idx}}",
-                    "type": "hidden"
-                  },
-                  {
-                    "key" : "messages[].orientation",
-                  },
-                  {
-                    "key" : "messages[].alignment",
-                  },
-                  {
-                    "key" : "messages[].height",
-                  },
-                  {
-                    "key" : "messages[].imageurl",
-                    "type": "url"
-                  },
-                  {
-                    "key" : "messages[].tnurl",
-                    "type": "url"
-                  },
-                  {
-                    "key" : "messages[].title",
+              ]
+            },
+            {
+              "type": "fieldset",
+              "items": [
+                {
+                  "key" : "messages[].sequence",
+                  "value": "{{idx}}",
+                  "type": "hidden"
+                },
+                {
+                  "key" : "messages[].orientation",
+                },
+                {
+                  "key" : "messages[].alignment",
+                },
+                {
+                  "key" : "messages[].height",
+                },
+                {
+                  "key" : "messages[].imageurl",
+                  "type": "url"
+                },
+                {
+                  "key" : "messages[].tnurl",
+                  "type": "url"
+                },
+                {
+                  "key" : "messages[].title",
+                }
+                ,{
+                  "key" : "messages[].description",
+                  "type": "textarea"
+                },
+                {
+                  "key" : "messages[].label",
+                },
+                {
+                  "key" : "messages[].url",
+                  "type": "url"
+                },
+
+              ]
+            },
+            {
+              "type": "fieldset",
+              "items": [
+                {
+                  "key" : "messages[].sequence",
+                  "value": "{{idx}}",
+                  "type": "hidden"
+                },
+                {
+                  "key" : "messages[].width",
+                },
+                {
+                  "key" : "messages[].height",
+                },
+                {
+                  "type": "tabarray",
+                  "items": {
+                    "type": "section",
+                    "legend": "Carousel Image {{idx}}",
+                    "items": [
+                      
+                      {
+                        "key" : "messages[].images[].imageurl",
+                        "type": "url"
+                      },
+                      {
+                        "key" : "messages[].images[].title",
+                      }
+                      ,{
+                        "key" : "messages[].images[].description",
+                        "type": "textarea"
+                      },
+                      {
+                        "key" : "messages[].images[].label",
+                      },
+                      {
+                        "key" : "messages[].images[].url",
+                        "type": "url"
+                      },
+                    ]
                   }
-                  ,{
-                    "key" : "messages[].description",
-                    "type": "textarea"
-                  },
-                  {
-                    "key" : "messages[].label",
-                  },
-                  {
-                    "key" : "messages[].url",
-                    "type": "url"
-                  },
-
-                ]
-              },
-              {
-                "type": "fieldset",
-                "items": [
-                  {
-                    "key" : "messages[].sequence",
-                    "value": "{{idx}}",
-                    "type": "hidden"
-                  },
-                  {
-                    "key" : "messages[].width",
-                  },
-                  {
-                    "key" : "messages[].height",
-                  },
-                  {
-                    "type": "tabarray",
-                    "items": {
-                      "type": "section",
-                      "legend": "Carousel Image {{idx}}",
-                      "items": [
-                        
-                        {
-                          "key" : "messages[].images[].imageurl",
-                          "type": "url"
-                        },
-                        {
-                          "key" : "messages[].images[].title",
-                        }
-                        ,{
-                          "key" : "messages[].images[].description",
-                          "type": "textarea"
-                        },
-                        {
-                          "key" : "messages[].images[].label",
-                        },
-                        {
-                          "key" : "messages[].images[].url",
-                          "type": "url"
-                        },
-                      ]
-                    }
-                  },
-                ]
-              },
-            ]
-          }
-        ]
-      }
-      ,
-      {
-        "type": "actions",
-        "items": [
-          {
-            "type": "button",
-            "title": "Save",
-            "onClick": function (evt) {
-              var contents = $('form.set').jsonFormValue();
-              var values = JSON.stringify(contents);
-              var method = "POST";
-              if(contents._id){
-                method = "PUT";    
-                values = JSON.stringify([contents]);          
-              }
-              $.ajax({
-                type: method,
-                url: '/campaign/template',
-                data: {content : values}
-              }).done(function (result) {
-                console.log("result",result);
-                if(method == "POST"){
-                  window.location.href = '/campaign/rcs/demo/' + result[0][0]._id;
-                }
-                else{
-                  window.location.href = '/campaign/rcs/demo/' + contents._id;
-                }
-
-              }).fail(function (error) {
-                console.log("error",error);
-                alert(error.responseText);
-              });
+                },
+              ]
+            },
+          ]
+        }
+      ]
+    }
+    ,
+    {
+      "type": "actions",
+      "items": [
+        {
+          "type": "button",
+          "title": "Save",
+          "onClick": function (evt) {
+            var contents = $('form.set').jsonFormValue();
+            var values = JSON.stringify(contents);
+            var method = "POST";
+            if(contents._id){
+              method = "PUT";    
+              values = JSON.stringify([contents]);          
             }
+            $.ajax({
+              type: method,
+              url: '/campaign/template',
+              data: {content : values}
+            }).done(function (result) {
+              console.log("result",result);
+              if(method == "POST"){
+                window.location.href = '/campaign/rcs/demo/' + result[0][0]._id;
+              }
+              else{
+                window.location.href = '/campaign/rcs/demo/' + contents._id;
+              }
+
+            }).fail(function (error) {
+              console.log("error",error);
+              alert(error.responseText);
+            });
           }
-        ]
-      }
-    ],
-    value: template
-  });
+        }
+      ]
+    }
+  ],
+};
+
+if(template){
+  form.value = template;
+}
+$('form.set').jsonForm(form);
   
       window.setInterval( function() {  
         $('form.set').find("select.nav").each(function(){
