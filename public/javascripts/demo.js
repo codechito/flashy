@@ -490,7 +490,8 @@ $('form.set').jsonForm({
               var values = JSON.stringify(contents);
               var method = "POST";
               if(contents._id){
-                method = "PUT";              
+                method = "PUT";    
+                values = JSON.stringify([contents]);          
               }
               $.ajax({
                 type: method,
