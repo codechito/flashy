@@ -499,7 +499,13 @@ $('form.set').jsonForm({
                 data: {content : values}
               }).done(function (result) {
                 console.log("result",result);
-                alert(result[0][0]._id);
+                if(method == "POST"){
+                  window.location.href = '/campaign/rcs/demo/' + result[0][0]._id;
+                }
+                else{
+                  window.location.href = '/campaign/rcs/demo/' + contents._id;
+                }
+
               }).fail(function (error) {
                 console.log("error",error);
                 alert(error.responseText);
