@@ -154,7 +154,7 @@ $.ajax({
   type: "GET",
   url: '/campaign/template',
 }).done(function (result) {
-  var templates = {"--":"Load saved template"};
+  var templates = {"--":"New Template"};
   var templateids = ["--"];
   result[0].forEach(function(template){
     templateids.push(template._id);
@@ -184,7 +184,13 @@ $.ajax({
             "title": "LOAD",
             "onClick": function (evt) {
               var values = $('form.load').jsonFormValue();
-              window.location.href = '/campaign/rcs/demo/' + values.templates;
+              if(values.templates == '--'){
+                window.location.href = '/campaign/rcs/demo';
+              }
+              else{
+                window.location.href = '/campaign/rcs/demo/' + values.templates;
+              }
+              
             }
           }
         ]
