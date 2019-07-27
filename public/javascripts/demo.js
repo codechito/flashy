@@ -265,7 +265,7 @@ var form = {
           },
           "imageurl": {
             "type": "string",
-            "title": "Image Url"
+            "title": "Image/Video Url"
           },
           "orientation": {
             "type": "string",
