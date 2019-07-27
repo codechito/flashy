@@ -530,14 +530,14 @@ if(template){
 $('form.set').jsonForm(form);
   
       window.setInterval( function() {  
-        $('form.set').find("select.nav").each(function(this){
+        $('form.set').find("select.nav").each(function(){
             $(this).change();
         });
       },5);
 
       document.addEventListener("drop", function(event) {
         event.preventDefault();
-        $('form.set').find("select.nav").each(function(this){
+        $('form.set').find("select.nav").each(function(){
           $(this).change();
         });
       });
