@@ -263,12 +263,12 @@ $('form.set').jsonForm({
             "orientation": {
               "type": "string",
               "title": "Card Orientation",
-              "enum": ["CARD_ORIENTATION_UNSPECIFIED","HORIZONTAL","VERTICAL"]
+              "enum": ["HORIZONTAL","VERTICAL"]
             },
             "alignment": {
               "type": "string",
               "title": "Thumbnail Alignment",
-              "enum": ["THUMBNAIL_IMAGE_ALIGNMENT_UNSPECIFIED","LEFT","RIGHT"]
+              "enum": ["LEFT","RIGHT"]
             },
             "tnurl": {
               "type": "string",
@@ -277,12 +277,12 @@ $('form.set').jsonForm({
             "height": {
               "type": "string",
               "title": "Image Height",
-              "enum": ["HEIGHT_UNSPECIFIED","SHORT","MEDIUM", "TALL"]
+              "enum": ["SHORT","MEDIUM", "TALL"]
             },
             "width": {
               "type": "string",
               "title": "Image Width",
-              "enum": ["CARD_WIDTH_UNSPECIFIED","SMALL","MEDIUM"]
+              "enum": ["SMALL","MEDIUM"]
             },
             "title": {
               "type": "string",
