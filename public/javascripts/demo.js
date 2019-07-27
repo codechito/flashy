@@ -486,9 +486,14 @@ $('form.set').jsonForm({
             "type": "button",
             "title": "Save",
             "onClick": function (evt) {
-              var values = JSON.stringify($('form.set').jsonFormValue());
+              var contents = $('form.set').jsonFormValue();
+              var values = JSON.stringify(contents);
+              var method = "POST";
+              if(contents._id){
+                method = "PUT";              
+              }
               $.ajax({
-                type: "POST",
+                type: method,
                 url: '/campaign/template',
                 data: {content : values}
               }).done(function (result) {

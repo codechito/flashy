@@ -96,7 +96,7 @@ module.exports = function(emitter){
     
     var options = {
       table: "Template",
-      content: {_id:{"$ne": null}},
+      content: {_id:req.params.id},
       limit: req.query.limit,
       skip: req.query.skip,
       sort: req.query.sort || {}
