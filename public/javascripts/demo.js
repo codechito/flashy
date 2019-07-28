@@ -505,6 +505,11 @@ var form = {
           "title": "Save",
           "onClick": function (evt) {
             var contents = $('form.set').jsonFormValue();
+            var i =1;
+            contents.messages.forEach(function(message){
+              message.sequence = i;
+              i++;
+            });
             var values = JSON.stringify(contents);
             var method = "POST";
             if(contents._id){
