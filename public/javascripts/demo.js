@@ -261,11 +261,13 @@ var form = {
           },
           "message": {
             "type": "string",
-            "title": "Message"
+            "title": "Message",
+            "required": true
           },
           "imageurl": {
             "type": "string",
-            "title": "Image/Video Url"
+            "title": "Image/Video Url",
+            "required": true
           },
           "orientation": {
             "type": "string",
@@ -301,11 +303,13 @@ var form = {
           },
           "label": {
             "type": "string",
-            "title": "Link Label"
+            "title": "Link Label",
+            "required": true
           },
           "url": {
             "type": "string",
-            "title": "Link Url"
+            "title": "Link Url",
+            "required": true
           },
           "sequence": {
             "type": "number",
@@ -321,19 +325,21 @@ var form = {
               "properties": {
                 "imageurl": {
                   "type": "string",
-                  "title": "Image Url"
+                  "title": "Image Url",
+                  "required": true
                 },
                 "title": {
                   "type": "string",
-                  "title": "Title Text"
+                  "title": "Title Text",
                 },
                 "description": {
                   "type": "string",
-                  "title": "Description Text"
+                  "title": "Description Text",
                 },
                 "label": {
                   "type": "string",
-                  "title": "Link Label"
+                  "title": "Link Label",
+                  "required": true
                 },
                 "url": {
                   "type": "string",
