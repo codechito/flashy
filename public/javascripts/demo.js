@@ -525,11 +525,12 @@ var form = {
   ],
 };
 
-if(template && template.length){
-  messages = [];
-  template.messages.sort(function(a, b){
-    return a.sequence-b.sequence;
-  });
+if(template){
+  if(template.messages && template.messages.length){
+    template.messages.sort(function(a, b){
+      return a.sequence-b.sequence;
+    });
+  }
   form.value = template;
 }
 $('form.set').jsonForm(form);
