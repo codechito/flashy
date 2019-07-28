@@ -525,6 +525,10 @@ var form = {
 };
 
 if(template){
+  messages = [];
+  template.messages.sort(function(a, b){
+    return a.sequence-b.sequence;
+  });
   form.value = template;
 }
 $('form.set').jsonForm(form);
