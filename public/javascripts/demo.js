@@ -337,7 +337,8 @@ var form = {
                 },
                 "url": {
                   "type": "string",
-                  "title": "Link Url"
+                  "title": "Link Url",
+                  "required": true
                 }
               }
             }
@@ -474,7 +475,7 @@ var form = {
                       },
                       {
                         "key" : "messages[].images[].url",
-                        "type": "url"
+                        "type": "url",
                       },
                     ]
                   }
@@ -524,7 +525,7 @@ var form = {
   ],
 };
 
-if(template){
+if(template && template.length){
   messages = [];
   template.messages.sort(function(a, b){
     return a.sequence-b.sequence;
