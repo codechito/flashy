@@ -379,6 +379,7 @@ var form = {
                 {
                   "key" : "messages[].sequence",
                   "value": "{{idx}}",
+                  "fieldHtmlClass":"sequence",
                   "type": "hidden"
                 },
                 {
@@ -393,6 +394,7 @@ var form = {
                 {
                   "key" : "messages[].sequence",
                   "value": "{{idx}}",
+                  "fieldHtmlClass":"sequence",
                   "type": "hidden"
                 },
                 {
@@ -408,6 +410,7 @@ var form = {
                 {
                   "key" : "messages[].sequence",
                   "value": "{{idx}}",
+                  "fieldHtmlClass":"sequence",
                   "type": "hidden"
                 },
                 {
@@ -450,7 +453,8 @@ var form = {
                 {
                   "key" : "messages[].sequence",
                   "value": "{{idx}}",
-                  "type": "hidden"
+                  "type": "hidden",
+                  "fieldHtmlClass":"sequence",
                 },
                 {
                   "key" : "messages[].width",
@@ -528,7 +532,7 @@ var form = {
         }
       ]
     }
-  ],
+  ]
 };
 
 if(template){
@@ -549,7 +553,12 @@ $('form.set').jsonForm(form);
 
       document.addEventListener("drop", function(event) {
         event.preventDefault();
+        console.log("chito drop");
         $('form.set').find("select.nav").each(function(){
           $(this).change();
         });
       });
+
+     $('i.glyphicon').click(function(ev){
+        console.log('icon clicked');
+     });
