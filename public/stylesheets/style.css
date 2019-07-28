@@ -242,6 +242,10 @@ div.emulator .content ul li div .logo{
   display: inline-block;
 }
 
+a > i{
+  color: black;
+}
+
 form.tester.well {
   padding-bottom: 50px;
   align-items: "right"
