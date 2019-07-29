@@ -322,7 +322,7 @@ var form = {
           "orientation": {
             "type": "string",
             "title": "Card Orientation",
-            "enum": ["HORIZONTAL","VERTICAL"]
+            "enum": ["VERTICAL","HORIZONTAL"]
           },
           "alignment": {
             "type": "string",
@@ -516,14 +516,10 @@ var form = {
                   "key" : "messages[].orientation",
                   "type": "selectfieldset",
                   "titleMap": {
-                    "HORIZONTAL": "HORIZONTAL",
                     "VERTICAL": "VERTICAL",
+                    "HORIZONTAL": "HORIZONTAL",
                   },
                   "items": [
-                    {
-                      "type": "fieldset",
-                      "items": []
-                    },
                     {
                       "type": "fieldset",
                       "items": [
@@ -534,6 +530,10 @@ var form = {
                           "key" : "messages[].height",
                         },
                       ]
+                    },
+                    {
+                      "type": "fieldset",
+                      "items": []
                     },
                   ]
                 },
