@@ -364,11 +364,11 @@ var form = {
           },
           "starttime": {
             "type": "string",
-            "title": "Start Time",
+            "title": "Start Time Example: \"2014-10-02T15:01:23.045123456Z\"",
           },
           "endtime": {
             "type": "string",
-            "title": "End Time",
+            "title": "End Time Example: \"2014-10-02T15:01:23.045123456Z\"",
           },
           "calendartitle": {
             "type": "string",
