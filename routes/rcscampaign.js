@@ -118,8 +118,32 @@ module.exports = function(emitter){
 
  });
   router.get('/demo', function(req, res, next) {
-    
-    res.render('demo');
+    if(req.query.templates){
+      var options = {
+        table: "Template",
+        content: {_id:req.query.templates},
+        limit: req.query.limit,
+        skip: req.query.skip,
+        sort: req.query.sort || {}
+      };
+  
+      let r = emitter.invokeHook("db::find",options);
+  
+      r.then(function(templates){
+        templates[0].forEach(function(template){
+          if(req.query.templates == template._id){
+            res.render('demoedit',{templates:JSON.stringify(templates[0]), template: JSON.stringify(template)});
+          }
+        });
+        
+      },function(err){
+        console.log("chito");
+        res.status(500).json({ error:err });
+      });
+    }
+    else{
+      res.render('demo');
+    }
 
  });
 
