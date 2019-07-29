@@ -31,7 +31,7 @@ function createTemplate(value){
         action: {
           text: value.calllabel,
           postbackData: value.calllabel,
-          openUrlAction: { url: value.phone }
+          dialAction: { phoneNumber: value.phone }
         }
       });
     }
