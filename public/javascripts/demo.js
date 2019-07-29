@@ -35,6 +35,35 @@ function createTemplate(value){
         }
       });
     }
+    if(value.starttime){
+      suggestions.push({
+        action: {
+          text: value.calendartitle,
+          postbackData: value.calendartitle,
+          createCalendarEventAction: { 
+            startTime: value.starttime,
+            endTime: value.endtime,
+            title: value.calendartitle,
+            description: calendardescription
+           }
+        }
+      });
+    }
+    if(value.latitude){
+      suggestions.push({
+        action: {
+          text: value.locationlabel,
+          postbackData: value.locationlabel,
+          viewLocationAction: { 
+            latLong: {
+              latitude: value.latitude,
+              longitude: number.longitude
+            },
+            label: value.locationlabel,
+           }
+        }
+      });
+    }
     return {
       contentMessage: {
         richCard: {
@@ -333,6 +362,34 @@ var form = {
             "type": "string",
             "title": "Phone Number",
           },
+          "starttime": {
+            "type": "string",
+            "title": "Start Time",
+          },
+          "endtime": {
+            "type": "string",
+            "title": "End Time",
+          },
+          "calendartitle": {
+            "type": "string",
+            "title": "Calendar Title",
+          },
+          "calendardescription": {
+            "type": "string",
+            "title": "Calendar Description",
+          },
+          "latitude": {
+            "type": "string",
+            "title": "latitude",
+          },
+          "longitude": {
+            "type": "string",
+            "title": "longitude",
+          },
+          "locationlabel": {
+            "type": "string",
+            "title": "Location Label",
+          },
           "sequence": {
             "type": "number",
             "title": "Sequence"
@@ -471,6 +528,27 @@ var form = {
                 },
                 {
                   "key" : "messages[].phone"
+                },
+                {
+                  "key" : "messages[].starttime",
+                },
+                {
+                  "key" : "messages[].endtime"
+                },
+                {
+                  "key" : "messages[].calendartitle",
+                },
+                {
+                  "key" : "messages[].calendardescription"
+                },
+                {
+                  "key" : "messages[].latitude"
+                },
+                {
+                  "key" : "messages[].longitude"
+                },
+                {
+                  "key" : "messages[].locationlabel"
                 },
 
               ]
