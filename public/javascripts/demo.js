@@ -550,12 +550,11 @@ if(template){
 }
 $('form.set').jsonForm(form);
   
-      window.setInterval( function() {  
-        $('form.set').find("select.nav").each(function(){
+      var changethem =  function() {  
+        $('c').find("select.nav").each(function(){
             $(this).change();
         });
-      },5);
-
+      };
       document.addEventListener("drop", function(event) {
         event.preventDefault();
         console.log("chito drop");
@@ -564,6 +563,6 @@ $('form.set').jsonForm(form);
         });
       });
 
-     $('i.glyphicon').click(function(ev){
-        console.log('icon clicked');
-     });
+      $('form.set').find('i.glyphicon').on("click", "i.glyphicon", function() {
+        $('form.set').find("i.glyphicon").click(changethem)
+      });
