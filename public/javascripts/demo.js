@@ -28,7 +28,7 @@ function createTemplate(value){
             }
           });
         }
-        if(button.type == "Invite"){
+        if(button.type == "Call"){
           suggestions.push({
             action: {
               text: button.calllabel,
@@ -37,7 +37,7 @@ function createTemplate(value){
             }
           });
         }
-        if(button.type == "Call"){
+        if(button.type == "Invite"){
           suggestions.push({
             action: {
               text: button.calendartitle,
@@ -399,7 +399,7 @@ var form = {
                 "type": {
                   "type": "string",
                   "title": "Type",
-                  "enum": ["Link", "Invite", "Call", "Location"]
+                  "enum": ["Link", "Call","Invite", "Location"]
                 },
                 "label": {
                   "type": "string",
