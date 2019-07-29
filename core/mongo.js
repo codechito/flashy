@@ -61,6 +61,13 @@ const MessagesSchema = {
   "description": { type: String },
   "alignment": { type: String },
   "images": [ImageSchema],
+  "starttime": { type: String },
+  "endtime": { type: String },
+  "calendartitle": { type: String },
+  "calendardescription": { type: String },
+  "latitude": { type: String },
+  "longitude": { type: String },
+  "locationlabel": { type: String },
   "sequence": { type: Number },
 };
 
