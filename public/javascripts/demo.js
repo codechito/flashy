@@ -524,17 +524,20 @@ var form = {
                       "type": "fieldset",
                       "items": [
                         {
-                          "key" : "messages[].alignment",
-                        },
-                        {
                           "key" : "messages[].height",
                         },
                       ]
                     },
                     {
                       "type": "fieldset",
-                      "items": []
+                      "items": [
+                        {
+                          "key" : "messages[].alignment",
+                        },
+                        
+                      ]
                     },
+                    
                   ]
                 },
                 {
