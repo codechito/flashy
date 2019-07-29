@@ -196,7 +196,8 @@ $.ajax({
           }
         ]
       }
-    ]
+    ],
+    value : {templates:template._id}
   });
 }).fail(function (error) {
   console.log("error",error);
