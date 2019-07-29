@@ -44,6 +44,20 @@ const ImageSchema = {
   "url": { type: String },
 };
 
+const ButtonSchema = {
+  "type": { type: String },
+  "label": { type: String },
+  "url": { type: String },
+  "calllabel": { type: String },
+  "phone": { type: String },
+  "starttime": { type: String },
+  "endtime": { type: String },
+  "calendartitle": { type: String },
+  "calendardescription": { type: String },
+  "latitude": { type: String },
+  "longitude": { type: String },
+  "locationlabel": { type: String },
+}
 const MessagesSchema = {
   "type": { type: String, required: true },
   "message": { type: String },
@@ -55,19 +69,12 @@ const MessagesSchema = {
   "width": { type: String },
   "label": { type: String },
   "url": { type: String },
-  "calllabel": { type: String },
-  "phone": { type: String },
   "title": { type: String },
   "description": { type: String },
   "alignment": { type: String },
   "images": [ImageSchema],
-  "starttime": { type: String },
-  "endtime": { type: String },
-  "calendartitle": { type: String },
-  "calendardescription": { type: String },
-  "latitude": { type: String },
-  "longitude": { type: String },
-  "locationlabel": { type: String },
+  "buttons": [ButtonSchema],
+  
   "sequence": { type: Number },
 };
 

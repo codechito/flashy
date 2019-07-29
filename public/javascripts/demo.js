@@ -17,53 +17,58 @@ function createTemplate(value){
   } 
   else if (value.type == "Standalonecard"){
     suggestions = [];
-    if(value.url){
-      suggestions.push({
-        action: {
-          text: value.label,
-          postbackData: value.label,
-          openUrlAction: { url: value.url }
+    if(value.buttons){
+      value.buttons.forEach(function(button){
+        if(button.type == "Link"){
+          suggestions.push({
+            action: {
+              text: button.label,
+              postbackData: button.label,
+              openUrlAction: { url: button.url }
+            }
+          });
+        }
+        if(button.type == "Invite"){
+          suggestions.push({
+            action: {
+              text: button.calllabel,
+              postbackData: button.calllabel,
+              dialAction: { phoneNumber: button.phone }
+            }
+          });
+        }
+        if(button.type == "Call"){
+          suggestions.push({
+            action: {
+              text: button.calendartitle,
+              postbackData: button.calendartitle,
+              createCalendarEventAction: { 
+                startTime: button.starttime,
+                endTime: button.endtime,
+                title: button.calendartitle,
+                description: button.calendardescription
+               }
+            }
+          });
+        }
+        if(button.type == "Location"){
+          suggestions.push({
+            action: {
+              text: button.locationlabel,
+              postbackData: button.locationlabel,
+              viewLocationAction: { 
+                latLong: {
+                  latitude: button.latitude,
+                  longitude: button.longitude
+                },
+                label: button.locationlabel,
+               }
+            }
+          });
         }
       });
     }
-    if(value.phone){
-      suggestions.push({
-        action: {
-          text: value.calllabel,
-          postbackData: value.calllabel,
-          dialAction: { phoneNumber: value.phone }
-        }
-      });
-    }
-    if(value.starttime){
-      suggestions.push({
-        action: {
-          text: value.calendartitle,
-          postbackData: value.calendartitle,
-          createCalendarEventAction: { 
-            startTime: value.starttime,
-            endTime: value.endtime,
-            title: value.calendartitle,
-            description: calendardescription
-           }
-        }
-      });
-    }
-    if(value.latitude){
-      suggestions.push({
-        action: {
-          text: value.locationlabel,
-          postbackData: value.locationlabel,
-          viewLocationAction: { 
-            latLong: {
-              latitude: value.latitude,
-              longitude: number.longitude
-            },
-            label: value.locationlabel,
-           }
-        }
-      });
-    }
+    
     return {
       contentMessage: {
         richCard: {
@@ -346,50 +351,6 @@ var form = {
             "type": "string",
             "title": "Description Text"
           },
-          "label": {
-            "type": "string",
-            "title": "Link Label",
-          },
-          "url": {
-            "type": "string",
-            "title": "Link Url",
-          },
-          "calllabel": {
-            "type": "string",
-            "title": "Call Label",
-          },
-          "phone": {
-            "type": "string",
-            "title": "Phone Number",
-          },
-          "starttime": {
-            "type": "string",
-            "title": "Start Time Example: \"2014-10-02T15:01:23.045123456Z\"",
-          },
-          "endtime": {
-            "type": "string",
-            "title": "End Time Example: \"2014-10-02T15:01:23.045123456Z\"",
-          },
-          "calendartitle": {
-            "type": "string",
-            "title": "Calendar Title",
-          },
-          "calendardescription": {
-            "type": "string",
-            "title": "Calendar Description",
-          },
-          "latitude": {
-            "type": "string",
-            "title": "latitude",
-          },
-          "longitude": {
-            "type": "string",
-            "title": "longitude",
-          },
-          "locationlabel": {
-            "type": "string",
-            "title": "Location Label",
-          },
           "sequence": {
             "type": "number",
             "title": "Sequence"
@@ -425,6 +386,65 @@ var form = {
                   "title": "Link Url",
                   "required": true
                 }
+              }
+            }
+          },
+          "buttons": {
+            "type": "array",
+            "maxItems": 4,
+            "items": {
+              "type": "object",
+              "title": "Buttons Set",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "title": "Type",
+                  "enum": ["Link", "Invite", "Call", "Location"]
+                },
+                "label": {
+                  "type": "string",
+                  "title": "Link Label",
+                },
+                "url": {
+                  "type": "string",
+                  "title": "Link Url",
+                },
+                "calllabel": {
+                  "type": "string",
+                  "title": "Call Label",
+                },
+                "phone": {
+                  "type": "string",
+                  "title": "Phone Number",
+                },
+                "starttime": {
+                  "type": "string",
+                  "title": "Start Time Example: \"2014-10-02T15:01:23.045123456Z\"",
+                },
+                "endtime": {
+                  "type": "string",
+                  "title": "End Time Example: \"2014-10-02T15:01:23.045123456Z\"",
+                },
+                "calendartitle": {
+                  "type": "string",
+                  "title": "Calendar Title",
+                },
+                "calendardescription": {
+                  "type": "string",
+                  "title": "Calendar Description",
+                },
+                "latitude": {
+                  "type": "string",
+                  "title": "latitude",
+                },
+                "longitude": {
+                  "type": "string",
+                  "title": "longitude",
+                },
+                "locationlabel": {
+                  "type": "string",
+                  "title": "Location Label",
+                },
               }
             }
           }
@@ -517,39 +537,54 @@ var form = {
                   "type": "textarea"
                 },
                 {
-                  "key" : "messages[].label",
-                },
-                {
-                  "key" : "messages[].url",
-                  "type": "url"
-                },
-                {
-                  "key" : "messages[].calllabel",
-                },
-                {
-                  "key" : "messages[].phone"
-                },
-                {
-                  "key" : "messages[].starttime",
-                },
-                {
-                  "key" : "messages[].endtime"
-                },
-                {
-                  "key" : "messages[].calendartitle",
-                },
-                {
-                  "key" : "messages[].calendardescription"
-                },
-                {
-                  "key" : "messages[].latitude"
-                },
-                {
-                  "key" : "messages[].longitude"
-                },
-                {
-                  "key" : "messages[].locationlabel"
-                },
+                  type: "array",
+                  items:[
+                    {
+                      "type": "selectfieldset",
+                      "key": "messages[].buttons[].type",
+                      "title": "Button Type",
+                      "titleMap": {
+                        "Link": "Link",
+                        "Call": "Call",
+                        "Invite": "Invite",
+                        "Location": "Location"
+                      },
+                      "items": [
+                        {
+                          "type": "fieldset",
+                          "items": [
+                            "messages[].buttons[].label",
+                            "messages[].buttons[].url"
+                          ]
+                        },
+                        {
+                          "type": "fieldset",
+                          "items": [
+                            "messages[].buttons[].calllabel",
+                            "messages[].buttons[].phone"
+                          ]
+                        },
+                        {
+                          "type": "fieldset",
+                          "items": [
+                            "messages[].buttons[].starttime",
+                            "messages[].buttons[].endtime",
+                            "messages[].buttons[].calendartitle",
+                            "messages[].buttons[].calendardescription"
+                          ]
+                        },
+                        {
+                          "type": "fieldset",
+                          "items": [
+                            "messages[].buttons[].latitude",
+                            "messages[].buttons[].longitude",
+                            "messages[].buttons[].locationlabel"
+                          ]
+                        },
+                      ]
+                    }
+                  ]
+                }
 
               ]
             },
