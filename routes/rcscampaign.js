@@ -93,10 +93,13 @@ module.exports = function(emitter){
 
   });
   router.get('/demo/:id', function(req, res, next) {
-    
+    var id = req.params.id;
+    if(req.query.templates){
+      id = req.query.templates;
+    }
     var options = {
       table: "Template",
-      content: {_id:req.params.id},
+      content: {_id:id},
       limit: req.query.limit,
       skip: req.query.skip,
       sort: req.query.sort || {}
@@ -106,7 +109,7 @@ module.exports = function(emitter){
 
     r.then(function(templates){
       templates[0].forEach(function(template){
-        if(req.params.id == template._id){
+        if(id == template._id){
           res.render('demoedit',{templates:JSON.stringify(templates[0]), template: JSON.stringify(template)});
         }
       });
