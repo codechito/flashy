@@ -94,7 +94,10 @@ module.exports = function(emitter){
   });
   router.get('/demo/:id', function(req, res, next) {
     var id = req.params.id;
-    if(req.query.templates){
+    if(id == "--"){
+      res.render('demo');
+    }
+    else if(req.query.templates){
       id = req.query.templates;
     }
     var options = {
@@ -121,7 +124,10 @@ module.exports = function(emitter){
 
  });
   router.get('/demo', function(req, res, next) {
-    if(req.query.templates){
+    if(req.query.templates == "--"){
+      res.render('demo');
+    }
+    else if(req.query.templates){
       var options = {
         table: "Template",
         content: {_id:req.query.templates},
