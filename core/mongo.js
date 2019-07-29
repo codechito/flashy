@@ -55,6 +55,8 @@ const MessagesSchema = {
   "width": { type: String },
   "label": { type: String },
   "url": { type: String },
+  "calllabel": { type: String },
+  "phone": { type: String },
   "title": { type: String },
   "description": { type: String },
   "alignment": { type: String },

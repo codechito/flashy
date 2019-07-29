@@ -16,6 +16,25 @@ function createTemplate(value){
     };
   } 
   else if (value.type == "Standalonecard"){
+    suggestions = [];
+    if(value.url){
+      suggestions.push({
+        action: {
+          text: value.label,
+          postbackData: value.label,
+          openUrlAction: { url: value.url }
+        }
+      });
+    }
+    if(value.phone){
+      suggestions.push({
+        action: {
+          text: value.calllabel,
+          postbackData: value.calllabel,
+          openUrlAction: { url: value.phone }
+        }
+      });
+    }
     return {
       contentMessage: {
         richCard: {
@@ -31,13 +50,7 @@ function createTemplate(value){
                 forceRefresh: true
               }
             },
-            suggestions: [{
-              action: {
-                text: value.label,
-                postbackData: value.label,
-                openUrlAction: { url: value.url }
-              }
-            }],
+            suggestions: suggestions,
             title: value.title,
             description: value.description
           }
@@ -307,12 +320,18 @@ var form = {
           "label": {
             "type": "string",
             "title": "Link Label",
-            "required": true
           },
           "url": {
             "type": "string",
             "title": "Link Url",
-            "required": true
+          },
+          "calllabel": {
+            "type": "string",
+            "title": "Call Label",
+          },
+          "phone": {
+            "type": "string",
+            "title": "Phone Number",
           },
           "sequence": {
             "type": "number",
@@ -446,6 +465,12 @@ var form = {
                 {
                   "key" : "messages[].url",
                   "type": "url"
+                },
+                {
+                  "key" : "messages[].calllabel",
+                },
+                {
+                  "key" : "messages[].phone"
                 },
 
               ]
