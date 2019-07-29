@@ -326,7 +326,7 @@ var form = {
           },
           "alignment": {
             "type": "string",
-            "title": "Thumbnail Alignment (apply only to horizontal )",
+            "title": "Thumbnail Alignment ",
             "enum": ["LEFT","RIGHT"]
           },
           "tnurl": {
@@ -514,12 +514,28 @@ var form = {
                 },
                 {
                   "key" : "messages[].orientation",
-                },
-                {
-                  "key" : "messages[].alignment",
-                },
-                {
-                  "key" : "messages[].height",
+                  "type": "selectfieldset",
+                  "titleMap": {
+                    "HORIZONTAL": "HORIZONTAL",
+                    "VERTICAL": "VERTICAL",
+                  },
+                  "items": [
+                    {
+                      "type": "fieldset",
+                      "items": []
+                    },
+                    {
+                      "type": "fieldset",
+                      "items": [
+                        {
+                          "key" : "messages[].alignment",
+                        },
+                        {
+                          "key" : "messages[].height",
+                        },
+                      ]
+                    },
+                  ]
                 },
                 {
                   "key" : "messages[].imageurl",
