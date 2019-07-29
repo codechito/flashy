@@ -242,7 +242,8 @@ var form = {
     },
     "name": {
       "type": "string",
-      "title": "Campaign Name"
+      "title": "Campaign Name",
+      "required": true
     },
     "messages": {
       "type": "array",
