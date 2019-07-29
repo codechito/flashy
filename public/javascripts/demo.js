@@ -563,7 +563,7 @@ var form = {
               });
             }
             else{
-              alert(JSON.stringify(errors));
+              alert(errors.join("\n"));
             }
           }
         }
