@@ -508,34 +508,63 @@ var form = {
           "title": "Save",
           "onClick": function (evt) {
             var contents = $('form.set').jsonFormValue();
-            var i =1;
-            contents.messages.forEach(function(message){
-              message.sequence = i;
-              i++;
-            });
-            var values = JSON.stringify(contents);
-            var method = "POST";
-            if(contents._id){
-              method = "PUT";    
-              values = JSON.stringify([contents]);          
-            }
-            $.ajax({
-              type: method,
-              url: '/campaign/template',
-              data: {content : values}
-            }).done(function (result) {
-              console.log("result",result);
-              if(method == "POST"){
-                window.location.href = '/campaign/rcs/demo/' + result[0][0]._id;
-              }
-              else{
-                window.location.href = '/campaign/rcs/demo/' + contents._id;
-              }
 
-            }).fail(function (error) {
-              console.log("error",error);
-              alert(error.responseText);
+            //validation
+            var errors = [];
+            if(!contents.name){
+              errors.push("Campaign name is required")
+            }
+            contents.messages.forEach(function(message){
+              if(message.type == "Text" && !message.message ){
+                errors.push("message is required")
+              }
+              if(message.type == "Image" && !message.imageurl ){
+                errors.push("image url is required")
+              }
+              if(message.type == "Standalonecard" && (!message.imageurl ) ){
+                errors.push("image url is required")
+              }
+              if(message.type == "Standalonecard" && (!message.label ) ){
+                errors.push("Standalonecard label is required")
+              }
+              if(message.type == "Standalonecard" && (!message.url ) ){
+                errors.push("Standalonecard url is required")
+              }
             });
+
+            if(errors && errors.length == 0){
+              var i =1;
+              contents.messages.forEach(function(message){
+                message.sequence = i;
+                i++;
+              });
+              var values = JSON.stringify(contents);
+              var method = "POST";
+              if(contents._id){
+                method = "PUT";    
+                values = JSON.stringify([contents]);          
+              }
+              $.ajax({
+                type: method,
+                url: '/campaign/template',
+                data: {content : values}
+              }).done(function (result) {
+                console.log("result",result);
+                if(method == "POST"){
+                  window.location.href = '/campaign/rcs/demo/' + result[0][0]._id;
+                }
+                else{
+                  window.location.href = '/campaign/rcs/demo/' + contents._id;
+                }
+
+              }).fail(function (error) {
+                console.log("error",error);
+                alert(error.responseText);
+              });
+            }
+            else{
+              alert(JSON.stringify(errors));
+            }
           }
         }
       ]
