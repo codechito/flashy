@@ -184,6 +184,7 @@ $.ajax({
             "title": "LOAD",
             "onClick": function (evt) {
               var values = $('form.load').jsonFormValue();
+              console.log(values);
               if(values.templates == '--'){
                 window.location.href = '/campaign/rcs/demo';
               }
