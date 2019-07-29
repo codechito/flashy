@@ -189,7 +189,8 @@ $.ajax({
                 window.location.href = '/campaign/rcs/demo';
               }
               else{
-                window.location.href = '/campaign/rcs/demo/' + values.templates;
+                console.log(values.templates);
+                //window.location.href = '/campaign/rcs/demo/' + values.templates;
               }
               
             }
