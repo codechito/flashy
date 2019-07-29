@@ -678,12 +678,6 @@ var form = {
               if(message.type == "Standalonecard" && (!message.imageurl ) ){
                 errors.push("image url is required")
               }
-              if(message.type == "Standalonecard" && (!message.label ) ){
-                errors.push("Standalonecard label is required")
-              }
-              if(message.type == "Standalonecard" && (!message.url ) ){
-                errors.push("Standalonecard url is required")
-              }
             });
 
             if(errors && errors.length == 0){
