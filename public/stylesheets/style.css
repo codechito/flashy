@@ -191,6 +191,11 @@ div.emulator .content ul li div .location img{
   padding-right: 5px;
 }
 
+.tab-content > .active {
+  display: block;
+  margin-top: 30px;
+}
+
 div.emulator .content ul li div .location{
   max-width: 250px;
   display: inline-block;
