@@ -753,13 +753,6 @@ var form = {
                         "type": "textarea"
                       },
                       {
-                        "key" : "messages[].images[].label",
-                      },
-                      {
-                        "key" : "messages[].images[].url",
-                        "type": "url",
-                      },
-                      {
                         type: "array",
                         items:[
                           {
