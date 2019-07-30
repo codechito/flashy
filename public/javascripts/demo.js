@@ -96,6 +96,60 @@ function createTemplate(value){
   else if (value.type == "Carouselcard"){
     var images = [];
     value.images.forEach(function(image){
+
+      suggestions = [];
+      if(image.buttons){
+        image.buttons.forEach(function(button){
+          if(button.type == "Link"){
+            suggestions.push({
+              action: {
+                text: button.label,
+                postbackData: button.label,
+                openUrlAction: { url: button.url }
+              }
+            });
+          }
+          if(button.type == "Call"){
+            suggestions.push({
+              action: {
+                text: button.calllabel,
+                postbackData: button.calllabel,
+                dialAction: { phoneNumber: button.phone }
+              }
+            });
+          }
+          if(button.type == "Invite"){
+            suggestions.push({
+              action: {
+                text: button.calendartitle,
+                postbackData: button.calendartitle,
+                createCalendarEventAction: { 
+                  startTime: button.starttime,
+                  endTime: button.endtime,
+                  title: button.calendartitle,
+                  description: button.calendardescription
+                }
+              }
+            });
+          }
+          if(button.type == "Location"){
+            suggestions.push({
+              action: {
+                text: button.locationlabel,
+                postbackData: button.locationlabel,
+                viewLocationAction: { 
+                  latLong: {
+                    latitude: button.latitude,
+                    longitude: button.longitude
+                  },
+                  label: button.locationlabel,
+                }
+              }
+            });
+          }
+        });
+      }
+
       images.push(
         {
           media: {
@@ -105,13 +159,7 @@ function createTemplate(value){
               forceRefresh: false
             }
           },
-          suggestions: [{
-            action: {
-              text: image.label,
-              postbackData: image.label,
-              openUrlAction: { url: image.url }
-            }
-          }],
+          suggestions: suggestions,
           title: image.title,
           description: image.description
         }
@@ -130,7 +178,7 @@ function createTemplate(value){
     };
   } 
 }
-function sendMessage(){
+function sendMessage(evt){
   var values = $('form.set').jsonFormValue();
   var sendvalues = $('form.send').jsonFormValue();
  console.log("sendvalues",sendvalues);
@@ -155,6 +203,8 @@ function sendMessage(){
     });
   });
   alert ("sent");
+  evt.preventDefault();
+  return false;
 }
 
 $('form.tester').jsonForm({
@@ -190,6 +240,8 @@ $('form.tester').jsonForm({
               console.log("error",error);
               alert(error.responseText);
             });
+            evt.preventDefault();
+            return false;
           }
         }
       ]
@@ -238,7 +290,8 @@ $.ajax({
               else{
                 window.location.href = '/campaign/rcs/demo/' + values.templates;
               }
-              
+              evt.preventDefault();
+              return false;
             }
           }
         ]
@@ -385,6 +438,65 @@ var form = {
                   "type": "string",
                   "title": "Link URL",
                   "required": true
+                },
+                "buttons": {
+                  "type": "array",
+                  "maxItems": 4,
+                  "items": {
+                    "type": "object",
+                    "title": "Buttons Set",
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "title": "Type",
+                        "enum": ["Link", "Call","Invite", "Location"]
+                      },
+                      "label": {
+                        "type": "string",
+                        "title": "Link Label",
+                      },
+                      "url": {
+                        "type": "string",
+                        "title": "Link URL",
+                      },
+                      "calllabel": {
+                        "type": "string",
+                        "title": "Call Label",
+                      },
+                      "phone": {
+                        "type": "string",
+                        "title": "Phone Number",
+                      },
+                      "starttime": {
+                        "type": "string",
+                        "title": "Start Time Example: \"2014-10-02T15:01:23.045123456Z\"",
+                      },
+                      "endtime": {
+                        "type": "string",
+                        "title": "End Time Example: \"2014-10-02T15:01:23.045123456Z\"",
+                      },
+                      "calendartitle": {
+                        "type": "string",
+                        "title": "Calendar Title",
+                      },
+                      "calendardescription": {
+                        "type": "string",
+                        "title": "Calendar Description",
+                      },
+                      "latitude": {
+                        "type": "string",
+                        "title": "latitude",
+                      },
+                      "longitude": {
+                        "type": "string",
+                        "title": "longitude",
+                      },
+                      "locationlabel": {
+                        "type": "string",
+                        "title": "Location Label",
+                      },
+                    }
+                  }
                 }
               }
             }
@@ -647,6 +759,55 @@ var form = {
                         "key" : "messages[].images[].url",
                         "type": "url",
                       },
+                      {
+                        type: "array",
+                        items:[
+                          {
+                            "type": "selectfieldset",
+                            "key": "messages[].images[].buttons[].type",
+                            "title": "Button Type",
+                            "titleMap": {
+                              "Link": "Link",
+                              "Call": "Call",
+                              "Invite": "Invite",
+                              "Location": "Location"
+                            },
+                            "items": [
+                              {
+                                "type": "fieldset",
+                                "items": [
+                                  "messages[].images[].buttons[].label",
+                                  "messages[].images[].buttons[].url"
+                                ]
+                              },
+                              {
+                                "type": "fieldset",
+                                "items": [
+                                  "messages[].images[].buttons[].calllabel",
+                                  "messages[].images[].buttons[].phone"
+                                ]
+                              },
+                              {
+                                "type": "fieldset",
+                                "items": [
+                                  "messages[].images[].buttons[].starttime",
+                                  "messages[].images[].buttons[].endtime",
+                                  "messages[].images[].buttons[].calendartitle",
+                                  "messages[].images[].buttons[].calendardescription"
+                                ]
+                              },
+                              {
+                                "type": "fieldset",
+                                "items": [
+                                  "messages[].images[].buttons[].latitude",
+                                  "messages[].images[].buttons[].longitude",
+                                  "messages[].images[].buttons[].locationlabel"
+                                ]
+                              },
+                            ]
+                          }
+                        ]
+                      }
                     ]
                   }
                 },
@@ -664,6 +825,7 @@ var form = {
           "type": "button",
           "title": "Save",
           "onClick": function (evt) {
+            evt.preventDefault();
             var contents = $('form.set').jsonFormValue();
 
             //validation

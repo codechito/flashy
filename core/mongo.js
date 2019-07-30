@@ -42,6 +42,7 @@ const ImageSchema = {
   "description": { type: String },
   "label": { type: String },
   "url": { type: String },
+  "buttons": [ButtonSchema],
 };
 
 const ButtonSchema = {
