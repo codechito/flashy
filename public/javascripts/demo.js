@@ -316,7 +316,7 @@ var form = {
           },
           "imageurl": {
             "type": "string",
-            "title": "Image/Video Url",
+            "title": "Image/Video URL",
             "required": true
           },
           "orientation": {
@@ -365,7 +365,7 @@ var form = {
               "properties": {
                 "imageurl": {
                   "type": "string",
-                  "title": "Image Url",
+                  "title": "Image URL",
                   "required": true
                 },
                 "title": {
@@ -383,7 +383,7 @@ var form = {
                 },
                 "url": {
                   "type": "string",
-                  "title": "Link Url",
+                  "title": "Link URL",
                   "required": true
                 }
               }
@@ -407,7 +407,7 @@ var form = {
                 },
                 "url": {
                   "type": "string",
-                  "title": "Link Url",
+                  "title": "Link URL",
                 },
                 "calllabel": {
                   "type": "string",
