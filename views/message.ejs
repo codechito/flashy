@@ -20,9 +20,9 @@
                   <div class="col-sm-6">
                       <div class="row justify-content-end">
                             <b-form-group description="Invite Tester">
-                                <b-form-input v-model="contents.campaign_name" size="sm" class="form-control custom-width"></b-form-input>
+                                <b-form-input size="sm" class="form-control custom-width" placeholder="+614XXXXXXXX"></b-form-input>
                             </b-form-group>
-                            <b-button v-b-tooltip.hover title="Invite Tester" variant="info" size="sm" >INVITE</b-button>
+                            <b-button v-on:click="inviteTester()" v-b-tooltip.hover title="Invite Tester" variant="info" size="sm" >INVITE</b-button>
                       </div>
                   </div>
               </div>
@@ -127,6 +127,7 @@
       </div>
   </div>
   <script src="//polyfill.io/v3/polyfill.min.js?features=es2015%2CIntersectionObserver" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="//unpkg.com/vue@latest/dist/vue.min.js"></script>
   <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
   <script type="text/javascript" src="/campaign/javascripts/message.js"></script>

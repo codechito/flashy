@@ -370,8 +370,8 @@ var app = new Vue({
     ]
   },
   methods: {
-    changeMessage(){
-
+    inviteTester(){
+      console.log("chito tester",this.contents);
     }
   }
 })
