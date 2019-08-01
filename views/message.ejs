@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+  <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+  <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css" />
+  <link rel="stylesheet" type="text/css" href="/campaign/stylesheets/nstyle.css" />
+  <head>
+	<meta charset="utf-8" />
+	<title>RCS Campaign Creator</title>
+
+</head>
+<body>
+  <div class="container-fluid" id="app">
+      <div class="row">
+          <div class="col-sm-1"></div>
+          <div class="col-sm-10 top shadow ">
+              <div class="row">
+                  <div class="col-sm-6">
+                      <h2><span class="badge badge-pill badge-light">RCS Campaign Creator - {{ contents.agent }}</span></h2>
+                  </div>
+                  <div class="col-sm-6">
+                      <div class="row justify-content-end">
+                      <form class="form-inline ">
+                          <div class="form-group">
+                              <input type="text" readonly class="form-control-plaintext" id="staticEmail2" value="Invite Tester">
+                          </div>
+                          <div class="form-group mx-sm-3 mb-2">
+                            <input type="text" v-model="contents.campaign_name" class="form-control custom-width"  name="campaign_name"  id="campaign_name" placeholder="+614XXXXXXXX">
+                          </div>
+                          <button type="submit" class="btn btn-info mb-2">INVITE</button>
+                      </form>
+                      </div>
+                  </div>
+              </div>
+
+          </div>
+          <div class="col-sm-1"></div>
+      </div>
+      <div class="row">
+          <div class="col-sm-1"></div>
+          <div class="col-sm-10 mainframe shadow ">
+              <div class="row">
+                  <div class="col-sm-6">
+                      <form>
+                          <div class="form-group">
+                              <select class="form-control" name="campaign" id="campaign">
+                                  <option>New Campaign</option>
+                                </select>
+                            </div>
+                      </form>
+                  </div>
+                  <div class="col-sm-6">
+                      <div class="row justify-content-end">
+                          <div class="form-group">
+                              <input type="text" readonly class="form-control-plaintext" value="Recipients">
+                          </div>
+                          <div class="form-group mx-sm-3 mb-2">
+                            <input type="text" v-model="contents.recipients" class="form-control custom-width" name="recipients" id="recipients" placeholder="+614XXXXXXXX, +614XXXXXXXX">
+                          </div>
+                          <button type="submit" class="btn btn-info mb-2">SEND</button>
+                      </form>
+                      </div>
+                  </div>
+              </div>
+              <div class="row justify-content-center">
+                  <div class="col-sm-12 main shadow rounded ">
+                    <div>
+                      <div class="form-group">
+                        <label>Choose Message</label>
+                        <select class="form-control" v-model="idx" name="element" id="element">
+                            <option value="-1" >New Message</option>
+                            <option v-for="(message, key) in contents.messages" :value="key">{{ message.message_name }}</option>
+                        </select>
+                      </div>
+                      <template v-if="idx >= 0">
+                        <div class="form-group">
+                            <label >Message Name</label>
+                            <input v-model="contents.messages[idx].message_name" type="message_name" class="form-control" id="campaign_name">
+                        </div>
+                        <template v-for="(element, key) in contents.messages[idx].elements">
+                            <div class="list-group shadow-sm rounded">
+                                <button type="button" class="btn btn-info icon-button"><h3> &times; </h3></button>
+                                <div class="form-group">
+                                    <label >Message Type</label>
+                                    <select class="form-control" v-model="element.type">
+                                        <option value="Text">Text</option>
+                                        <option value="Image/Video">Image/Video</option>
+                                        <option value="Standalone">Standalone</option>
+                                        <option value="Carousel">Carousel</option>
+                                    </select>
+                                </div>
+                                <element-text v-if="element.type == 'Text'" v-bind:key="key" v-bind:element="element"></element-text>
+                                <element-image v-if="element.type == 'Image/Video'" v-bind:key="key" v-bind:element="element"></element-image>
+                                <element-standalone v-if="element.type == 'Standalone'" v-bind:key="key" v-bind:element="element"></element-standalone>
+                                <element-carousel v-if="element.type == 'Carousel'" v-bind:key="key" v-bind:element="element"></element-carousel>
+                            </div>
+                        </template>
+                        <button type="button" class="btn btn-info icon-button"><h3> + </h3></button>
+                      </template>
+                      <template v-if="idx == -1">
+                        <div class="form-group">
+                            <label >Message Name</label>
+                            <input type="message_name" class="form-control" id="campaign_name">
+                        </div>
+                        <button type="button" class="btn btn-info icon-button"><h3> + </h3></button>
+                      </template>
+                    </div>
+                  </div>
+              </div>
+
+          </div>
+          <div class="col-sm-1"></div>
+      </div>
+      <div class="row">
+          <div class="col-sm-1"></div>
+          <div class="col-sm-10 bottom shadow ">
+
+              <form class="form-inline">
+                  <div class="form-group mx-sm-3 mb-2">
+                    <input type="text" class="form-control" id="campaign_name" v-model="contents.campaign_name" placeholder="New Campaign">
+                  </div>
+                  <button type="submit" class="btn btn-info mb-2">SAVE</button>
+              </form>
+
+          </div>
+          <div class="col-sm-1"></div>
+      </div>
+  </div>
+  <script src="//polyfill.io/v3/polyfill.min.js?features=es2015%2CIntersectionObserver" crossorigin="anonymous"></script>
+  <script src="//unpkg.com/vue@latest/dist/vue.min.js"></script>
+  <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
+  <script type="text/javascript" src="/campaign/javascripts/message.js"></script>
+</body>
+
+</html>

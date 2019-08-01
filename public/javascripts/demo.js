@@ -347,8 +347,6 @@ var form = {
     },
     "messages": {
       "type": "array",
-      "minItems": 1,
-      "maxItems": 20,
       "items": {
         "type": "object",
         "title": "Message Set",
@@ -393,7 +391,7 @@ var form = {
           },
           "width": {
             "type": "string",
-            "title": "Image Width",
+            "title": "Card Width",
             "enum": ["SMALL","MEDIUM"]
           },
           "title": {
