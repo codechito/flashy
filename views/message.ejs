@@ -19,15 +19,10 @@
                   </div>
                   <div class="col-sm-6">
                       <div class="row justify-content-end">
-                      <form class="form-inline ">
-                          <div class="form-group">
-                              <input type="text" readonly class="form-control-plaintext" id="staticEmail2" value="Invite Tester">
-                          </div>
-                          <div class="form-group mx-sm-3 mb-2">
-                            <input type="text" v-model="contents.campaign_name" class="form-control custom-width"  name="campaign_name"  id="campaign_name" placeholder="+614XXXXXXXX">
-                          </div>
-                          <button type="submit" class="btn btn-info mb-2">INVITE</button>
-                      </form>
+                            <b-form-group description="Invite Tester">
+                                <b-form-input v-model="contents.campaign_name" size="sm" class="form-control custom-width"></b-form-input>
+                            </b-form-group>
+                            <b-button v-b-tooltip.hover title="Invite Tester" variant="info" size="sm" >INVITE</b-button>
                       </div>
                   </div>
               </div>
@@ -40,68 +35,78 @@
           <div class="col-sm-10 mainframe shadow ">
               <div class="row">
                   <div class="col-sm-6">
-                      <form>
-                          <div class="form-group">
-                              <select class="form-control" name="campaign" id="campaign">
-                                  <option>New Campaign</option>
-                                </select>
-                            </div>
-                      </form>
+                    <b-form-group>
+                        <b-form-select size="sm" class="form-control">
+                            <option value="-1" >New Campaign</option>
+                        </b-form-select>
+                    </b-form-group>
                   </div>
                   <div class="col-sm-6">
                       <div class="row justify-content-end">
-                          <div class="form-group">
-                              <input type="text" readonly class="form-control-plaintext" value="Recipients">
-                          </div>
-                          <div class="form-group mx-sm-3 mb-2">
-                            <input type="text" v-model="contents.recipients" class="form-control custom-width" name="recipients" id="recipients" placeholder="+614XXXXXXXX, +614XXXXXXXX">
-                          </div>
-                          <button type="submit" class="btn btn-info mb-2">SEND</button>
+                          <b-form-group description="Recipients">
+                                <b-form-input v-model="contents.recipients" size="sm" class="form-control custom-width" placeholder="+614XXXXXXXX, +614XXXXXXXX"></b-form-input>
+                          </b-form-group>
+                          <b-button v-b-tooltip.hover title="Send Message" variant="info" size="sm" >SEND</b-button>
                       </form>
                       </div>
                   </div>
               </div>
               <div class="row justify-content-center">
                   <div class="col-sm-12 main shadow rounded ">
+                    <div class="header" >
+                        <span v-if="idx >= 0">{{contents.messages[idx].message_name}}</span>
+                        <span v-if="idx == -1">New Message</span>
+                        <b-button v-b-tooltip.hover title="Remove Message" variant="info" class="icon-button float-right" @click="closeTab(i)"><h3> &times; </h3></b-button>
+                        <hr/><br/>
+                    </div>
                     <div>
-                      <div class="form-group">
-                        <label>Choose Message</label>
-                        <select class="form-control" v-model="idx" name="element" id="element">
-                            <option value="-1" >New Message</option>
-                            <option v-for="(message, key) in contents.messages" :value="key">{{ message.message_name }}</option>
-                        </select>
-                      </div>
+                        <b-form-group label="Choose Message" label-size="sm">
+                            <b-form-select size="sm" class="form-control" v-model="idx">
+                                <option value="-1" >New Message</option>
+                                <option v-for="(message, key) in contents.messages" :value="key">{{ message.message_name }}</option>
+                            </b-form-select>
+                        </b-form-group>
                       <template v-if="idx >= 0">
-                        <div class="form-group">
-                            <label >Message Name</label>
-                            <input v-model="contents.messages[idx].message_name" type="message_name" class="form-control" id="campaign_name">
-                        </div>
+                        <b-form-group label="Message Name" label-size="sm">
+                            <b-form-input v-model="contents.messages[idx].message_name" size="sm" class="form-control"></b-form-input>
+                        </b-form-group>
                         <template v-for="(element, key) in contents.messages[idx].elements">
                             <div class="list-group shadow-sm rounded">
-                                <button type="button" class="btn btn-info icon-button"><h3> &times; </h3></button>
-                                <div class="form-group">
-                                    <label >Message Type</label>
-                                    <select class="form-control" v-model="element.type">
-                                        <option value="Text">Text</option>
-                                        <option value="Image/Video">Image/Video</option>
-                                        <option value="Standalone">Standalone</option>
-                                        <option value="Carousel">Carousel</option>
-                                    </select>
+                                <div class="header">
+                                    <span>{{element.type}}</span>
+                                    <b-button v-b-tooltip.hover title="Remove element" variant="info" class="icon-button float-right" @click="closeTab(i)"><h3> &times; </h3></b-button>
+                                    <hr/><br/>
                                 </div>
+                                <b-form-group label="Message Type" label-size="sm">
+                                    <b-form-select v-model="element.type" :options="element_type" size="sm" class="form-control"></b-form-select>
+                                </b-form-group>
                                 <element-text v-if="element.type == 'Text'" v-bind:key="key" v-bind:element="element"></element-text>
                                 <element-image v-if="element.type == 'Image/Video'" v-bind:key="key" v-bind:element="element"></element-image>
-                                <element-standalone v-if="element.type == 'Standalone'" v-bind:key="key" v-bind:element="element"></element-standalone>
-                                <element-carousel v-if="element.type == 'Carousel'" v-bind:key="key" v-bind:element="element"></element-carousel>
+                                <element-standalone v-if="element.type == 'Standalone'" v-bind:key="key" 
+                                    v-bind:element="element" 
+                                    v-bind:suggestion_type="suggestion_type"
+                                    v-bind:card_orientation_type="card_orientation_type"
+                                    v-bind:thumbnail_alignment_type="thumbnail_alignment_type"
+                                    v-bind:image_height_type="image_height_type"
+                                ></element-standalone>
+                                <element-carousel v-if="element.type == 'Carousel'" v-bind:key="key" 
+                                    v-bind:element="element"
+                                    v-bind:card_width_type="card_width_type"
+                                    v-bind:image_height_type="image_height_type"
+                                ></element-carousel>
+                                <b-button variant="outline-info" size="sm" href="#">New Suggestion</b-button>
+                                <suggestion v-for="(suggestion, key) in element.suggestions" v-bind:key="key" v-bind:suggestion="suggestion" v-bind:suggestion_type="suggestion_type"></suggestion>
                             </div>
+                            
                         </template>
-                        <button type="button" class="btn btn-info icon-button"><h3> + </h3></button>
+                        <button type="button" class="btn btn-info icon-button" v-b-tooltip.hover title="Add New Element"><h3> + </h3></button>
                       </template>
                       <template v-if="idx == -1">
                         <div class="form-group">
                             <label >Message Name</label>
                             <input type="message_name" class="form-control" id="campaign_name">
                         </div>
-                        <button type="button" class="btn btn-info icon-button"><h3> + </h3></button>
+                        <button type="button" class="btn btn-info icon-button" v-b-tooltip.hover title="Add New Element"><h3> + </h3></button>
                       </template>
                     </div>
                   </div>
@@ -112,15 +117,11 @@
       </div>
       <div class="row">
           <div class="col-sm-1"></div>
-          <div class="col-sm-10 bottom shadow ">
-
-              <form class="form-inline">
-                  <div class="form-group mx-sm-3 mb-2">
-                    <input type="text" class="form-control" id="campaign_name" v-model="contents.campaign_name" placeholder="New Campaign">
-                  </div>
-                  <button type="submit" class="btn btn-info mb-2">SAVE</button>
-              </form>
-
+          <div class="col-sm-10 bottom shadow row justify-content-start">
+                <b-form-group>
+                    <b-form-input v-model="contents.campaign_name" size="sm" class="form-control custom-width" placeholder="New Campaign"></b-form-input>
+                </b-form-group>
+                <b-button variant="info" size="sm" v-b-tooltip.hover title="Save Campaign" >SAVE</b-button>
           </div>
           <div class="col-sm-1"></div>
       </div>
