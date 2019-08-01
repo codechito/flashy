@@ -36,15 +36,6 @@ const MessageSchema = {
   "status": { type: Boolean, default: true }
 };
 
-const ImageSchema = {
-  "imageurl": { type: String },
-  "title": { type: String },
-  "description": { type: String },
-  "label": { type: String },
-  "url": { type: String },
-  "buttons": [ButtonSchema],
-};
-
 const ButtonSchema = {
   "type": { type: String },
   "label": { type: String },
@@ -58,7 +49,18 @@ const ButtonSchema = {
   "latitude": { type: String },
   "longitude": { type: String },
   "locationlabel": { type: String },
-}
+};
+
+const ImageSchema = {
+  "imageurl": { type: String },
+  "title": { type: String },
+  "description": { type: String },
+  "label": { type: String },
+  "url": { type: String },
+  "buttons": [ButtonSchema],
+};
+
+
 const MessagesSchema = {
   "type": { type: String, required: true },
   "message": { type: String },
