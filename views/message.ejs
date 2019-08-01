@@ -20,7 +20,7 @@
                   <div class="col-sm-6">
                       <div class="row justify-content-end">
                             <b-form-group description="Invite Tester">
-                                <b-form-input size="sm" class="form-control custom-width" placeholder="+614XXXXXXXX"></b-form-input>
+                                <b-form-input v-model="tester" size="sm" class="form-control custom-width" placeholder="+614XXXXXXXX"></b-form-input>
                             </b-form-group>
                             <b-button v-on:click="inviteTester()" v-b-tooltip.hover title="Invite Tester" variant="info" size="sm" >INVITE</b-button>
                       </div>

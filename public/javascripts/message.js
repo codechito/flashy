@@ -338,6 +338,7 @@ var app = new Vue({
       ]
     }, 
     idx: 0,
+    tester: '',
     element_type: [
       { value: 'Text', text: 'Text' },
       { value: 'Image/Video', text: 'Image/Video' },
@@ -371,7 +372,13 @@ var app = new Vue({
   },
   methods: {
     inviteTester(){
-      console.log("chito tester",this.contents);
+      console.log("chito tester",this.tester);
+      var msisdn = this.tester;
+      console.log(msisdn);
+      axios
+        .post('/campaign/rcs/invite',{msisdn:msisdn})
+        .then(response => (console.log(response)))
+
     }
   }
 })
