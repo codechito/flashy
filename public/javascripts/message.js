@@ -154,7 +154,7 @@ axios(options)
         cidx: -1,
         campaigns: campaigns,
         campaign_list: campaign_list,
-        contents: campaigns[this.cidx] || {}, 
+        contents: {}, 
         idx: 0,
         tester: '',
         element_type: [
@@ -190,6 +190,7 @@ axios(options)
       },
       methods: {
         switchCampaign(){
+          console.log(this.cidx,this.campaigns);
           this.contents = this.campaigns[this.cidx] || {} 
         },
         getCampaigns(){
