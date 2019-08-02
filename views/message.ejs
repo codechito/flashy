@@ -46,7 +46,7 @@
                           <b-form-group description="Recipients">
                                 <b-form-input v-model="contents.recipients" size="sm" class="form-control custom-width" placeholder="+614XXXXXXXX, +614XXXXXXXX"></b-form-input>
                           </b-form-group>
-                          <b-button v-b-tooltip.hover title="Send Message" variant="info" size="sm" >SEND</b-button>
+                          <b-button v-on:click="sendMessage()" v-b-tooltip.hover title="Send Message" variant="info" size="sm" >SEND</b-button>
                       </form>
                       </div>
                   </div>
