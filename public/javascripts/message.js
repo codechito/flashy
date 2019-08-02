@@ -396,7 +396,7 @@ axios(options)
       methods: {
     
         switchCampaign(){
-          console.log(cidx,this.campaigns[cidx]);
+          console.log(this.cidx,this.campaigns[this.cidx]);
           this.contents = this.campaigns[cidx];
         },
         getCampaigns(){
