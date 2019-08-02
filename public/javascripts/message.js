@@ -138,10 +138,10 @@ const options = {
 
 axios(options)
   .then(function(response){
-    var campaigns = response.data[0];
+    var cmpgns = response.data[0];
     var arrcampaign = [];
     var list = [];
-    campaigns.forEach(function(campaign){
+    cmpgns.forEach(function(campaign){
       list.push({
         value: campaign._id,
         text: campaign.campaign_name
