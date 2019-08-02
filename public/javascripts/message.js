@@ -512,7 +512,7 @@ var app = new Vue({
             var images = [];
 
             element.images.forEach(function(image){
-              var card_suggestions = createSuggestion(element.card_suggestions || []);
+              var card_suggestions = createSuggestion(image.card_suggestions || []);
               images.push({
                 media: {
                   height: element.height,
@@ -542,11 +542,10 @@ var app = new Vue({
       }
 
       var recipients = this.contents.recipients.replace(" ","").split(",")
-
+      var total = 0;
       message.elements.forEach(function(element){
         var template = createTemplate(element);
         console.log(template);
-        var total = 0;
         recipients.forEach(function(phone){
           var content = {resource : JSON.stringify(template), msisdn : phone};
           const options = {
