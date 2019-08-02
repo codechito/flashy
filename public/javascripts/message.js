@@ -395,6 +395,9 @@ axios(options)
       },
       methods: {
     
+        switchCampaign(){
+          this.contents = this.campaigns[cidx];
+        },
         getCampaigns(){
           const options = {
             method: 'GET',
