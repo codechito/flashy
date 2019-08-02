@@ -153,7 +153,7 @@ axios(options)
       value: 'new',
       text: 'New Campaign'
     });
-    arrcampaign['new'] = {};
+    arrcampaign['new'] = {messages:[{}]};
     var campaign_list = list;
 
     var app = new Vue({
