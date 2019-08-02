@@ -131,506 +131,507 @@ Vue.component('element-standalone', {
   `
 });
 
-var app = new Vue({
-  el: '#app',
-  data: {
-    campaigns:[],
-    cidx: -1,
-    contents:{
-      _id: '5d442cf2eb483d46cdadaabe',
-      agent: 'SEQUENCER',
-      campaign_name: 'Chito Campaign',
-      recipients: '+61447738379',
-      messages: [
-        {
-          message_name: 'Chito Message 1',
-          elements: [
-            {
-              type: 'Text',
-              message: 'Hello Text 1',
-              suggestions:[
-                {
-                  type: "Link URL",
-                  label: "Sample Link",
-                  callback: "xxxxxx",
-                  url: "https://www.google.com"
-                },
-                {
-                  type: "Dial Number",
-                  label: "Sample Call",
-                  callback: "xxxxxx",
-                  phoneNumber: "+639483184838"
-                },
-              ]
-            },
-            {
-              type: 'Image/Video',
-              imageurl: 'https://res.cloudinary.com/burst/image/upload/v1563398299/burst-sms-zapier-stripe-integration-email_yfghn7.jpg',
-              suggestions:[
-                {
-                  type: "Reply",
-                  label: "Sample Reply",
-                  callback: "xxxxxx"
-                },
-                {
-                  type: "Link URL",
-                  label: "Sample Link",
-                  callback: "xxxxxx",
-                  url: "https://www.google.com"
-                },
-                {
-                  type: "Dial Number",
-                  label: "Sample Call",
-                  callback: "xxxxxx",
-                  phoneNumber: "+639483184838"
-                },
-              ]
-            }
-          ]
-        },
-        {
-          message_name: 'Chito Message 2',
-          elements: [
-            {
-              type: 'Text',
-              message: 'Hello Text 2'
-            },
-            {
-              type: 'Image/Video',
-              imageurl: 'https://res.cloudinary.com/burst/image/upload/v1563398299/burst-sms-zapier-stripe-integration-email_yfghn7.jpg'
-            }
-          ]
-        },
-        {
-          message_name: 'Chito Message 3',
-          elements: [
-            {
-              type: 'Text',
-              message: 'Hello Text 3'
-            },
-            {
-              type: 'Standalone',
-              orientation: "HORIZONTAL",
-              height: "SHORT",
-              alignment: "LEFT",
-              imageurl: 'https://res.cloudinary.com/burst/image/upload/v1563398299/burst-sms-zapier-stripe-integration-email_yfghn7.jpg',
-              tnurl: 'https://res.cloudinary.com/burst/image/upload/v1563398299/burst-sms-zapier-stripe-integration-email_yfghn7.jpg',
-              title: "chito title 3",
-              description: "chito description 3",
-              suggestions:[
-                {
-                  type: "Reply",
-                  label: "Sample Reply",
-                  callback: "xxxxxx"
-                },
-                {
-                  type: "Link URL",
-                  label: "Sample Link",
-                  callback: "xxxxxx",
-                  url: "https://www.google.com"
-                },
-              ],
-              card_suggestions:[
-                {
-                  type: "Reply",
-                  label: "Sample Reply",
-                  callback: "xxxxxx"
-                },
-                {
-                  type: "Dial Number",
-                  label: "Sample Call",
-                  callback: "xxxxxx",
-                  phoneNumber: "+639483184838"
-                },
-                {
-                  type: "Calendar Invite",
-                  label: "Sample Invite",
-                  callback: "xxxxxx",
-                  startTime: "2020-06-30T19:00:00Z",
-                  endTime: "2020-06-30T20:00:00Z",
-                  title: "My Birthday",
-                  description: "Join my birthday"
-                },
-                {
-                  type: "View Location",
-                  label: "Sample Location",
-                  callback: "xxxxxx",
-                  latitude: 37.4220188,
-                  longitude: -122.0844786
-                }
-              ]
-            },
-          ]
-        },
-        {
-          message_name: 'Chito Message 4',
-          elements: [
-            {
-              type: 'Carousel',
-              width: "SMALL",
-              height: "SHORT",
-              images:[
-                {
-                  imageurl: 'https://res.cloudinary.com/burst/image/upload/v1563398299/burst-sms-zapier-stripe-integration-email_yfghn7.jpg',
-                  title: "chito title 4-1",
-                  description: "chito description 4-1",
-                  card_suggestions:[
-                    {
-                      type: "Reply",
-                      label: "Sample Reply",
-                      callback: "xxxxxx"
-                    },
-                    {
-                      type: "Link URL",
-                      label: "Sample Link",
-                      callback: "xxxxxx",
-                      url: "https://www.google.com"
-                    },
-                    {
-                      type: "Dial Number",
-                      label: "Sample Call",
-                      callback: "xxxxxx",
-                      phoneNumber: "+639483184838"
-                    },
-                  ]
-                },
-                {
-                  imageurl: 'https://res.cloudinary.com/burst/image/upload/v1563398299/burst-sms-zapier-stripe-integration-email_yfghn7.jpg',
-                  title: "chito title 4-2",
-                  description: "chito description 4-2"
-                },
-                {
-                  imageurl: 'https://res.cloudinary.com/burst/image/upload/v1563398299/burst-sms-zapier-stripe-integration-email_yfghn7.jpg',
-                  title: "chito title 4-1",
-                  description: "chito description 4-1",
-                  card_suggestions:[
-                    {
-                      type: "Reply",
-                      label: "Sample Reply",
-                      callback: "xxxxxx"
-                    },
-                    {
-                      type: "Link URL",
-                      label: "Sample Link",
-                      callback: "xxxxxx",
-                      url: "https://www.google.com"
-                    },
-                    {
-                      type: "Dial Number",
-                      label: "Sample Call",
-                      callback: "xxxxxx",
-                      phoneNumber: "+639483184838"
-                    },
-                  ]
-                },
-                {
-                  imageurl: 'https://res.cloudinary.com/burst/image/upload/v1563398299/burst-sms-zapier-stripe-integration-email_yfghn7.jpg',
-                  title: "chito title 4-2",
-                  description: "chito description 4-2"
-                },
-                {
-                  imageurl: 'https://res.cloudinary.com/burst/image/upload/v1563398299/burst-sms-zapier-stripe-integration-email_yfghn7.jpg',
-                  title: "chito title 4-1",
-                  description: "chito description 4-1"
-                },
-              ]
-              
-            },
-          ]
-        }
-      ]
-    }, 
-    idx: 0,
-    tester: '',
-    campaign_list: [],
-    element_type: [
-      { value: 'Text', text: 'Text' },
-      { value: 'Image/Video', text: 'Image/Video' },
-      { value: 'Standalone', text: 'Standalone' },
-      { value: 'Carousel', text: 'Carousel' }
-    ],
-    suggestion_type: [
-      { value: 'Reply', text: 'Reply' },
-      { value: 'Link URL', text: 'Link URL' },
-      { value: 'Dial Number', text: 'Dial Number' },
-      { value: 'Calendar Invite', text: 'Calendar Invite' },
-      { value: 'View Location', text: 'View Location' },     
-    ],
-    card_width_type: [
-      { value: 'SMALL', text: 'SMALL' },
-      { value: 'MEDIUM', text: 'MEDIUM' },
-    ],
-    card_orientation_type: [
-      { value: 'VERTICAL', text: 'VERTICAL' },
-      { value: 'HORIZONTAL', text: 'HORIZONTAL' },
-    ],
-    thumbnail_alignment_type: [
-      { value: 'LEFT', text: 'LEFT' },
-      { value: 'RIGHT', text: 'RIGHT' },
-    ],
-    image_height_type: [
-      { value: 'SHORT', text: 'SHORT' },
-      { value: 'MEDIUM', text: 'MEDIUM' },
-      { value: 'TALL', text: 'TALL' },
-    ]
-  },
-  beforeCreate(){
-    const options = {
-      method: 'GET',
-      url: '/campaign/message'
-    };
-    axios(options)
-      .then(function(response){
-        this.campaigns = response.data[0];
-        var list = [];
-        this.campaigns.forEach(function(campaign){
-          list.push({
-            value: campaign._id,
-            text: campaign.campaign_name
-          });
-        });
-        this.campaign_list = list;
-        console.log(response.data);
-      })
-      .catch(function (error) {
-        console.log(error);
+const options = {
+  method: 'GET',
+  url: '/campaign/message'
+};
+
+axios(options)
+  .then(function(response){
+    Vue.prototype.$campaigns = response.data[0];
+    var list = [];
+    this.campaigns.forEach(function(campaign){
+      list.push({
+        value: campaign._id,
+        text: campaign.campaign_name
       });
-  },
-  methods: {
+    });
+    Vue.prototype.$campaign_list = list;
 
-    getCampaigns(){
-      const options = {
-        method: 'GET',
-        url: '/campaign/message'
-      };
-      axios(options)
-        .then(function(response){
-          this.campaigns = response.data[0];
-          console.log(response.data);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    },
-    saveCampaign(){
-      var content = this.contents
-      const options = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        data: JSON.stringify({ content: JSON.stringify(content) }),
-        url: '/campaign/message'
-      };
-      axios(options)
-        .then(function(response){
-          console.log(response.data);
-          alert('Campaign Saved');
-        })
-        .catch(function (error) {
-          console.log(error);
-          alert('Problem saving campaign');
-        });
-    },
-    inviteTester(){
-      var msisdn = this.tester
-      const options = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        data: JSON.stringify({'msisdn':msisdn}),
-        url: '/campaign/rcs/invite'
-      };
-      axios(options)
-        .then(function(response){
-          console.log(response.data);
-          alert('Invitation Sent');
-        })
-        .catch(function (error) {
-          console.log(error);
-          alert('Problem inviting user, please ensure your phone is RCS enabled');
-        });
-    },
-    sendMessage(){
-      var messages = this.contents.messages;
-      var message = messages[this.idx];
-
-      var createSuggestion = function(element){
-          var suggestions = [];
-
-          element.forEach(function(suggestion){
-            if(suggestion.type == "Reply"){
-              suggestions.push({
-                reply:{
-                  text: suggestion.label,
-                  postbackData: suggestion.callback
-                }
-              });
-            }
-            if(suggestion.type == "Link URL"){
-              suggestions.push({
-                action:{
-                  text: suggestion.label,
-                  postbackData: suggestion.callback,
-                  openUrlAction: { url: suggestion.url }
-                }
-              });
-            }
-            if(suggestion.type == "Dial Number"){
-              suggestions.push({
-                action: {
-                  text: suggestion.label,
-                  postbackData: suggestion.callback,
-                  dialAction: { phoneNumber: suggestion.phoneNumber }
-                }
-              });
-            }
-            if(suggestion.type == "Calendar Invite"){
-              suggestions.push({
-                action: {
-                  text: suggestion.label,
-                  postbackData: suggestion.callback,
-                  createCalendarEventAction: { 
-                    startTime: suggestion.startTime,
-                    endTime: suggestion.endTime,
-                    title: suggestion.title,
-                    description: suggestion.description
-                   }
-                }
-              });
-            }
-            if(suggestion.type == "View Location"){
-              suggestions.push({
-                action: {
-                  text: suggestion.label,
-                  postbackData: suggestion.callback,
-                  viewLocationAction: { 
-                    latLong: {
-                      latitude: suggestion.latitude,
-                      longitude: suggestion.longitude
+    var app = new Vue({
+      el: '#app',
+      data: {
+        cidx: -1,
+        contents:{
+          _id: '5d442cf2eb483d46cdadaabe',
+          agent: 'SEQUENCER',
+          campaign_name: 'Chito Campaign',
+          recipients: '+61447738379',
+          messages: [
+            {
+              message_name: 'Chito Message 1',
+              elements: [
+                {
+                  type: 'Text',
+                  message: 'Hello Text 1',
+                  suggestions:[
+                    {
+                      type: "Link URL",
+                      label: "Sample Link",
+                      callback: "xxxxxx",
+                      url: "https://www.google.com"
                     },
-                    label: suggestion.label,
-                   }
+                    {
+                      type: "Dial Number",
+                      label: "Sample Call",
+                      callback: "xxxxxx",
+                      phoneNumber: "+639483184838"
+                    },
+                  ]
+                },
+                {
+                  type: 'Image/Video',
+                  imageurl: 'https://res.cloudinary.com/burst/image/upload/v1563398299/burst-sms-zapier-stripe-integration-email_yfghn7.jpg',
+                  suggestions:[
+                    {
+                      type: "Reply",
+                      label: "Sample Reply",
+                      callback: "xxxxxx"
+                    },
+                    {
+                      type: "Link URL",
+                      label: "Sample Link",
+                      callback: "xxxxxx",
+                      url: "https://www.google.com"
+                    },
+                    {
+                      type: "Dial Number",
+                      label: "Sample Call",
+                      callback: "xxxxxx",
+                      phoneNumber: "+639483184838"
+                    },
+                  ]
                 }
-              });
-            }
-          });
-
-          return suggestions;
-      };
-
-      var createTemplate = function(element){
-          
-          var suggestions = createSuggestion(element.suggestions || []);
-          if(element.type == "Text"){
-            return {
-              contentMessage : {
-                text: element.message,
-                suggestions: suggestions
-              }
-            };
-          }
-          if(element.type == "Image/Video"){
-            return {
-              contentMessage : {
-                contentInfo: {
-                  fileUrl : element.imageurl
+              ]
+            },
+            {
+              message_name: 'Chito Message 2',
+              elements: [
+                {
+                  type: 'Text',
+                  message: 'Hello Text 2'
                 },
-                suggestions: suggestions
-              }
-            };
-          }
-          if(element.type == "Standalone"){
-            var card_suggestions = createSuggestion(element.card_suggestions || []);
-            return {
-              contentMessage : {
-                richCard: {
-                  standaloneCard: {
-                    cardOrientation: element.orientation,
-                    thumbnailImageAlignment: element.alignment,
-                    cardContent:  {
-                      media: {
-                        height: element.height,
-                        contentInfo: {
-                          fileUrl: element.imageurl,
-                          thumbnailUrl: element.tnurl,
-                          forceRefresh: true
-                        }
-                      },
-                      suggestions: card_suggestions,
-                      title: element.title,
-                      description: element.description
+                {
+                  type: 'Image/Video',
+                  imageurl: 'https://res.cloudinary.com/burst/image/upload/v1563398299/burst-sms-zapier-stripe-integration-email_yfghn7.jpg'
+                }
+              ]
+            },
+            {
+              message_name: 'Chito Message 3',
+              elements: [
+                {
+                  type: 'Text',
+                  message: 'Hello Text 3'
+                },
+                {
+                  type: 'Standalone',
+                  orientation: "HORIZONTAL",
+                  height: "SHORT",
+                  alignment: "LEFT",
+                  imageurl: 'https://res.cloudinary.com/burst/image/upload/v1563398299/burst-sms-zapier-stripe-integration-email_yfghn7.jpg',
+                  tnurl: 'https://res.cloudinary.com/burst/image/upload/v1563398299/burst-sms-zapier-stripe-integration-email_yfghn7.jpg',
+                  title: "chito title 3",
+                  description: "chito description 3",
+                  suggestions:[
+                    {
+                      type: "Reply",
+                      label: "Sample Reply",
+                      callback: "xxxxxx"
+                    },
+                    {
+                      type: "Link URL",
+                      label: "Sample Link",
+                      callback: "xxxxxx",
+                      url: "https://www.google.com"
+                    },
+                  ],
+                  card_suggestions:[
+                    {
+                      type: "Reply",
+                      label: "Sample Reply",
+                      callback: "xxxxxx"
+                    },
+                    {
+                      type: "Dial Number",
+                      label: "Sample Call",
+                      callback: "xxxxxx",
+                      phoneNumber: "+639483184838"
+                    },
+                    {
+                      type: "Calendar Invite",
+                      label: "Sample Invite",
+                      callback: "xxxxxx",
+                      startTime: "2020-06-30T19:00:00Z",
+                      endTime: "2020-06-30T20:00:00Z",
+                      title: "My Birthday",
+                      description: "Join my birthday"
+                    },
+                    {
+                      type: "View Location",
+                      label: "Sample Location",
+                      callback: "xxxxxx",
+                      latitude: 37.4220188,
+                      longitude: -122.0844786
                     }
-                  }
+                  ]
                 },
-                suggestions: suggestions
-              }
-            };
-          }
-
-          if(element.type == "Carousel"){
-            
-            var images = [];
-
-            element.images.forEach(function(image){
-              var card_suggestions = createSuggestion(image.card_suggestions || []);
-              images.push({
-                media: {
-                  height: element.height,
-                  contentInfo: {
-                    fileUrl: image.imageurl,
-                    forceRefresh: false
-                  }
+              ]
+            },
+            {
+              message_name: 'Chito Message 4',
+              elements: [
+                {
+                  type: 'Carousel',
+                  width: "SMALL",
+                  height: "SHORT",
+                  images:[
+                    {
+                      imageurl: 'https://res.cloudinary.com/burst/image/upload/v1563398299/burst-sms-zapier-stripe-integration-email_yfghn7.jpg',
+                      title: "chito title 4-1",
+                      description: "chito description 4-1",
+                      card_suggestions:[
+                        {
+                          type: "Reply",
+                          label: "Sample Reply",
+                          callback: "xxxxxx"
+                        },
+                        {
+                          type: "Link URL",
+                          label: "Sample Link",
+                          callback: "xxxxxx",
+                          url: "https://www.google.com"
+                        },
+                        {
+                          type: "Dial Number",
+                          label: "Sample Call",
+                          callback: "xxxxxx",
+                          phoneNumber: "+639483184838"
+                        },
+                      ]
+                    },
+                    {
+                      imageurl: 'https://res.cloudinary.com/burst/image/upload/v1563398299/burst-sms-zapier-stripe-integration-email_yfghn7.jpg',
+                      title: "chito title 4-2",
+                      description: "chito description 4-2"
+                    },
+                    {
+                      imageurl: 'https://res.cloudinary.com/burst/image/upload/v1563398299/burst-sms-zapier-stripe-integration-email_yfghn7.jpg',
+                      title: "chito title 4-1",
+                      description: "chito description 4-1",
+                      card_suggestions:[
+                        {
+                          type: "Reply",
+                          label: "Sample Reply",
+                          callback: "xxxxxx"
+                        },
+                        {
+                          type: "Link URL",
+                          label: "Sample Link",
+                          callback: "xxxxxx",
+                          url: "https://www.google.com"
+                        },
+                        {
+                          type: "Dial Number",
+                          label: "Sample Call",
+                          callback: "xxxxxx",
+                          phoneNumber: "+639483184838"
+                        },
+                      ]
+                    },
+                    {
+                      imageurl: 'https://res.cloudinary.com/burst/image/upload/v1563398299/burst-sms-zapier-stripe-integration-email_yfghn7.jpg',
+                      title: "chito title 4-2",
+                      description: "chito description 4-2"
+                    },
+                    {
+                      imageurl: 'https://res.cloudinary.com/burst/image/upload/v1563398299/burst-sms-zapier-stripe-integration-email_yfghn7.jpg',
+                      title: "chito title 4-1",
+                      description: "chito description 4-1"
+                    },
+                  ]
+                  
                 },
-                suggestions: card_suggestions,
-                title: image.title,
-                description: image.description
-              });
-            });
-
-            return {
-              contentMessage : {
-                richCard: {
-                  carouselCard: {
-                    cardWidth: element.width,
-                    cardContents: images
-                  }
-                },
-                suggestions: suggestions
-              }
-            };
-          }
-      }
-
-      var recipients = this.contents.recipients.replace(" ","").split(",")
-      var total = 0;
-      message.elements.forEach(function(element){
-        var template = createTemplate(element);
-        console.log(template);
-        recipients.forEach(function(phone){
-          var content = {resource : JSON.stringify(template), msisdn : phone};
+              ]
+            }
+          ]
+        }, 
+        idx: 0,
+        tester: '',
+        element_type: [
+          { value: 'Text', text: 'Text' },
+          { value: 'Image/Video', text: 'Image/Video' },
+          { value: 'Standalone', text: 'Standalone' },
+          { value: 'Carousel', text: 'Carousel' }
+        ],
+        suggestion_type: [
+          { value: 'Reply', text: 'Reply' },
+          { value: 'Link URL', text: 'Link URL' },
+          { value: 'Dial Number', text: 'Dial Number' },
+          { value: 'Calendar Invite', text: 'Calendar Invite' },
+          { value: 'View Location', text: 'View Location' },     
+        ],
+        card_width_type: [
+          { value: 'SMALL', text: 'SMALL' },
+          { value: 'MEDIUM', text: 'MEDIUM' },
+        ],
+        card_orientation_type: [
+          { value: 'VERTICAL', text: 'VERTICAL' },
+          { value: 'HORIZONTAL', text: 'HORIZONTAL' },
+        ],
+        thumbnail_alignment_type: [
+          { value: 'LEFT', text: 'LEFT' },
+          { value: 'RIGHT', text: 'RIGHT' },
+        ],
+        image_height_type: [
+          { value: 'SHORT', text: 'SHORT' },
+          { value: 'MEDIUM', text: 'MEDIUM' },
+          { value: 'TALL', text: 'TALL' },
+        ]
+      },
+      methods: {
+    
+        getCampaigns(){
           const options = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            data: JSON.stringify(content),
-            url: '/campaign/rcs/message/send'
+            method: 'GET',
+            url: '/campaign/message'
           };
           axios(options)
             .then(function(response){
-              total++;
+              this.campaigns = response.data[0];
               console.log(response.data);
-              if(total >= message.elements.length){
-                alert('Message Sent');
-              }
-              
             })
             .catch(function (error) {
-              total++;
               console.log(error);
-              if(total >= message.elements.length){
-                alert('Problem sending message');
-              }
-              
+            });
+        },
+        saveCampaign(){
+          var content = this.contents
+          const options = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            data: JSON.stringify({ content: JSON.stringify(content) }),
+            url: '/campaign/message'
+          };
+          axios(options)
+            .then(function(response){
+              console.log(response.data);
+              alert('Campaign Saved');
             })
-        });
-      });
-    }
-  }
-})
+            .catch(function (error) {
+              console.log(error);
+              alert('Problem saving campaign');
+            });
+        },
+        inviteTester(){
+          var msisdn = this.tester
+          const options = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            data: JSON.stringify({'msisdn':msisdn}),
+            url: '/campaign/rcs/invite'
+          };
+          axios(options)
+            .then(function(response){
+              console.log(response.data);
+              alert('Invitation Sent');
+            })
+            .catch(function (error) {
+              console.log(error);
+              alert('Problem inviting user, please ensure your phone is RCS enabled');
+            });
+        },
+        sendMessage(){
+          var messages = this.contents.messages;
+          var message = messages[this.idx];
+    
+          var createSuggestion = function(element){
+              var suggestions = [];
+    
+              element.forEach(function(suggestion){
+                if(suggestion.type == "Reply"){
+                  suggestions.push({
+                    reply:{
+                      text: suggestion.label,
+                      postbackData: suggestion.callback
+                    }
+                  });
+                }
+                if(suggestion.type == "Link URL"){
+                  suggestions.push({
+                    action:{
+                      text: suggestion.label,
+                      postbackData: suggestion.callback,
+                      openUrlAction: { url: suggestion.url }
+                    }
+                  });
+                }
+                if(suggestion.type == "Dial Number"){
+                  suggestions.push({
+                    action: {
+                      text: suggestion.label,
+                      postbackData: suggestion.callback,
+                      dialAction: { phoneNumber: suggestion.phoneNumber }
+                    }
+                  });
+                }
+                if(suggestion.type == "Calendar Invite"){
+                  suggestions.push({
+                    action: {
+                      text: suggestion.label,
+                      postbackData: suggestion.callback,
+                      createCalendarEventAction: { 
+                        startTime: suggestion.startTime,
+                        endTime: suggestion.endTime,
+                        title: suggestion.title,
+                        description: suggestion.description
+                       }
+                    }
+                  });
+                }
+                if(suggestion.type == "View Location"){
+                  suggestions.push({
+                    action: {
+                      text: suggestion.label,
+                      postbackData: suggestion.callback,
+                      viewLocationAction: { 
+                        latLong: {
+                          latitude: suggestion.latitude,
+                          longitude: suggestion.longitude
+                        },
+                        label: suggestion.label,
+                       }
+                    }
+                  });
+                }
+              });
+    
+              return suggestions;
+          };
+    
+          var createTemplate = function(element){
+              
+              var suggestions = createSuggestion(element.suggestions || []);
+              if(element.type == "Text"){
+                return {
+                  contentMessage : {
+                    text: element.message,
+                    suggestions: suggestions
+                  }
+                };
+              }
+              if(element.type == "Image/Video"){
+                return {
+                  contentMessage : {
+                    contentInfo: {
+                      fileUrl : element.imageurl
+                    },
+                    suggestions: suggestions
+                  }
+                };
+              }
+              if(element.type == "Standalone"){
+                var card_suggestions = createSuggestion(element.card_suggestions || []);
+                return {
+                  contentMessage : {
+                    richCard: {
+                      standaloneCard: {
+                        cardOrientation: element.orientation,
+                        thumbnailImageAlignment: element.alignment,
+                        cardContent:  {
+                          media: {
+                            height: element.height,
+                            contentInfo: {
+                              fileUrl: element.imageurl,
+                              thumbnailUrl: element.tnurl,
+                              forceRefresh: true
+                            }
+                          },
+                          suggestions: card_suggestions,
+                          title: element.title,
+                          description: element.description
+                        }
+                      }
+                    },
+                    suggestions: suggestions
+                  }
+                };
+              }
+    
+              if(element.type == "Carousel"){
+                
+                var images = [];
+    
+                element.images.forEach(function(image){
+                  var card_suggestions = createSuggestion(image.card_suggestions || []);
+                  images.push({
+                    media: {
+                      height: element.height,
+                      contentInfo: {
+                        fileUrl: image.imageurl,
+                        forceRefresh: false
+                      }
+                    },
+                    suggestions: card_suggestions,
+                    title: image.title,
+                    description: image.description
+                  });
+                });
+    
+                return {
+                  contentMessage : {
+                    richCard: {
+                      carouselCard: {
+                        cardWidth: element.width,
+                        cardContents: images
+                      }
+                    },
+                    suggestions: suggestions
+                  }
+                };
+              }
+          }
+    
+          var recipients = this.contents.recipients.replace(" ","").split(",")
+          var total = 0;
+          message.elements.forEach(function(element){
+            var template = createTemplate(element);
+            console.log(template);
+            recipients.forEach(function(phone){
+              var content = {resource : JSON.stringify(template), msisdn : phone};
+              const options = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                data: JSON.stringify(content),
+                url: '/campaign/rcs/message/send'
+              };
+              axios(options)
+                .then(function(response){
+                  total++;
+                  console.log(response.data);
+                  if(total >= message.elements.length){
+                    alert('Message Sent');
+                  }
+                  
+                })
+                .catch(function (error) {
+                  total++;
+                  console.log(error);
+                  if(total >= message.elements.length){
+                    alert('Problem sending message');
+                  }
+                  
+                })
+            });
+          });
+        }
+      }
+    });
+
+    console.log(response.data);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+
+
