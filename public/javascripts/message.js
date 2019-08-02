@@ -205,6 +205,10 @@ axios(options)
         switchCampaign(){
           console.log(this.cidx,this.campaigns[this.cidx]);
           this.contents = this.campaigns[this.cidx] || {};
+          if(this.contents.messages.length > 1){
+            this.contents.messages.push({ message_name: 'New Message'});
+          }
+          
           this.idx = 0;
         },
         getCampaigns(){
