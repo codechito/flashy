@@ -342,6 +342,7 @@ var app = new Vue({
     }, 
     idx: 0,
     tester: '',
+    campaign_list: [],
     element_type: [
       { value: 'Text', text: 'Text' },
       { value: 'Image/Video', text: 'Image/Video' },
@@ -381,6 +382,12 @@ var app = new Vue({
     axios(options)
       .then(function(response){
         this.campaigns = response.data[0];
+        this.campaigns.forEach(function(campaign){
+          this.campaign_list.push({
+            value: campaign._id,
+            text: campaign.campaign_name
+          });
+        });
         console.log(response.data);
       })
       .catch(function (error) {
