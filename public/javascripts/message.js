@@ -190,7 +190,7 @@ axios(options)
       },
       methods: {
         switchCampaign(){
-          this.contents = campaigns[this.cidx] || {} 
+          this.contents = this.campaigns[this.cidx] || {} 
         },
         getCampaigns(){
           const options = {
