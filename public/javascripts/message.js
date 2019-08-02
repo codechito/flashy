@@ -376,7 +376,7 @@ var app = new Vue({
       const options = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        data: { content: JSON.stringify(content) },
+        data: JSON.stringify({ content: JSON.stringify(content) }),
         url: '/campaign/message'
       };
       axios(options)
