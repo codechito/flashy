@@ -546,6 +546,7 @@ var app = new Vue({
       message.elements.forEach(function(element){
         var template = createTemplate(element);
         console.log(template);
+        var total = 0;
         recipients.forEach(function(phone){
           var content = {resource : JSON.stringify(template), msisdn : phone};
           const options = {
@@ -556,12 +557,20 @@ var app = new Vue({
           };
           axios(options)
             .then(function(response){
+              total++;
               console.log(response.data);
-              alert('Message Sent');
+              if(total >= recipients.length){
+                alert('Message Sent');
+              }
+              
             })
             .catch(function (error) {
+              total++;
               console.log(error);
-              alert('Problem sending message');
+              if(total >= recipients.length){
+                alert('Problem sending message');
+              }
+              
             })
         });
       });
