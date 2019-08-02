@@ -134,6 +134,7 @@ Vue.component('element-standalone', {
 var app = new Vue({
   el: '#app',
   data: {
+    campaigns:[],
     cidx: -1,
     contents:{
       _id: '5d442cf2eb483d46cdadaabe',
@@ -372,14 +373,14 @@ var app = new Vue({
       { value: 'TALL', text: 'TALL' },
     ]
   },
-  beforeCreate(){
+  created(){
     const options = {
       method: 'GET',
       url: '/campaign/message'
     };
     axios(options)
       .then(function(response){
-        this.$campaigns = response.data[0];
+        this.campaigns = response.data[0];
         console.log(response.data);
       })
       .catch(function (error) {
