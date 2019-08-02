@@ -559,7 +559,7 @@ var app = new Vue({
             .then(function(response){
               total++;
               console.log(response.data);
-              if(total >= recipients.length){
+              if(total >= message.elements.length){
                 alert('Message Sent');
               }
               
@@ -567,7 +567,7 @@ var app = new Vue({
             .catch(function (error) {
               total++;
               console.log(error);
-              if(total >= recipients.length){
+              if(total >= message.elements.length){
                 alert('Problem sending message');
               }
               
