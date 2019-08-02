@@ -167,7 +167,7 @@ var campaign = connection.model('Campaign',new Schema(CampaignSchema,{collection
 
 var template = connection.model('Card',new Schema(TemplateSchema,{collection: 'Template',versionKey: false}));
 
-var MessageSet = connection.model('MessageSet',new Schema({MessageSetSchema},{collection: 'MessageSet',versionKey: false}));
+var MessageSet = connection.model('MessageSet',new Schema(MessageSetSchema,{collection: 'MessageSet',versionKey: false}));
 
 
 var db = {
