@@ -374,7 +374,7 @@ var app = new Vue({
       { value: 'TALL', text: 'TALL' },
     ]
   },
-  created(){
+  beforeCreate(){
     const options = {
       method: 'GET',
       url: '/campaign/message'
