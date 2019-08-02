@@ -154,7 +154,7 @@ axios(options)
         cidx: -1,
         campaigns: campaigns,
         campaign_list: campaign_list,
-        contents:campaigns[this.cidx], 
+        contents: campaigns[this.cidx] || {}, 
         idx: 0,
         tester: '',
         element_type: [
