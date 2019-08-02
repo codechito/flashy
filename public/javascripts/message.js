@@ -378,7 +378,7 @@ var app = new Vue({
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         data: JSON.stringify({'msisdn':msisdn}),
-        url: '/invite'
+        url: '/campaign/rcs/invite'
       };
       axios(options)
         .then(response => (console.log(response)))
