@@ -139,12 +139,14 @@ const options = {
 axios(options)
   .then(function(response){
     var campaigns = response.data[0];
+    var arrcampaign = [];
     var list = [];
     campaigns.forEach(function(campaign){
       list.push({
         value: campaign._id,
         text: campaign.campaign_name
       });
+      arrcampaign[campaign._id] = campaign;
     });
     var campaign_list = list;
 
@@ -152,7 +154,7 @@ axios(options)
       el: '#app',
       data: {
         cidx: -1,
-        campaigns: campaigns,
+        campaigns: arrcampaign,
         campaign_list: campaign_list,
         contents:{
           _id: '5d442cf2eb483d46cdadaabe',
