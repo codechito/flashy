@@ -378,7 +378,7 @@ var app = new Vue({
       var bodyFormData = new FormData();
       bodyFormData.set('msisdn', msisdn);
       axios
-        .post('/campaign/rcs/invite',bodyFormData)
+        .post('/campaign/rcs/invite',bodyFormData,{headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}})
         .then(response => (console.log(response)))
 
     }
