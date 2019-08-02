@@ -159,7 +159,7 @@ axios(options)
     var app = new Vue({
       el: '#app',
       data: {
-        cidx: 0,
+        cidx: 'new',
         campaigns: arrcampaign,
         campaign_list: campaign_list,
         contents:{
