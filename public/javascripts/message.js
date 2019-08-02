@@ -134,6 +134,7 @@ Vue.component('element-standalone', {
 var app = new Vue({
   el: '#app',
   data: {
+    campaigns:[],
     contents:{
       agent: 'SEQUENCER',
       campaign_name: 'Chito Campaign',
@@ -370,7 +371,25 @@ var app = new Vue({
       { value: 'TALL', text: 'TALL' },
     ]
   },
+  beforeMount(){
+      this.getCampaigns()
+  },
   methods: {
+
+    getCampaigns(){
+      const options = {
+        method: 'GET',
+        url: '/campaign/message'
+      };
+      axios(options)
+        .then(function(response){
+          this.campaigns = response.data;
+          console.log(response.data);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
     saveCampaign(){
       var content = this.contents
       const options = {
@@ -382,11 +401,11 @@ var app = new Vue({
       axios(options)
         .then(function(response){
           console.log(response.data);
-          alert('Invitation Sent');
+          alert('Campaign Saved');
         })
         .catch(function (error) {
           console.log(error);
-          alert('Problem inviting user, please ensure your phone is RCS enabled');
+          alert('Problem saving campaign');
         });
     },
     inviteTester(){
