@@ -36,7 +36,7 @@
               <div class="row">
                   <div class="col-sm-6">
                     <b-form-group>
-                        <b-form-select v-model="contents._id" :options="campaign_list" size="sm" class="form-control">
+                        <b-form-select v-model="cidx" :options="campaign_list" size="sm" class="form-control">
                             <option value="-1" >New Campaign</option>
                         </b-form-select>
                     </b-form-group>
@@ -51,7 +51,7 @@
                       </div>
                   </div>
               </div>
-              <div class="row justify-content-center">
+              <div v-if="cidx >= 0" class="row justify-content-center">
                   <div class="col-sm-12 main shadow rounded ">
                     <div class="header" >
                         <span v-if="idx >= 0">{{contents.messages[idx].message_name}}</span>
