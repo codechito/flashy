@@ -154,7 +154,6 @@ axios(options)
         cidx: -1,
         campaigns: campaigns,
         campaign_list: campaign_list,
-        contents: {}, 
         idx: -1,
         tester: '',
         element_type: [
@@ -191,24 +190,9 @@ axios(options)
       methods: {
         switchCampaign(){
           console.log(this.cidx,this.campaigns);
-          this.contents = this.campaigns[this.cidx] || {} 
-        },
-        getCampaigns(){
-          const options = {
-            method: 'GET',
-            url: '/campaign/message'
-          };
-          axios(options)
-            .then(function(response){
-              this.campaigns = response.data[0];
-              console.log(response.data);
-            })
-            .catch(function (error) {
-              console.log(error);
-            });
         },
         saveCampaign(){
-          var content = this.contents
+          var content = this.campaigns[cidx]
           const options = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -244,7 +228,7 @@ axios(options)
             });
         },
         sendMessage(){
-          var messages = this.contents.messages;
+          var messages = this.campaigns[cidx].messages;
           var message = messages[this.idx];
     
           var createSuggestion = function(element){
@@ -394,7 +378,7 @@ axios(options)
               }
           }
     
-          var recipients = this.contents.recipients.replace(" ","").split(",")
+          var recipients = this.campaigns[cidx].recipients.replace(" ","").split(",")
           var total = 0;
           message.elements.forEach(function(element){
             var template = createTemplate(element);

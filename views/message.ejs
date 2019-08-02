@@ -15,7 +15,7 @@
           <div class="col-sm-10 top shadow ">
               <div class="row">
                   <div class="col-sm-6">
-                      <h2><span class="badge badge-pill badge-light">RCS Campaign Creator - {{ contents.agent }}</span></h2>
+                      <h2><span class="badge badge-pill badge-light">RCS Campaign Creator - {{ campaigns[cidx]agent }}</span></h2>
                   </div>
                   <div class="col-sm-6">
                       <div class="row justify-content-end">
@@ -44,7 +44,7 @@
                   <div class="col-sm-6">
                       <div class="row justify-content-end">
                           <b-form-group description="Recipients">
-                                <b-form-input v-model="contents.recipients" size="sm" class="form-control custom-width" placeholder="+614XXXXXXXX, +614XXXXXXXX"></b-form-input>
+                                <b-form-input v-model="campaigns[cidx]recipients" size="sm" class="form-control custom-width" placeholder="+614XXXXXXXX, +614XXXXXXXX"></b-form-input>
                           </b-form-group>
                           <b-button v-on:click="sendMessage()" v-b-tooltip.hover title="Send Message" variant="info" size="sm" >SEND</b-button>
                       </form>
@@ -54,7 +54,7 @@
               <div class="row justify-content-center">
                   <div class="col-sm-12 main shadow rounded ">
                     <div class="header" >
-                        <span v-if="idx >= 0">{{contents.messages[idx].message_name}}</span>
+                        <span v-if="idx >= 0">{{campaigns[cidx]messages[idx].message_name}}</span>
                         <span v-if="idx == -1">New Message</span>
                         <b-button v-b-tooltip.hover title="Remove Message" variant="info" class="icon-button float-right" @click="closeTab(i)"><h3> &times; </h3></b-button>
                         <hr/><br/>
@@ -63,14 +63,14 @@
                         <b-form-group label="Choose Message" label-size="sm">
                             <b-form-select size="sm" class="form-control" v-model="idx">
                                 <option value="-1" >New Message</option>
-                                <option v-for="(message, key) in contents.messages" :value="key">{{ message.message_name }}</option>
+                                <option v-for="(message, key) in campaigns[cidx]messages" :value="key">{{ message.message_name }}</option>
                             </b-form-select>
                         </b-form-group>
                       <template v-if="idx >= 0">
                         <b-form-group label="Message Name" label-size="sm">
-                            <b-form-input v-model="contents.messages[idx].message_name" size="sm" class="form-control"></b-form-input>
+                            <b-form-input v-model="campaigns[cidx]messages[idx].message_name" size="sm" class="form-control"></b-form-input>
                         </b-form-group>
-                        <template v-for="(element, key) in contents.messages[idx].elements">
+                        <template v-for="(element, key) in campaigns[cidx]messages[idx].elements">
                             <div class="list-group shadow-sm rounded">
                                 <div class="header">
                                     <span>{{element.type}}</span>
@@ -119,7 +119,7 @@
           <div class="col-sm-1"></div>
           <div class="col-sm-10 bottom shadow row justify-content-start">
                 <b-form-group>
-                    <b-form-input v-model="contents.campaign_name" size="sm" class="form-control custom-width" placeholder="New Campaign"></b-form-input>
+                    <b-form-input v-model="campaigns[cidx]campaign_name" size="sm" class="form-control custom-width" placeholder="New Campaign"></b-form-input>
                 </b-form-group>
                 <b-button v-on:click="saveCampaign()" variant="info" size="sm" v-b-tooltip.hover title="Save Campaign" >SAVE</b-button>
           </div>
