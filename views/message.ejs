@@ -38,6 +38,7 @@
                     <b-form-group>
                         <b-form-select size="sm" class="form-control">
                             <option value="-1" >New Campaign</option>
+                            <option v-for="campaign in campaigns" :value="campaign._id">{{ campaign.campaign_name }}</option>
                         </b-form-select>
                     </b-form-group>
                   </div>
