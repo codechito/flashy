@@ -373,7 +373,7 @@ var app = new Vue({
   methods: {
     inviteTester(){
       console.log("chito tester",this.tester);
-      var msisdn = this.tester.replace("%2B","+");
+      var msisdn = this.tester.replace("+","%2B");
       console.log(msisdn);
       var bodyFormData = new FormData();
       bodyFormData.set('msisdn', msisdn);
