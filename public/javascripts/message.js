@@ -375,8 +375,10 @@ var app = new Vue({
       console.log("chito tester",this.tester);
       var msisdn = this.tester;
       console.log(msisdn);
+      var bodyFormData = new FormData();
+      bodyFormData.set('msisdn', msisdn);
       axios
-        .post('/campaign/rcs/invite',{msisdn:msisdn})
+        .post('/campaign/rcs/invite',{msisdn:msisdn},{headers: {'Content-Type': 'application/x-www-form-urlencoded'},})
         .then(response => (console.log(response)))
 
     }
