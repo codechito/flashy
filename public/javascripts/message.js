@@ -162,7 +162,7 @@ var app = new Vue({
             },
             {
               type: 'Image/Video',
-              imageurl: 'http://google.com',
+              imageurl: 'https://res.cloudinary.com/burst/image/upload/v1563398299/burst-sms-zapier-stripe-integration-email_yfghn7.jpg',
               suggestions:[
                 {
                   type: "Reply",
@@ -194,7 +194,7 @@ var app = new Vue({
             },
             {
               type: 'Image/Video',
-              imageurl: 'http://yahoo.com'
+              imageurl: 'https://res.cloudinary.com/burst/image/upload/v1563398299/burst-sms-zapier-stripe-integration-email_yfghn7.jpg'
             }
           ]
         },
@@ -210,8 +210,8 @@ var app = new Vue({
               orientation: "HORIZONTAL",
               height: "SHORT",
               alignment: "LEFT",
-              imageurl: 'http://yahoo.com',
-              tnurl: 'http://yahoo.com',
+              imageurl: 'https://res.cloudinary.com/burst/image/upload/v1563398299/burst-sms-zapier-stripe-integration-email_yfghn7.jpg',
+              tnurl: 'https://res.cloudinary.com/burst/image/upload/v1563398299/burst-sms-zapier-stripe-integration-email_yfghn7.jpg',
               title: "chito title 3",
               description: "chito description 3",
               suggestions:[
@@ -268,7 +268,7 @@ var app = new Vue({
               height: "SHORT",
               images:[
                 {
-                  imageurl: 'http://burstsms.com.au',
+                  imageurl: 'https://res.cloudinary.com/burst/image/upload/v1563398299/burst-sms-zapier-stripe-integration-email_yfghn7.jpg',
                   title: "chito title 4-1",
                   description: "chito description 4-1",
                   card_suggestions:[
@@ -292,12 +292,12 @@ var app = new Vue({
                   ]
                 },
                 {
-                  imageurl: 'http://burstsms.com.au',
+                  imageurl: 'https://res.cloudinary.com/burst/image/upload/v1563398299/burst-sms-zapier-stripe-integration-email_yfghn7.jpg',
                   title: "chito title 4-2",
                   description: "chito description 4-2"
                 },
                 {
-                  imageurl: 'http://burstsms.com.au',
+                  imageurl: 'https://res.cloudinary.com/burst/image/upload/v1563398299/burst-sms-zapier-stripe-integration-email_yfghn7.jpg',
                   title: "chito title 4-1",
                   description: "chito description 4-1",
                   card_suggestions:[
@@ -321,12 +321,12 @@ var app = new Vue({
                   ]
                 },
                 {
-                  imageurl: 'http://burstsms.com.au',
+                  imageurl: 'https://res.cloudinary.com/burst/image/upload/v1563398299/burst-sms-zapier-stripe-integration-email_yfghn7.jpg',
                   title: "chito title 4-2",
                   description: "chito description 4-2"
                 },
                 {
-                  imageurl: 'http://burstsms.com.au',
+                  imageurl: 'https://res.cloudinary.com/burst/image/upload/v1563398299/burst-sms-zapier-stripe-integration-email_yfghn7.jpg',
                   title: "chito title 4-1",
                   description: "chito description 4-1"
                 },
