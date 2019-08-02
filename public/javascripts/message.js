@@ -140,7 +140,7 @@ axios(options)
   .then(function(response){
     var campaigns = response.data[0];
     var list = [];
-    Vue.prototype.$campaigns.forEach(function(campaign){
+    campaigns.forEach(function(campaign){
       list.push({
         value: campaign._id,
         text: campaign.campaign_name
