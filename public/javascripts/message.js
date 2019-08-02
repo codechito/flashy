@@ -153,7 +153,9 @@ axios(options)
       value: 'new',
       text: 'New Campaign'
     });
-    arrcampaign['new'] = {messages:[{}]};
+    arrcampaign['new'] = {messages:[{
+      message_name: 'New Message'
+    }]};
     var campaign_list = list;
 
     var app = new Vue({
@@ -163,7 +165,7 @@ axios(options)
         campaigns: arrcampaign,
         campaign_list: campaign_list,
         contents:{
-          messages:[{}]
+          messages:[{ message_name: 'New Message'}]
         }, 
         idx: 0,
         tester: '',
