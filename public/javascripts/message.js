@@ -382,6 +382,10 @@ var app = new Vue({
       };
       axios(options)
         .then(response => (console.log(response)))
+        .catch(function (error) {
+          
+          console.log(error);
+        })
 
     }
   }
