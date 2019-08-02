@@ -157,7 +157,7 @@ axios(options)
         campaigns: arrcampaign,
         campaign_list: campaign_list,
         contents:{}, 
-        idx: 0,
+        idx: -1,
         tester: '',
         element_type: [
           { value: 'Text', text: 'Text' },
