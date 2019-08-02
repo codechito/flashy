@@ -154,7 +154,211 @@ axios(options)
         cidx: -1,
         campaigns: campaigns,
         campaign_list: campaign_list,
-        idx: -1,
+        contents:{
+          _id: '5d442cf2eb483d46cdadaabe',
+          agent: 'SEQUENCER',
+          campaign_name: 'Chito Campaign',
+          recipients: '+61447738379',
+          messages: [
+            {
+              message_name: 'Chito Message 1',
+              elements: [
+                {
+                  type: 'Text',
+                  message: 'Hello Text 1',
+                  suggestions:[
+                    {
+                      type: "Link URL",
+                      label: "Sample Link",
+                      callback: "xxxxxx",
+                      url: "https://www.google.com"
+                    },
+                    {
+                      type: "Dial Number",
+                      label: "Sample Call",
+                      callback: "xxxxxx",
+                      phoneNumber: "+639483184838"
+                    },
+                  ]
+                },
+                {
+                  type: 'Image/Video',
+                  imageurl: 'https://res.cloudinary.com/burst/image/upload/v1563398299/burst-sms-zapier-stripe-integration-email_yfghn7.jpg',
+                  suggestions:[
+                    {
+                      type: "Reply",
+                      label: "Sample Reply",
+                      callback: "xxxxxx"
+                    },
+                    {
+                      type: "Link URL",
+                      label: "Sample Link",
+                      callback: "xxxxxx",
+                      url: "https://www.google.com"
+                    },
+                    {
+                      type: "Dial Number",
+                      label: "Sample Call",
+                      callback: "xxxxxx",
+                      phoneNumber: "+639483184838"
+                    },
+                  ]
+                }
+              ]
+            },
+            {
+              message_name: 'Chito Message 2',
+              elements: [
+                {
+                  type: 'Text',
+                  message: 'Hello Text 2'
+                },
+                {
+                  type: 'Image/Video',
+                  imageurl: 'https://res.cloudinary.com/burst/image/upload/v1563398299/burst-sms-zapier-stripe-integration-email_yfghn7.jpg'
+                }
+              ]
+            },
+            {
+              message_name: 'Chito Message 3',
+              elements: [
+                {
+                  type: 'Text',
+                  message: 'Hello Text 3'
+                },
+                {
+                  type: 'Standalone',
+                  orientation: "HORIZONTAL",
+                  height: "SHORT",
+                  alignment: "LEFT",
+                  imageurl: 'https://res.cloudinary.com/burst/image/upload/v1563398299/burst-sms-zapier-stripe-integration-email_yfghn7.jpg',
+                  tnurl: 'https://res.cloudinary.com/burst/image/upload/v1563398299/burst-sms-zapier-stripe-integration-email_yfghn7.jpg',
+                  title: "chito title 3",
+                  description: "chito description 3",
+                  suggestions:[
+                    {
+                      type: "Reply",
+                      label: "Sample Reply",
+                      callback: "xxxxxx"
+                    },
+                    {
+                      type: "Link URL",
+                      label: "Sample Link",
+                      callback: "xxxxxx",
+                      url: "https://www.google.com"
+                    },
+                  ],
+                  card_suggestions:[
+                    {
+                      type: "Reply",
+                      label: "Sample Reply",
+                      callback: "xxxxxx"
+                    },
+                    {
+                      type: "Dial Number",
+                      label: "Sample Call",
+                      callback: "xxxxxx",
+                      phoneNumber: "+639483184838"
+                    },
+                    {
+                      type: "Calendar Invite",
+                      label: "Sample Invite",
+                      callback: "xxxxxx",
+                      startTime: "2020-06-30T19:00:00Z",
+                      endTime: "2020-06-30T20:00:00Z",
+                      title: "My Birthday",
+                      description: "Join my birthday"
+                    },
+                    {
+                      type: "View Location",
+                      label: "Sample Location",
+                      callback: "xxxxxx",
+                      latitude: 37.4220188,
+                      longitude: -122.0844786
+                    }
+                  ]
+                },
+              ]
+            },
+            {
+              message_name: 'Chito Message 4',
+              elements: [
+                {
+                  type: 'Carousel',
+                  width: "SMALL",
+                  height: "SHORT",
+                  images:[
+                    {
+                      imageurl: 'https://res.cloudinary.com/burst/image/upload/v1563398299/burst-sms-zapier-stripe-integration-email_yfghn7.jpg',
+                      title: "chito title 4-1",
+                      description: "chito description 4-1",
+                      card_suggestions:[
+                        {
+                          type: "Reply",
+                          label: "Sample Reply",
+                          callback: "xxxxxx"
+                        },
+                        {
+                          type: "Link URL",
+                          label: "Sample Link",
+                          callback: "xxxxxx",
+                          url: "https://www.google.com"
+                        },
+                        {
+                          type: "Dial Number",
+                          label: "Sample Call",
+                          callback: "xxxxxx",
+                          phoneNumber: "+639483184838"
+                        },
+                      ]
+                    },
+                    {
+                      imageurl: 'https://res.cloudinary.com/burst/image/upload/v1563398299/burst-sms-zapier-stripe-integration-email_yfghn7.jpg',
+                      title: "chito title 4-2",
+                      description: "chito description 4-2"
+                    },
+                    {
+                      imageurl: 'https://res.cloudinary.com/burst/image/upload/v1563398299/burst-sms-zapier-stripe-integration-email_yfghn7.jpg',
+                      title: "chito title 4-1",
+                      description: "chito description 4-1",
+                      card_suggestions:[
+                        {
+                          type: "Reply",
+                          label: "Sample Reply",
+                          callback: "xxxxxx"
+                        },
+                        {
+                          type: "Link URL",
+                          label: "Sample Link",
+                          callback: "xxxxxx",
+                          url: "https://www.google.com"
+                        },
+                        {
+                          type: "Dial Number",
+                          label: "Sample Call",
+                          callback: "xxxxxx",
+                          phoneNumber: "+639483184838"
+                        },
+                      ]
+                    },
+                    {
+                      imageurl: 'https://res.cloudinary.com/burst/image/upload/v1563398299/burst-sms-zapier-stripe-integration-email_yfghn7.jpg',
+                      title: "chito title 4-2",
+                      description: "chito description 4-2"
+                    },
+                    {
+                      imageurl: 'https://res.cloudinary.com/burst/image/upload/v1563398299/burst-sms-zapier-stripe-integration-email_yfghn7.jpg',
+                      title: "chito title 4-1",
+                      description: "chito description 4-1"
+                    },
+                  ]
+                  
+                },
+              ]
+            }
+          ]
+        }, 
+        idx: 0,
         tester: '',
         element_type: [
           { value: 'Text', text: 'Text' },
@@ -188,11 +392,23 @@ axios(options)
         ]
       },
       methods: {
-        switchCampaign(){
-          console.log(this.cidx,this.campaigns);
+    
+        getCampaigns(){
+          const options = {
+            method: 'GET',
+            url: '/campaign/message'
+          };
+          axios(options)
+            .then(function(response){
+              this.campaigns = response.data[0];
+              console.log(response.data);
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
         },
         saveCampaign(){
-          var content = this.campaigns[cidx]
+          var content = this.contents
           const options = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -228,7 +444,7 @@ axios(options)
             });
         },
         sendMessage(){
-          var messages = this.campaigns[cidx].messages;
+          var messages = this.contents.messages;
           var message = messages[this.idx];
     
           var createSuggestion = function(element){
@@ -378,7 +594,7 @@ axios(options)
               }
           }
     
-          var recipients = this.campaigns[cidx].recipients.replace(" ","").split(",")
+          var recipients = this.contents.recipients.replace(" ","").split(",")
           var total = 0;
           message.elements.forEach(function(element){
             var template = createTemplate(element);
