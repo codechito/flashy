@@ -135,7 +135,7 @@ var app = new Vue({
   el: '#app',
   data: {
     contents:{
-      agent: 'Sequencer',
+      agent: 'SEQUENCER',
       campaign_name: 'Chito Campaign',
       recipients: '+61447738379',
       messages: [
@@ -371,8 +371,25 @@ var app = new Vue({
     ]
   },
   methods: {
+    saveCampaign(){
+      var content = this.contents
+      const options = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        data: { content: JSON.stringify(content) },
+        url: '/campaign/message'
+      };
+      axios(options)
+        .then(function(response){
+          console.log(response.data);
+          alert('Invitation Sent');
+        })
+        .catch(function (error) {
+          console.log(error);
+          alert('Problem inviting user, please ensure your phone is RCS enabled');
+        });
+    },
     inviteTester(){
-      console.log("chito tester",this.tester);
       var msisdn = this.tester
       const options = {
         method: 'POST',

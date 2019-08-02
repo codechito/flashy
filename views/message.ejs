@@ -121,7 +121,7 @@
                 <b-form-group>
                     <b-form-input v-model="contents.campaign_name" size="sm" class="form-control custom-width" placeholder="New Campaign"></b-form-input>
                 </b-form-group>
-                <b-button variant="info" size="sm" v-b-tooltip.hover title="Save Campaign" >SAVE</b-button>
+                <b-button v-on:click="saveCampaign()" variant="info" size="sm" v-b-tooltip.hover title="Save Campaign" >SAVE</b-button>
           </div>
           <div class="col-sm-1"></div>
       </div>
