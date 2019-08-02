@@ -373,12 +373,12 @@ var app = new Vue({
   methods: {
     inviteTester(){
       console.log("chito tester",this.tester);
-      var msisdn = this.tester;
+      var msisdn = this.tester.replace("%2B","+");
       console.log(msisdn);
       var bodyFormData = new FormData();
       bodyFormData.set('msisdn', msisdn);
       axios
-        .post('/campaign/rcs/invite',{msisdn:msisdn},{headers: {'Content-Type': 'application/x-www-form-urlencoded'},})
+        .post('/campaign/rcs/invite',bodyFormData)
         .then(response => (console.log(response)))
 
     }
