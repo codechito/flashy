@@ -381,10 +381,13 @@ var app = new Vue({
         url: '/campaign/rcs/invite'
       };
       axios(options)
-        .then(response => (console.log(response)))
+        .then(function(response){
+          console.log(response);
+          alert('Invitation Sent');
+        })
         .catch(function (error) {
-          
           console.log(error);
+          alert('Problem inviting user, please ensure your phone is RCS enabled');
         })
 
     }
