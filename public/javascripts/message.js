@@ -135,7 +135,9 @@ var app = new Vue({
   el: '#app',
   data: {
     campaigns:[],
+    cidx: -1,
     contents:{
+      _id: '5d442cf2eb483d46cdadaabe',
       agent: 'SEQUENCER',
       campaign_name: 'Chito Campaign',
       recipients: '+61447738379',
