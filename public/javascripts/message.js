@@ -371,7 +371,7 @@ var app = new Vue({
       { value: 'TALL', text: 'TALL' },
     ]
   },
-  beforeMount(){
+  beforeCreate(){
       this.getCampaigns()
   },
   methods: {
