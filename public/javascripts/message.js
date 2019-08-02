@@ -138,7 +138,7 @@ const options = {
 
 axios(options)
   .then(function(response){
-    Vue.prototype.$campaigns = response.data[0];
+    var campaigns = response.data[0];
     var list = [];
     Vue.prototype.$campaigns.forEach(function(campaign){
       list.push({
@@ -146,12 +146,14 @@ axios(options)
         text: campaign.campaign_name
       });
     });
-    Vue.prototype.$campaign_list = list;
+    var campaign_list = list;
 
     var app = new Vue({
       el: '#app',
       data: {
         cidx: -1,
+        campaigns: campaigns,
+        campaign_list: campaign_list,
         contents:{
           _id: '5d442cf2eb483d46cdadaabe',
           agent: 'SEQUENCER',
