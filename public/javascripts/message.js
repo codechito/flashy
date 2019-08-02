@@ -147,17 +147,25 @@ axios(options)
         text: campaign.campaign_name
       });
       arrcampaign[campaign._id] = campaign;
+      
     });
+    list.push({
+      value: 'new',
+      text: 'New Campaign'
+    });
+    arrcampaign['new'] = {};
     var campaign_list = list;
 
     var app = new Vue({
       el: '#app',
       data: {
-        cidx: -1,
+        cidx: 0,
         campaigns: arrcampaign,
         campaign_list: campaign_list,
-        contents:{}, 
-        idx: -1,
+        contents:{
+          messages:[{}]
+        }, 
+        idx: 0,
         tester: '',
         element_type: [
           { value: 'Text', text: 'Text' },
@@ -212,7 +220,7 @@ axios(options)
             });
         },
         saveCampaign(){
-          var content = this.contents
+          var content = this.contents;
           const options = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },

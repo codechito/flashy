@@ -37,7 +37,6 @@
                   <div class="col-sm-6">
                     <b-form-group>
                         <b-form-select v-on:change="switchCampaign()" v-model="cidx" :options="campaign_list" size="sm" class="form-control">
-                            <option value="-1" >New Campaign</option>
                         </b-form-select>
                     </b-form-group>
                   </div>
@@ -54,19 +53,17 @@
               <div class="row justify-content-center">
                   <div class="col-sm-12 main shadow rounded ">
                     <div class="header" >
-                        <span v-if="idx >= 0">{{contents.messages[idx].message_name}}</span>
-                        <span v-if="idx == -1">New Message</span>
+                        <span>{{contents.messages[idx].message_name}}</span>
                         <b-button v-b-tooltip.hover title="Remove Message" variant="info" class="icon-button float-right" @click="closeTab(i)"><h3> &times; </h3></b-button>
                         <hr/><br/>
                     </div>
                     <div>
                         <b-form-group label="Choose Message" label-size="sm">
                             <b-form-select size="sm" class="form-control" v-model="idx">
-                                <option value="-1" >New Message</option>
                                 <option v-for="(message, key) in contents.messages" :value="key">{{ message.message_name }}</option>
                             </b-form-select>
                         </b-form-group>
-                      <template v-if="idx >= 0">
+                      <template>
                         <b-form-group label="Message Name" label-size="sm">
                             <b-form-input v-model="contents.messages[idx].message_name" size="sm" class="form-control"></b-form-input>
                         </b-form-group>
@@ -99,13 +96,6 @@
                             </div>
                             
                         </template>
-                        <button type="button" class="btn btn-info icon-button" v-b-tooltip.hover title="Add New Element"><h3> + </h3></button>
-                      </template>
-                      <template v-if="idx == -1">
-                        <div class="form-group">
-                            <label >Message Name</label>
-                            <input type="message_name" class="form-control" id="campaign_name">
-                        </div>
                         <button type="button" class="btn btn-info icon-button" v-b-tooltip.hover title="Add New Element"><h3> + </h3></button>
                       </template>
                     </div>
