@@ -95,16 +95,85 @@ const CampaignSchema = {
   "status": { type: Boolean, default: true }
 };
 
+const MessageSetSchema = {
+  "agent": { type: String },
+  "campaign_name": { type: String },
+  "recipients": { type: String },
+  "messages": [{
+    "message_name": { type: String },
+    "elements": [{
+      "type": { type: String },
+      "message": { type: String },
+      "imageurl": { type: String },
+      "orientation": { type: String },
+      "alignment": { type: String },
+      "tnurl": { type: String },
+      "title": { type: String },
+      "description": { type: String },
+      "width": { type: String },
+      "height": { type: String },
+      "card_suggestions": [{
+        "type": { type: String },
+        "label": { type: String },
+        "callback": { type: String },
+        "url": { type: String },
+        "phoneNumber": { type: String },
+        "startTime": { type: String },
+        "endTime": { type: String },
+        "title": { type: String },
+        "description": { type: String },
+        "latitude": { type: String },
+        "longitude": { type: String },
+      }],
+      "images": [{
+        "imageurl": { type: String },
+        "title": { type: String },
+        "description": { type: String },
+        "card_suggestions": [{
+          "type": { type: String },
+          "label": { type: String },
+          "callback": { type: String },
+          "url": { type: String },
+          "phoneNumber": { type: String },
+          "startTime": { type: String },
+          "endTime": { type: String },
+          "title": { type: String },
+          "description": { type: String },
+          "latitude": { type: String },
+          "longitude": { type: String },
+        }]
+      }],
+      "suggestions": [{
+        "type": { type: String },
+        "label": { type: String },
+        "callback": { type: String },
+        "url": { type: String },
+        "phoneNumber": { type: String },
+        "startTime": { type: String },
+        "endTime": { type: String },
+        "title": { type: String },
+        "description": { type: String },
+        "latitude": { type: String },
+        "longitude": { type: String },
+      }],
+    }]
+  }],
+}
+
+
 var connection = mongoose.createConnection(config.mongodburl,{useNewUrlParser: true});
 
 var campaign = connection.model('Campaign',new Schema(CampaignSchema,{collection: 'Campaign',versionKey: false}));
 
 var template = connection.model('Card',new Schema(TemplateSchema,{collection: 'Template',versionKey: false}));
 
+var MessageSet = connection.model('MessageSet',new Schema({MessageSetSchema},{collection: 'MessageSet',versionKey: false}));
+
 
 var db = {
   Campaign : campaign,
-  Template : template
+  Template : template,
+  MessageSet: MessageSet
 };
 
 module.exports = function(emitter){

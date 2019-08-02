@@ -388,7 +388,7 @@ var app = new Vue({
         .catch(function (error) {
           console.log(error);
           alert('Problem inviting user, please ensure your phone is RCS enabled');
-        })
+        });
     },
     sendMessage(){
       var messages = this.contents.messages;
