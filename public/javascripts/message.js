@@ -383,7 +383,7 @@ var app = new Vue({
       };
       axios(options)
         .then(function(response){
-          this.campaigns = response.data;
+          this.campaigns = response.data[0];
           console.log(response.data);
         })
         .catch(function (error) {
