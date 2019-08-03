@@ -3,7 +3,7 @@ Vue.component('suggestion', {
   methods: {
     removeSuggestion(){
       console.log(suggestion);
-      this.contents.messages[this.idx].elements[sidx].suggestions.splice(csidx, 1);
+      this.contents.messages[this.idx].elements[this.sidx].suggestions.splice(this.csidx, 1);
     },
   },
   template: `
