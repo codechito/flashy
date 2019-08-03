@@ -248,7 +248,8 @@ var app = new Vue({
         });
     },
     saveCampaign(){
-      var content = this.contents;
+      var content = JSON.parse(JSON.stringify(this.contents));
+      
       var method = 'POST';
 
       content.messages.filter(function(elem,index){
@@ -258,7 +259,7 @@ var app = new Vue({
       });
 
       var value = JSON.stringify({ content: JSON.stringify(content) });
-      if(this.contents._id){
+      if(content._id){
         method = "PUT";
         value = JSON.stringify({ content: JSON.stringify([content]) });
       }
