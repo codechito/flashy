@@ -14,7 +14,6 @@ Vue.component('suggestion', {
   template: `
   <div class="suggestion">
     <span>{{suggestion.type}}</span>
-    <b-button v-on:click="removeSuggestion()" v-b-tooltip.hover title="Remove suggestion" variant="info" class="icon-button float-right" ><h3> &times; </h3></b-button>
     <b-button v-if="suggestion.type == 'Standalone'" v-on:click="removeCardSuggestion()" v-b-tooltip.hover title="Remove suggestion" variant="info" class="icon-button float-right" ><h3> &times; </h3></b-button>
     <b-button v-else-if="suggestion.type == 'Carousel'" v-on:click="removeImageCardSuggestion()" v-b-tooltip.hover title="Remove suggestion" variant="info" class="icon-button float-right" ><h3> &times; </h3></b-button>
     <b-button v-else v-on:click="removeSuggestion()" v-b-tooltip.hover title="Remove suggestion" variant="info" class="icon-button float-right" ><h3> &times; </h3></b-button>
