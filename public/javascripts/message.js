@@ -1,5 +1,5 @@
 Vue.component('suggestion', {
-  props: ['contents','suggestion','suggestion_type','idx','sidx', 'csidx','imgidx','simgdx'],
+  props: ['contents','element','suggestion','suggestion_type','idx','sidx', 'csidx','imgidx','simgdx'],
   methods: {
     removeSuggestion(){
       this.contents.messages[this.idx].elements[this.sidx].suggestions.splice(this.csidx, 1);
