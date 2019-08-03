@@ -187,6 +187,7 @@ var app = new Vue({
       this.contents.messages[this.idx].elements[sidx].suggestions.push({
         type: 'Link URL'
       });
+      console.log(this.contents);
     }, 
     element_change(){
       var newExist = false;
