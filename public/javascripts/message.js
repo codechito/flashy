@@ -16,8 +16,8 @@ Vue.component('suggestion', {
   template: `
   <div class="suggestion">
     <span>{{suggestion.type}}</span>
-    <b-button v-if="suggestion.type == 'Standalone'" v-on:click="removeCardSuggestion()" v-b-tooltip.hover title="Remove suggestion" variant="info" class="icon-button float-right" ><h3> &times; </h3></b-button>
-    <b-button v-else-if="suggestion.type == 'Carousel'" v-on:click="removeImageCardSuggestion()" v-b-tooltip.hover title="Remove suggestion" variant="info" class="icon-button float-right" ><h3> &times; </h3></b-button>
+    <b-button v-if="element.type == 'Standalone'" v-on:click="removeCardSuggestion()" v-b-tooltip.hover title="Remove suggestion" variant="info" class="icon-button float-right" ><h3> &times; </h3></b-button>
+    <b-button v-else-if="element.type == 'Carousel'" v-on:click="removeImageCardSuggestion()" v-b-tooltip.hover title="Remove suggestion" variant="info" class="icon-button float-right" ><h3> &times; </h3></b-button>
     <b-button v-else v-on:click="removeSuggestion()" v-b-tooltip.hover title="Remove suggestion" variant="info" class="icon-button float-right" ><h3> &times; </h3></b-button>
     <hr/><br/>
     <b-form-group description="Suggestion Type" label-size="sm">
@@ -102,7 +102,7 @@ Vue.component('element-carousel', {
                 <b-form-textarea v-model="image.description" size="sm" class="form-control"></b-form-textarea>
               </b-form-group>
               <b-button variant="outline-info" size="sm" href="#">New Card Suggestion</b-button>
-              <suggestion v-for="(suggestion, ckey) in image.card_suggestions" v-bind:csidx="ckey" v-bind:contents="contents" v-bind:idx="idx" v-bind:sidx="sidx" v-bind:imgidx="imgkey" v-bind:suggestion="suggestion" v-bind:suggestion_type="suggestion_type"></suggestion>
+              <suggestion v-for="(suggestion, ckey) in image.card_suggestions" v-bind:csidx="ckey" v-bind:element="element" v-bind:contents="contents" v-bind:idx="idx" v-bind:sidx="sidx" v-bind:imgidx="imgkey" v-bind:suggestion="suggestion" v-bind:suggestion_type="suggestion_type"></suggestion>
             </b-card-text>
           </b-tab>
           <template v-if="element.images && element.images.length < 10" slot="tabs-end">
@@ -148,7 +148,7 @@ Vue.component('element-standalone', {
       <b-form-textarea v-model="element.description" size="sm" class="form-control"></b-form-textarea>
     </b-form-group>
     <b-button v-on:click="addCardSuggestion(sidx)" variant="outline-info" size="sm" href="#">New Card Suggestion</b-button>
-    <suggestion v-for="(suggestion, ckey) in element.card_suggestions" v-bind:simgdx="ckey" v-bind:key="ckey" v-bind:contents="contents" v-bind:idx="idx" v-bind:sidx="sidx" v-bind:suggestion="suggestion" v-bind:suggestion_type="suggestion_type"></suggestion>
+    <suggestion v-for="(suggestion, ckey) in element.card_suggestions" v-bind:simgdx="ckey" v-bind:element="element" v-bind:key="ckey" v-bind:contents="contents" v-bind:idx="idx" v-bind:sidx="sidx" v-bind:suggestion="suggestion" v-bind:suggestion_type="suggestion_type"></suggestion>
   </div>
   `
 });
