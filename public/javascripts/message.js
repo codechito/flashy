@@ -2,16 +2,13 @@ Vue.component('suggestion', {
   props: ['contents','suggestion','suggestion_type','idx','sidx', 'csidx','imgidx','simgdx'],
   methods: {
     removeSuggestion(){
-      if(this.imgidx){
-        this.contents.messages[this.idx].elements[this.sidx].images[this.imgidx].card_suggestions.splice(this.csidx, 1);
-      }
-      else if(this.simgdx){
-        this.contents.messages[this.idx].elements[this.sidx].card_suggestions.splice(this.simgdx, 1);
-      }
-      else{
-        this.contents.messages[this.idx].elements[this.sidx].suggestions.splice(this.csidx, 1);
-      }
-      
+      this.contents.messages[this.idx].elements[this.sidx].suggestions.splice(this.csidx, 1);
+    },
+    removeCardSuggestion(){
+      this.contents.messages[this.idx].elements[this.sidx].card_suggestions.splice(this.simgdx, 1);
+    },
+    removeImageCardSuggestion(){
+      this.contents.messages[this.idx].elements[this.sidx].images[this.imgidx].card_suggestions.splice(this.csidx, 1); 
     }
   },
   template: `
