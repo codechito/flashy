@@ -499,7 +499,7 @@ axios(options)
         }
       },
       mounted : function () {
-        app.getCampaigns();
+        this.getCampaigns();
       }
     });
     console.log(response.data);
