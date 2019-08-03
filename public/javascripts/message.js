@@ -143,7 +143,7 @@ var app = new Vue({
     campaigns: [],
     campaign_list: [],
     contents:{
-      messages:[{ message_name: 'New Message' ,elements:[]}]
+      messages:[{ message_name: 'New Message' ,elements:[{suggestions:[],card_suggestions:[]}]}]
     }, 
     idx: 0,
     tester: '',
@@ -180,14 +180,9 @@ var app = new Vue({
   },
   methods: {
     addSuggestion(sidx){
-      console.log(sidx,!this.contents.messages[this.idx].elements[sidx].suggestions);
-      if(!this.contents.messages[this.idx].elements[sidx].suggestions){
-        this.contents.messages[this.idx].elements[sidx].suggestions = [];
-      }
       this.contents.messages[this.idx].elements[sidx].suggestions.push({
         type: 'Link URL'
       });
-      console.log(this.contents);
     }, 
     element_change(){
       var newExist = false;
