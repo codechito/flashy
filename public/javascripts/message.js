@@ -204,7 +204,7 @@ axios(options)
       methods: {
         element_change(){
           
-          var newExist = this.contents.messages[this.idx].elements.filter(function(elem){
+          var newExist = this.contents.messages[this.idx].filter(function(elem){
               if(elem.message_name == "New Message") return true;
           });
 
