@@ -5,6 +5,7 @@ Vue.component('suggestion', {
       this.contents.messages[this.idx].elements[this.sidx].suggestions.splice(this.csidx, 1);
     },
     removeCardSuggestion(){
+      console.log("chito");
       console.log("this.contents.messages[this.idx].elements[this.sidx].card_suggestions",this.contents.messages[this.idx].elements[this.sidx].card_suggestions);
       this.contents.messages[this.idx].elements[this.sidx].card_suggestions.splice(this.simgdx, 1);
     },
