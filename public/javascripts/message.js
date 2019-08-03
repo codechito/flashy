@@ -116,6 +116,13 @@ Vue.component('element-carousel', {
 
 Vue.component('element-standalone', {
   props: ['contents','element','suggestion_type','card_orientation_type','thumbnail_alignment_type', 'image_height_type','idx','sidx'],
+  methods: {
+    addCardSuggestion(sidx){
+      this.contents.messages[this.idx].elements[sidx].card_suggestions.push({
+        type: 'Link URL'
+      });
+    }, 
+  },
   template: `
   <div>
     <b-form-group label="Card Orientation" label-size="sm">
@@ -139,7 +146,7 @@ Vue.component('element-standalone', {
     <b-form-group label="Description" label-size="sm">
       <b-form-textarea v-model="element.description" size="sm" class="form-control"></b-form-textarea>
     </b-form-group>
-    <b-button variant="outline-info" size="sm" href="#">New Card Suggestion</b-button>
+    <b-button v-on:click="addCardSuggestion(key)" variant="outline-info" size="sm" href="#">New Card Suggestion</b-button>
     <suggestion v-for="(suggestion, ckey) in element.card_suggestions" v-bind:simgdx="ckey" v-bind:key="ckey" v-bind:contents="contents" v-bind:idx="idx" v-bind:sidx="sidx" v-bind:suggestion="suggestion" v-bind:suggestion_type="suggestion_type"></suggestion>
   </div>
   `
