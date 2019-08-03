@@ -2,7 +2,7 @@ Vue.component('suggestion', {
   props: ['contents','suggestion','suggestion_type','idx','sidx','key'],
   methods: {
     removeSuggestion(){
-      console.log(suggestion);
+
       this.contents.messages[this.idx].elements[this.sidx].suggestions.splice(this.csidx, 1);
     },
   },
