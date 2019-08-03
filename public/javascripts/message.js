@@ -202,7 +202,7 @@ axios(options)
       },
       methods: {
         removeElement(){
-          delete this.contents.messages[idx];
+          delete this.contents.messages[this.idx];
         },
         switchCampaign(){
           console.log(this.cidx,this.campaigns[this.cidx]);
