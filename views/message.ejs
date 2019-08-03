@@ -54,7 +54,7 @@
                   <div class="col-sm-12 main shadow rounded ">
                     <div class="header" >
                         <span>{{contents.messages[idx].message_name}}</span>
-                        <b-button v-if="contents.messages[idx] != 'New Message'" v-on:click="removeElement()" v-b-tooltip.hover title="Remove Message" variant="info" class="icon-button float-right" ><h3> &times; </h3></b-button>
+                        <b-button v-if="contents.messages[idx].message_name != 'New Message'" v-on:click="removeElement()" v-b-tooltip.hover title="Remove Message" variant="info" class="icon-button float-right" ><h3> &times; </h3></b-button>
                         <hr/><br/>
                     </div>
                     <div>
