@@ -180,7 +180,7 @@ var app = new Vue({
   },
   methods: {
     addSuggestion(sidx){
-      console.log(sidx);
+      console.log(sidx,!this.contents.messages[this.idx].elements[sidx].suggestions);
       if(!this.contents.messages[this.idx].elements[sidx].suggestions){
         this.contents.messages[this.idx].elements[sidx].suggestions = [];
       }
