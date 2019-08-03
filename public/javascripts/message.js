@@ -202,12 +202,15 @@ axios(options)
         ]
       },
       methods: {
-        addElement(){
+        addElement(key){
           this.contents.messages[this.idx].elements.push({
             type: 'Text'
           });
         },
         removeElement(){
+          this.contents.messages[this.idx].elements.splice(this.idx, 1);
+        },
+        removeMessage(){
           this.contents.messages.splice(this.idx, 1);
         },
         switchCampaign(){
