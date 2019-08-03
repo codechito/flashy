@@ -286,6 +286,7 @@ axios(options)
           axios(options)
             .then(function(response){
               console.log(response.data);
+              this.getCampaigns();
               alert('Campaign Saved');
             })
             .catch(function (error) {
