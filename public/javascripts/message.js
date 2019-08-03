@@ -202,6 +202,17 @@ axios(options)
         ]
       },
       methods: {
+        element_change(){
+          
+          var newExist = this.contents.messages[this.idx].elements.filter(function(elem){
+              if(message_name.Name == "New Message") return true;
+          });
+
+          if(!newExist){
+            this.contents.messages.push({ message_name: 'New Message' ,elements:[]});
+          }
+          
+        },
         addElement(key){
           this.contents.messages[this.idx].elements.push({
             type: 'Text'

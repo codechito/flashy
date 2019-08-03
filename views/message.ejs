@@ -65,7 +65,7 @@
                         </b-form-group>
                       <template>
                         <b-form-group label="Message Name" label-size="sm">
-                            <b-form-input v-model="contents.messages[idx].message_name" size="sm" class="form-control"></b-form-input>
+                            <b-form-input v-on:input="element_change()" v-model="contents.messages[idx].message_name" size="sm" class="form-control"></b-form-input>
                         </b-form-group>
                         <template v-for="(element, key) in contents.messages[idx].elements">
                             <div class="list-group shadow-sm rounded">
