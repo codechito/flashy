@@ -213,7 +213,7 @@ axios(options)
           }
 
         },
-        addElement(key){
+        addElement(){
           this.contents.messages[this.idx].elements.push({
             type: 'Text'
           });
@@ -250,13 +250,15 @@ axios(options)
         saveCampaign(){
           var content = this.contents;
           var method = 'POST';
+          var value = JSON.stringify({ content: JSON.stringify(content) });
           if(this.contents._id){
-            method = "PUT"
+            method = "PUT";
+            value = JSON.stringify({ content: JSON.stringify([content]) });
           }
           const options = {
             method: method,
             headers: { 'Content-Type': 'application/json' },
-            data: JSON.stringify({ content: JSON.stringify(content) }),
+            data: value,
             url: '/campaign/message'
           };
           axios(options)
