@@ -1,5 +1,5 @@
 Vue.component('suggestion', {
-  props: ['contents','suggestion','suggestion_type','idx','sidx', 'csidx','imgidx'],
+  props: ['contents','suggestion','suggestion_type','idx','sidx', 'csidx','imgidx','simgdx'],
   methods: {
     removeSuggestion(){
       if(this.imgidx){
