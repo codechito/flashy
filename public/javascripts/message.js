@@ -202,7 +202,6 @@ var app = new Vue({
       this.contents.messages.splice(this.idx, 1);
     },
     switchCampaign(){
-      console.log(this.cidx,this.campaigns[this.cidx]);
       this.contents = this.campaigns[this.cidx] || {};
       if(this.contents.messages.length > 1){
         this.contents.messages.push({ message_name: 'New Message',elements:[]});
@@ -240,8 +239,13 @@ var app = new Vue({
           var campaign_list = list;
           vm.campaigns = arrcampaign,
           vm.campaign_list = campaign_list,
+          vm.contents = vm.campaigns[vm.cidx] || {};
+
+          if(vm.contents.messages.length > 1){
+            vm.contents.messages.push({ message_name: 'New Message',elements:[]});
+          }
+          vm.idx = 0;
           
-          console.log(response.data);
         })
         .catch(function (error) {
           console.log(error);
@@ -272,6 +276,11 @@ var app = new Vue({
       axios(options)
         .then(function(response){
           console.log(response.data);
+          
+          if(method == "POST"){
+            app.cidx = response.data[0][0]._id;
+          }
+
           app.getCampaigns();
           alert('Campaign Saved');
         })
