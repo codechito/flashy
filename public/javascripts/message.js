@@ -181,9 +181,9 @@ var app = new Vue({
   methods: {
     element_change(){
       var newExist = false;
-      // this.contents.messages.filter(function(elem){
-      //     if(elem.message_name == "New Message") newExist = true;
-      // });
+      this.contents.messages.filter(function(elem){
+          if(elem.message_name == "New Message") newExist = true;
+      });
 
       if(!newExist){
         this.contents.messages.push({ message_name: 'New Message' ,elements:[]});
@@ -203,6 +203,7 @@ var app = new Vue({
     },
     switchCampaign(){
       this.contents = this.campaigns[this.cidx] || {};
+      console.log("this.contents.messages.length",this.contents.messages.length);
       if(this.contents.messages.length > 1){
         this.contents.messages.push({ message_name: 'New Message',elements:[]});
       }
