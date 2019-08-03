@@ -146,7 +146,7 @@ Vue.component('element-standalone', {
     <b-form-group label="Description" label-size="sm">
       <b-form-textarea v-model="element.description" size="sm" class="form-control"></b-form-textarea>
     </b-form-group>
-    <b-button v-on:click="addCardSuggestion(key)" variant="outline-info" size="sm" href="#">New Card Suggestion</b-button>
+    <b-button v-on:click="addCardSuggestion(sidx)" variant="outline-info" size="sm" href="#">New Card Suggestion</b-button>
     <suggestion v-for="(suggestion, ckey) in element.card_suggestions" v-bind:simgdx="ckey" v-bind:key="ckey" v-bind:contents="contents" v-bind:idx="idx" v-bind:sidx="sidx" v-bind:suggestion="suggestion" v-bind:suggestion_type="suggestion_type"></suggestion>
   </div>
   `
