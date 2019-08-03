@@ -136,376 +136,348 @@ const options = {
   url: '/campaign/message'
 };
 
-axios(options)
-  .then(function(response){
-    var cmpgns = response.data[0];
-    var arrcampaign = [];
-    var list = [];
-    cmpgns.forEach(function(campaign){
-      list.push({
-        value: campaign._id,
-        text: campaign.campaign_name
+var app = new Vue({
+  el: '#app',
+  data: {
+    cidx: 'new',
+    campaigns: [],
+    campaign_list: [],
+    contents:{
+      messages:[{ message_name: 'New Message' ,elements:[]}]
+    }, 
+    idx: 0,
+    tester: '',
+    element_type: [
+      { value: 'Text', text: 'Text' },
+      { value: 'Image/Video', text: 'Image/Video' },
+      { value: 'Standalone', text: 'Standalone' },
+      { value: 'Carousel', text: 'Carousel' }
+    ],
+    suggestion_type: [
+      { value: 'Reply', text: 'Reply' },
+      { value: 'Link URL', text: 'Link URL' },
+      { value: 'Dial Number', text: 'Dial Number' },
+      { value: 'Calendar Invite', text: 'Calendar Invite' },
+      { value: 'View Location', text: 'View Location' },     
+    ],
+    card_width_type: [
+      { value: 'SMALL', text: 'SMALL' },
+      { value: 'MEDIUM', text: 'MEDIUM' },
+    ],
+    card_orientation_type: [
+      { value: 'VERTICAL', text: 'VERTICAL' },
+      { value: 'HORIZONTAL', text: 'HORIZONTAL' },
+    ],
+    thumbnail_alignment_type: [
+      { value: 'LEFT', text: 'LEFT' },
+      { value: 'RIGHT', text: 'RIGHT' },
+    ],
+    image_height_type: [
+      { value: 'SHORT', text: 'SHORT' },
+      { value: 'MEDIUM', text: 'MEDIUM' },
+      { value: 'TALL', text: 'TALL' },
+    ]
+  },
+  methods: {
+    element_change(){
+      var newExist = false;
+      this.contents.messages.filter(function(elem){
+          if(elem.message_name == "New Message") newExist = true;
       });
-      arrcampaign[campaign._id] = campaign;
+
+      if(!newExist){
+        this.contents.messages.push({ message_name: 'New Message' ,elements:[]});
+      }
+
+    },
+    addElement(){
+      this.contents.messages[this.idx].elements.push({
+        type: 'Text'
+      });
+    },
+    removeElement(){
+      this.contents.messages[this.idx].elements.splice(this.idx, 1);
+    },
+    removeMessage(){
+      this.contents.messages.splice(this.idx, 1);
+    },
+    switchCampaign(){
+      console.log(this.cidx,this.campaigns[this.cidx]);
+      this.contents = this.campaigns[this.cidx] || {};
+      if(this.contents.messages.length > 1){
+        this.contents.messages.push({ message_name: 'New Message',elements:[]});
+      }
       
-    });
-    list.push({
-      value: 'new',
-      text: 'New Campaign'
-    });
-    arrcampaign['new'] = {messages:[{
-      message_name: 'New Message',
-      elements:[]
-    }]};
-    var campaign_list = list;
-
-    var app = new Vue({
-      el: '#app',
-      data: {
-        cidx: 'new',
-        campaigns: [],
-        campaign_list: [],
-        contents:{
-          messages:[{ message_name: 'New Message' ,elements:[]}]
-        }, 
-        idx: 0,
-        tester: '',
-        element_type: [
-          { value: 'Text', text: 'Text' },
-          { value: 'Image/Video', text: 'Image/Video' },
-          { value: 'Standalone', text: 'Standalone' },
-          { value: 'Carousel', text: 'Carousel' }
-        ],
-        suggestion_type: [
-          { value: 'Reply', text: 'Reply' },
-          { value: 'Link URL', text: 'Link URL' },
-          { value: 'Dial Number', text: 'Dial Number' },
-          { value: 'Calendar Invite', text: 'Calendar Invite' },
-          { value: 'View Location', text: 'View Location' },     
-        ],
-        card_width_type: [
-          { value: 'SMALL', text: 'SMALL' },
-          { value: 'MEDIUM', text: 'MEDIUM' },
-        ],
-        card_orientation_type: [
-          { value: 'VERTICAL', text: 'VERTICAL' },
-          { value: 'HORIZONTAL', text: 'HORIZONTAL' },
-        ],
-        thumbnail_alignment_type: [
-          { value: 'LEFT', text: 'LEFT' },
-          { value: 'RIGHT', text: 'RIGHT' },
-        ],
-        image_height_type: [
-          { value: 'SHORT', text: 'SHORT' },
-          { value: 'MEDIUM', text: 'MEDIUM' },
-          { value: 'TALL', text: 'TALL' },
-        ]
-      },
-      methods: {
-        element_change(){
-          var newExist = false;
-          this.contents.messages.filter(function(elem){
-              if(elem.message_name == "New Message") newExist = true;
+      this.idx = 0;
+    },
+    getCampaigns(){
+      var vm = this;
+      const options = {
+        method: 'GET',
+        url: '/campaign/message'
+      };
+      axios(options)
+        .then(function(response){
+          var cmpgns = response.data[0];
+          var arrcampaign = [];
+          var list = [];
+          cmpgns.forEach(function(campaign){
+            list.push({
+              value: campaign._id,
+              text: campaign.campaign_name
+            });
+            arrcampaign[campaign._id] = campaign;
+            
           });
-
-          if(!newExist){
-            this.contents.messages.push({ message_name: 'New Message' ,elements:[]});
-          }
-
-        },
-        addElement(){
-          this.contents.messages[this.idx].elements.push({
-            type: 'Text'
+          list.push({
+            value: 'new',
+            text: 'New Campaign'
           });
-        },
-        removeElement(){
-          this.contents.messages[this.idx].elements.splice(this.idx, 1);
-        },
-        removeMessage(){
-          this.contents.messages.splice(this.idx, 1);
-        },
-        switchCampaign(){
-          console.log(this.cidx,this.campaigns[this.cidx]);
-          this.contents = this.campaigns[this.cidx] || {};
-          if(this.contents.messages.length > 1){
-            this.contents.messages.push({ message_name: 'New Message',elements:[]});
-          }
+          arrcampaign['new'] = {messages:[{
+            message_name: 'New Message',
+            elements:[]
+          }]};
+          var campaign_list = list;
+          vm.campaigns = arrcampaign,
+          vm.campaign_list = campaign_list,
           
-          this.idx = 0;
-        },
-        getCampaigns(){
-          var vm = this;
-          const options = {
-            method: 'GET',
-            url: '/campaign/message'
-          };
-          axios(options)
-            .then(function(response){
-              var cmpgns = response.data[0];
-              var arrcampaign = [];
-              var list = [];
-              cmpgns.forEach(function(campaign){
-                list.push({
-                  value: campaign._id,
-                  text: campaign.campaign_name
-                });
-                arrcampaign[campaign._id] = campaign;
-                
+          console.log(response.data);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
+    saveCampaign(){
+      var content = this.contents;
+      var method = 'POST';
+      var value = JSON.stringify({ content: JSON.stringify(content) });
+      if(this.contents._id){
+        method = "PUT";
+        value = JSON.stringify({ content: JSON.stringify([content]) });
+      }
+      const options = {
+        method: method,
+        headers: { 'Content-Type': 'application/json' },
+        data: value,
+        url: '/campaign/message'
+      };
+      axios(options)
+        .then(function(response){
+          console.log(response.data);
+          app.getCampaigns();
+          alert('Campaign Saved');
+        })
+        .catch(function (error) {
+          console.log(error);
+          alert('Problem saving campaign');
+        });
+    },
+    inviteTester(){
+      var msisdn = this.tester
+      const options = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        data: JSON.stringify({'msisdn':msisdn}),
+        url: '/campaign/rcs/invite'
+      };
+      axios(options)
+        .then(function(response){
+          console.log(response.data);
+          alert('Invitation Sent');
+        })
+        .catch(function (error) {
+          console.log(error);
+          alert('Problem inviting user, please ensure your phone is RCS enabled');
+        });
+    },
+    sendMessage(){
+      var messages = this.contents.messages;
+      var message = messages[this.idx];
+
+      var createSuggestion = function(element){
+          var suggestions = [];
+
+          element.forEach(function(suggestion){
+            if(suggestion.type == "Reply"){
+              suggestions.push({
+                reply:{
+                  text: suggestion.label,
+                  postbackData: suggestion.callback
+                }
               });
-              list.push({
-                value: 'new',
-                text: 'New Campaign'
+            }
+            if(suggestion.type == "Link URL"){
+              suggestions.push({
+                action:{
+                  text: suggestion.label,
+                  postbackData: suggestion.callback,
+                  openUrlAction: { url: suggestion.url }
+                }
               });
-              arrcampaign['new'] = {messages:[{
-                message_name: 'New Message',
-                elements:[]
-              }]};
-              var campaign_list = list;
-              vm.campaigns = arrcampaign,
-              vm.campaign_list = campaign_list,
-              
-              console.log(response.data);
-            })
-            .catch(function (error) {
-              console.log(error);
-            });
-        },
-        saveCampaign(){
-          var content = this.contents;
-          var method = 'POST';
-          var value = JSON.stringify({ content: JSON.stringify(content) });
-          if(this.contents._id){
-            method = "PUT";
-            value = JSON.stringify({ content: JSON.stringify([content]) });
+            }
+            if(suggestion.type == "Dial Number"){
+              suggestions.push({
+                action: {
+                  text: suggestion.label,
+                  postbackData: suggestion.callback,
+                  dialAction: { phoneNumber: suggestion.phoneNumber }
+                }
+              });
+            }
+            if(suggestion.type == "Calendar Invite"){
+              suggestions.push({
+                action: {
+                  text: suggestion.label,
+                  postbackData: suggestion.callback,
+                  createCalendarEventAction: { 
+                    startTime: suggestion.startTime,
+                    endTime: suggestion.endTime,
+                    title: suggestion.title,
+                    description: suggestion.description
+                   }
+                }
+              });
+            }
+            if(suggestion.type == "View Location"){
+              suggestions.push({
+                action: {
+                  text: suggestion.label,
+                  postbackData: suggestion.callback,
+                  viewLocationAction: { 
+                    latLong: {
+                      latitude: suggestion.latitude,
+                      longitude: suggestion.longitude
+                    },
+                    label: suggestion.label,
+                   }
+                }
+              });
+            }
+          });
+
+          return suggestions;
+      };
+
+      var createTemplate = function(element){
+          
+          var suggestions = createSuggestion(element.suggestions || []);
+          if(element.type == "Text"){
+            return {
+              contentMessage : {
+                text: element.message,
+                suggestions: suggestions
+              }
+            };
           }
-          const options = {
-            method: method,
-            headers: { 'Content-Type': 'application/json' },
-            data: value,
-            url: '/campaign/message'
-          };
-          axios(options)
-            .then(function(response){
-              console.log(response.data);
-              app.getCampaigns();
-              alert('Campaign Saved');
-            })
-            .catch(function (error) {
-              console.log(error);
-              alert('Problem saving campaign');
+          if(element.type == "Image/Video"){
+            return {
+              contentMessage : {
+                contentInfo: {
+                  fileUrl : element.imageurl
+                },
+                suggestions: suggestions
+              }
+            };
+          }
+          if(element.type == "Standalone"){
+            var card_suggestions = createSuggestion(element.card_suggestions || []);
+            return {
+              contentMessage : {
+                richCard: {
+                  standaloneCard: {
+                    cardOrientation: element.orientation,
+                    thumbnailImageAlignment: element.alignment,
+                    cardContent:  {
+                      media: {
+                        height: element.height,
+                        contentInfo: {
+                          fileUrl: element.imageurl,
+                          thumbnailUrl: element.tnurl,
+                          forceRefresh: true
+                        }
+                      },
+                      suggestions: card_suggestions,
+                      title: element.title,
+                      description: element.description
+                    }
+                  }
+                },
+                suggestions: suggestions
+              }
+            };
+          }
+
+          if(element.type == "Carousel"){
+            
+            var images = [];
+
+            element.images.forEach(function(image){
+              var card_suggestions = createSuggestion(image.card_suggestions || []);
+              images.push({
+                media: {
+                  height: element.height,
+                  contentInfo: {
+                    fileUrl: image.imageurl,
+                    forceRefresh: false
+                  }
+                },
+                suggestions: card_suggestions,
+                title: image.title,
+                description: image.description
+              });
             });
-        },
-        inviteTester(){
-          var msisdn = this.tester
+
+            return {
+              contentMessage : {
+                richCard: {
+                  carouselCard: {
+                    cardWidth: element.width,
+                    cardContents: images
+                  }
+                },
+                suggestions: suggestions
+              }
+            };
+          }
+      }
+
+      var recipients = this.contents.recipients.replace(" ","").split(",")
+      var total = 0;
+      message.elements.forEach(function(element){
+        var template = createTemplate(element);
+        console.log(template);
+        recipients.forEach(function(phone){
+          var content = {resource : JSON.stringify(template), msisdn : phone};
           const options = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            data: JSON.stringify({'msisdn':msisdn}),
-            url: '/campaign/rcs/invite'
+            data: JSON.stringify(content),
+            url: '/campaign/rcs/message/send'
           };
           axios(options)
             .then(function(response){
+              total++;
               console.log(response.data);
-              alert('Invitation Sent');
+              if(total >= message.elements.length){
+                alert('Message Sent');
+              }
+              
             })
             .catch(function (error) {
+              total++;
               console.log(error);
-              alert('Problem inviting user, please ensure your phone is RCS enabled');
-            });
-        },
-        sendMessage(){
-          var messages = this.contents.messages;
-          var message = messages[this.idx];
-    
-          var createSuggestion = function(element){
-              var suggestions = [];
-    
-              element.forEach(function(suggestion){
-                if(suggestion.type == "Reply"){
-                  suggestions.push({
-                    reply:{
-                      text: suggestion.label,
-                      postbackData: suggestion.callback
-                    }
-                  });
-                }
-                if(suggestion.type == "Link URL"){
-                  suggestions.push({
-                    action:{
-                      text: suggestion.label,
-                      postbackData: suggestion.callback,
-                      openUrlAction: { url: suggestion.url }
-                    }
-                  });
-                }
-                if(suggestion.type == "Dial Number"){
-                  suggestions.push({
-                    action: {
-                      text: suggestion.label,
-                      postbackData: suggestion.callback,
-                      dialAction: { phoneNumber: suggestion.phoneNumber }
-                    }
-                  });
-                }
-                if(suggestion.type == "Calendar Invite"){
-                  suggestions.push({
-                    action: {
-                      text: suggestion.label,
-                      postbackData: suggestion.callback,
-                      createCalendarEventAction: { 
-                        startTime: suggestion.startTime,
-                        endTime: suggestion.endTime,
-                        title: suggestion.title,
-                        description: suggestion.description
-                       }
-                    }
-                  });
-                }
-                if(suggestion.type == "View Location"){
-                  suggestions.push({
-                    action: {
-                      text: suggestion.label,
-                      postbackData: suggestion.callback,
-                      viewLocationAction: { 
-                        latLong: {
-                          latitude: suggestion.latitude,
-                          longitude: suggestion.longitude
-                        },
-                        label: suggestion.label,
-                       }
-                    }
-                  });
-                }
-              });
-    
-              return suggestions;
-          };
-    
-          var createTemplate = function(element){
+              if(total >= message.elements.length){
+                alert('Problem sending message');
+              }
               
-              var suggestions = createSuggestion(element.suggestions || []);
-              if(element.type == "Text"){
-                return {
-                  contentMessage : {
-                    text: element.message,
-                    suggestions: suggestions
-                  }
-                };
-              }
-              if(element.type == "Image/Video"){
-                return {
-                  contentMessage : {
-                    contentInfo: {
-                      fileUrl : element.imageurl
-                    },
-                    suggestions: suggestions
-                  }
-                };
-              }
-              if(element.type == "Standalone"){
-                var card_suggestions = createSuggestion(element.card_suggestions || []);
-                return {
-                  contentMessage : {
-                    richCard: {
-                      standaloneCard: {
-                        cardOrientation: element.orientation,
-                        thumbnailImageAlignment: element.alignment,
-                        cardContent:  {
-                          media: {
-                            height: element.height,
-                            contentInfo: {
-                              fileUrl: element.imageurl,
-                              thumbnailUrl: element.tnurl,
-                              forceRefresh: true
-                            }
-                          },
-                          suggestions: card_suggestions,
-                          title: element.title,
-                          description: element.description
-                        }
-                      }
-                    },
-                    suggestions: suggestions
-                  }
-                };
-              }
-    
-              if(element.type == "Carousel"){
-                
-                var images = [];
-    
-                element.images.forEach(function(image){
-                  var card_suggestions = createSuggestion(image.card_suggestions || []);
-                  images.push({
-                    media: {
-                      height: element.height,
-                      contentInfo: {
-                        fileUrl: image.imageurl,
-                        forceRefresh: false
-                      }
-                    },
-                    suggestions: card_suggestions,
-                    title: image.title,
-                    description: image.description
-                  });
-                });
-    
-                return {
-                  contentMessage : {
-                    richCard: {
-                      carouselCard: {
-                        cardWidth: element.width,
-                        cardContents: images
-                      }
-                    },
-                    suggestions: suggestions
-                  }
-                };
-              }
-          }
-    
-          var recipients = this.contents.recipients.replace(" ","").split(",")
-          var total = 0;
-          message.elements.forEach(function(element){
-            var template = createTemplate(element);
-            console.log(template);
-            recipients.forEach(function(phone){
-              var content = {resource : JSON.stringify(template), msisdn : phone};
-              const options = {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                data: JSON.stringify(content),
-                url: '/campaign/rcs/message/send'
-              };
-              axios(options)
-                .then(function(response){
-                  total++;
-                  console.log(response.data);
-                  if(total >= message.elements.length){
-                    alert('Message Sent');
-                  }
-                  
-                })
-                .catch(function (error) {
-                  total++;
-                  console.log(error);
-                  if(total >= message.elements.length){
-                    alert('Problem sending message');
-                  }
-                  
-                })
-            });
-          });
-        }
-      },
-      mounted : function () {
-        this.getCampaigns();
-      }
-    });
-    console.log(response.data);
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
+            })
+        });
+      });
+    }
+  },
+  mounted : function () {
+    this.getCampaigns();
+  }
+});
 
 
