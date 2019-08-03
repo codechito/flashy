@@ -75,24 +75,24 @@
                                     <hr/><br/>
                                 </div>
                                 <b-form-group label="Message Type" label-size="sm">
-                                    <b-form-select v-model="element.type" :options="element_type" size="sm" class="form-control"></b-form-select>
+                                    <b-form-select v-model="contents.messages[idx].elements[key].type" :options="element_type" size="sm" class="form-control"></b-form-select>
                                 </b-form-group>
-                                <element-text v-if="element.type == 'Text'" v-bind:key="key" v-bind:element="element"></element-text>
-                                <element-image v-if="element.type == 'Image/Video'" v-bind:key="key" v-bind:element="element"></element-image>
-                                <element-standalone v-if="element.type == 'Standalone'" v-bind:key="key" 
-                                    v-bind:element="element" 
+                                <element-text v-if="contents.messages[idx].elements[key].type == 'Text'" v-bind:key="key" v-bind:element="element"></element-text>
+                                <element-image v-if="contents.messages[idx].elements[key].type == 'Image/Video'" v-bind:key="key" v-bind:element="element"></element-image>
+                                <element-standalone v-if="contents.messages[idx].elements[key].type == 'Standalone'" v-bind:key="key" 
+                                    v-bind:element="contents.messages[idx].elements[key]" 
                                     v-bind:suggestion_type="suggestion_type"
                                     v-bind:card_orientation_type="card_orientation_type"
                                     v-bind:thumbnail_alignment_type="thumbnail_alignment_type"
                                     v-bind:image_height_type="image_height_type"
                                 ></element-standalone>
-                                <element-carousel v-if="element.type == 'Carousel'" v-bind:key="key" 
-                                    v-bind:element="element"
+                                <element-carousel v-if="contents.messages[idx].elements[key].type == 'Carousel'" v-bind:key="key" 
+                                    v-bind:element="contents.messages[idx].elements[key]"
                                     v-bind:card_width_type="card_width_type"
                                     v-bind:image_height_type="image_height_type"
                                 ></element-carousel>
                                 <b-button v-on:click="addSuggestion(key)" variant="outline-info" size="sm" href="#">New Suggestion</b-button>
-                                <suggestion v-for="(suggestion, key) in element.suggestions" v-bind:key="key" v-bind:suggestion="suggestion" v-bind:suggestion_type="suggestion_type"></suggestion>
+                                <suggestion v-for="(suggestion, key) in contents.messages[idx].elements[key].suggestions" v-bind:key="key" v-bind:suggestion="suggestion" v-bind:suggestion_type="suggestion_type"></suggestion>
                             </div>
                             
                         </template>
