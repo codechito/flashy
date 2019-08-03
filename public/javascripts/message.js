@@ -205,10 +205,10 @@ axios(options)
         element_change(){
           
           var newExist = this.contents.messages.filter(function(elem){
-              if(elem.message_name == "New Message") return true;
+              if(elem.message_name == "New Message") return "no";
           });
 
-          if(!newExist){
+          if(newExist == "no"){
             this.contents.messages.push({ message_name: 'New Message' ,elements:[]});
           }
 
