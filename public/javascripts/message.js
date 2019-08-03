@@ -163,8 +163,8 @@ axios(options)
       el: '#app',
       data: {
         cidx: 'new',
-        campaigns: arrcampaign,
-        campaign_list: campaign_list,
+        campaigns: [],
+        campaign_list: [],
         contents:{
           messages:[{ message_name: 'New Message' ,elements:[]}]
         }, 
@@ -497,6 +497,9 @@ axios(options)
             });
           });
         }
+      },
+      mounted : function () {
+        app.getCampaigns();
       }
     });
     console.log(response.data);
