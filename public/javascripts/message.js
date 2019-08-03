@@ -179,6 +179,14 @@ var app = new Vue({
     ]
   },
   methods: {
+    addSuggestion(sidx){
+      if(!this.contents.messages[this.idx].elements[sidx].suggestions){
+        this.contents.messages[this.idx].elements[sidx].suggestions = [];
+      }
+      this.contents.messages[this.idx].elements[sidx].suggestions.push({
+        type: 'Link URL'
+      });
+    }, 
     element_change(){
       var newExist = false;
       this.contents.messages.filter(function(elem){
