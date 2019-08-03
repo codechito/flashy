@@ -92,7 +92,7 @@
                                     v-bind:image_height_type="image_height_type"
                                 ></element-carousel>
                                 <b-button v-on:click="addSuggestion(key)" variant="outline-info" size="sm" href="#">New Suggestion</b-button>
-                                <suggestion v-for="(suggestion, key) in element.suggestions" v-bind:key="key" v-bind:suggestion="suggestion" v-bind:suggestion_type="suggestion_type"></suggestion>
+                                <suggestion v-for="(suggestion, key) in element.suggestions" v-bind:key="key" v-bind:contents="contents" v-bind:idx="idx" v-bind:sidx="sidx" v-bind:suggestion="suggestion" v-bind:suggestion_type="suggestion_type"></suggestion>
                             </div>
                             
                         </template>
