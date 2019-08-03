@@ -242,7 +242,7 @@ var app = new Vue({
           vm.campaign_list = campaign_list,
           vm.contents = vm.campaigns[vm.cidx] || {};
 
-          if(vm.contents.messages.length > 1){
+          if(vm.contents.messages.length > 1 || vm.contents.messages.length == 0){
             vm.contents.messages.push({ message_name: 'New Message',elements:[]});
           }
           vm.idx = 0;
