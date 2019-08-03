@@ -240,7 +240,29 @@ axios(options)
           };
           axios(options)
             .then(function(response){
-              this.campaigns = response.data[0];
+              var cmpgns = response.data[0];
+              var arrcampaign = [];
+              var list = [];
+              cmpgns.forEach(function(campaign){
+                list.push({
+                  value: campaign._id,
+                  text: campaign.campaign_name
+                });
+                arrcampaign[campaign._id] = campaign;
+                
+              });
+              list.push({
+                value: 'new',
+                text: 'New Campaign'
+              });
+              arrcampaign['new'] = {messages:[{
+                message_name: 'New Message',
+                elements:[]
+              }]};
+              var campaign_list = list;
+              this.campaigns = arrcampaign,
+              this.campaign_list = campaign_list,
+              
               console.log(response.data);
             })
             .catch(function (error) {
