@@ -203,7 +203,7 @@ axios(options)
       methods: {
         removeElement(){
           console.log(this.contents.messages);
-          delete this.contents.messages[this.idx];
+          this.contents.messages.splice(this.idx, 1);
           console.log(this.contents.messages);
         },
         switchCampaign(){
