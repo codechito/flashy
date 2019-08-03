@@ -1,10 +1,17 @@
 Vue.component('suggestion', {
-  props: ['contents','suggestion','suggestion_type','idx','sidx','key'],
+  props: ['contents','suggestion','suggestion_type','idx','sidx','key','csidx','imgidx'],
   methods: {
     removeSuggestion(){
-
-      this.contents.messages[this.idx].elements[this.sidx].suggestions.splice(this.csidx, 1);
-    },
+      if(this.type == 'Standalone'){
+        this.contents.messages[this.idx].elements[this.sidx].card_suggestions.splice(this.csidx, 1);
+      }
+      else if(this.type == 'Carousel'){
+        this.contents.messages[this.idx].elements[this.sidx].images[this.imgidx].card_suggestions.splice(this.csidx, 1);
+      }
+      else{
+        this.contents.messages[this.idx].elements[this.sidx].suggestions.splice(this.csidx, 1);
+      }
+    }
   },
   template: `
   <div class="suggestion">
