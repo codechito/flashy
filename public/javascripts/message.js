@@ -6,7 +6,7 @@ Vue.component('suggestion', {
         this.contents.messages[this.idx].elements[this.sidx].images[this.imgidx].card_suggestions.splice(this.csidx, 1);
       }
       else if(this.simgdx){
-        this.contents.messages[this.idx].elements[this.sidx].card_suggestions.splice(this.csidx, 1);
+        this.contents.messages[this.idx].elements[this.sidx].card_suggestions.splice(this.simgdx, 1);
       }
       else{
         this.contents.messages[this.idx].elements[this.sidx].suggestions.splice(this.csidx, 1);
@@ -115,7 +115,7 @@ Vue.component('element-carousel', {
 });
 
 Vue.component('element-standalone', {
-  props: ['element','suggestion_type','card_orientation_type','thumbnail_alignment_type', 'image_height_type'],
+  props: ['contents','element','suggestion_type','card_orientation_type','thumbnail_alignment_type', 'image_height_type','idx','sidx'],
   template: `
   <div>
     <b-form-group label="Card Orientation" label-size="sm">
@@ -140,7 +140,7 @@ Vue.component('element-standalone', {
       <b-form-textarea v-model="element.description" size="sm" class="form-control"></b-form-textarea>
     </b-form-group>
     <b-button variant="outline-info" size="sm" href="#">New Card Suggestion</b-button>
-    <suggestion v-for="(suggestion, key) in element.card_suggestions" v-bind:key="key" v-bind:suggestion="suggestion" v-bind:suggestion_type="suggestion_type"></suggestion>
+    <suggestion v-for="(suggestion, ckey) in element.card_suggestions" v-bind:simgdx="ckey" v-bind:key="ckey" v-bind:contents="contents" v-bind:idx="idx" v-bind:sidx="sidx" v-bind:suggestion="suggestion" v-bind:suggestion_type="suggestion_type"></suggestion>
   </div>
   `
 });
