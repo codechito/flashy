@@ -250,6 +250,13 @@ var app = new Vue({
     saveCampaign(){
       var content = this.contents;
       var method = 'POST';
+
+      content.messages.filter(function(elem,index){
+        if(elem.message_name == "New Message") {
+          content.messages.splice(index, 1);
+        }
+      });
+
       var value = JSON.stringify({ content: JSON.stringify(content) });
       if(this.contents._id){
         method = "PUT";
