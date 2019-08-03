@@ -1,16 +1,17 @@
 Vue.component('suggestion', {
-  props: ['contents','suggestion','suggestion_type','idx','sidx','key','csidx','imgidx'],
+  props: ['contents','suggestion','suggestion_type','idx','sidx', 'csidx','imgidx'],
   methods: {
     removeSuggestion(){
-      if(this.type == 'Standalone'){
-        this.contents.messages[this.idx].elements[this.sidx].card_suggestions.splice(this.csidx, 1);
-      }
-      else if(this.type == 'Carousel'){
+      if(this.imgidx){
         this.contents.messages[this.idx].elements[this.sidx].images[this.imgidx].card_suggestions.splice(this.csidx, 1);
+      }
+      else if(this.simgdx){
+        this.contents.messages[this.idx].elements[this.sidx].card_suggestions.splice(this.csidx, 1);
       }
       else{
         this.contents.messages[this.idx].elements[this.sidx].suggestions.splice(this.csidx, 1);
       }
+      
     }
   },
   template: `
@@ -74,7 +75,7 @@ Vue.component('element-image', {
 });
 
 Vue.component('element-carousel', {
-  props: ['element','suggestion_type','card_width_type','image_height_type'],
+  props: ['element','suggestion_type','card_width_type','image_height_type','idx','sidx',],
   template: `
   <div>
     <b-form-group label="Card Width" label-size="sm">
@@ -86,7 +87,7 @@ Vue.component('element-carousel', {
     <div>
       <b-card no-body>
         <b-tabs card>
-          <b-tab v-for="(image, key) in element.images">
+          <b-tab v-for="(image, imgkey) in element.images">
             <template slot="title">Image {{ key + 1}}</template>
             <b-card-text>
               <b-button v-b-tooltip.hover title="Remove Image" variant="info" class="float-right icon-button" @click="closeTab(i)"><h3> &times; </h3></b-button>
@@ -100,7 +101,7 @@ Vue.component('element-carousel', {
                 <b-form-textarea v-model="image.description" size="sm" class="form-control"></b-form-textarea>
               </b-form-group>
               <b-button variant="outline-info" size="sm" href="#">New Card Suggestion</b-button>
-              <suggestion v-for="(suggestion, key) in image.card_suggestions" v-bind:key="key" v-bind:suggestion="suggestion" v-bind:suggestion_type="suggestion_type"></suggestion>
+              <suggestion v-for="(suggestion, ckey) in image.card_suggestions" v-bind:csidx="ckey" v-bind:contents="contents" v-bind:idx="idx" v-bind:sidx="sidx" v-bind:imgidx="imgkey" v-bind:suggestion="suggestion" v-bind:suggestion_type="suggestion_type"></suggestion>
             </b-card-text>
           </b-tab>
           <template v-if="element.images && element.images.length < 10" slot="tabs-end">
