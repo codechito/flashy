@@ -154,7 +154,8 @@ axios(options)
       text: 'New Campaign'
     });
     arrcampaign['new'] = {messages:[{
-      message_name: 'New Message'
+      message_name: 'New Message',
+      elements:[]
     }]};
     var campaign_list = list;
 
@@ -165,7 +166,7 @@ axios(options)
         campaigns: arrcampaign,
         campaign_list: campaign_list,
         contents:{
-          messages:[{ message_name: 'New Message'}]
+          messages:[{ message_name: 'New Message' ,elements:[]}]
         }, 
         idx: 0,
         tester: '',
@@ -201,16 +202,19 @@ axios(options)
         ]
       },
       methods: {
+        addElement(){
+          this.contents.messages[this.idx].elements.push({
+            type: 'Text'
+          });
+        },
         removeElement(){
-          console.log(this.contents.messages);
           this.contents.messages.splice(this.idx, 1);
-          console.log(this.contents.messages);
         },
         switchCampaign(){
           console.log(this.cidx,this.campaigns[this.cidx]);
           this.contents = this.campaigns[this.cidx] || {};
           if(this.contents.messages.length > 1){
-            this.contents.messages.push({ message_name: 'New Message'});
+            this.contents.messages.push({ message_name: 'New Message',elements:[]});
           }
           
           this.idx = 0;
