@@ -249,8 +249,12 @@ axios(options)
         },
         saveCampaign(){
           var content = this.contents;
+          var method = 'POST';
+          if(this.contents._id){
+            method = "PUT"
+          }
           const options = {
-            method: 'POST',
+            method: method,
             headers: { 'Content-Type': 'application/json' },
             data: JSON.stringify({ content: JSON.stringify(content) }),
             url: '/campaign/message'
