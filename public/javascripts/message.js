@@ -234,6 +234,7 @@ axios(options)
           this.idx = 0;
         },
         getCampaigns(){
+          var vm = this;
           const options = {
             method: 'GET',
             url: '/campaign/message'
@@ -260,8 +261,8 @@ axios(options)
                 elements:[]
               }]};
               var campaign_list = list;
-              this.campaigns = arrcampaign,
-              this.campaign_list = campaign_list,
+              vm.campaigns = arrcampaign,
+              vm.campaign_list = campaign_list,
               
               console.log(response.data);
             })
