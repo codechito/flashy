@@ -203,7 +203,8 @@ var app = new Vue({
     },
     switchCampaign(){
       this.contents = this.campaigns[this.cidx] || {};
-      if(this.contents.messages.length > 1 && this.contents.messages.length ==0 ){
+      console.log("this.contents.messages.length",this.contents.messages.length);
+      if(this.contents.messages.length > 1 || this.contents.messages.length == 0 ){
         this.contents.messages.push({ message_name: 'New Message',elements:[]});
       }
       
