@@ -15,6 +15,15 @@ Vue.component('suggestion', {
         console.log('imgidx',this.imgidx);
         console.log('idx',app.idx);
         console.log('csidx',this.csidx);
+        if(!this.imgidx){
+          this.imgidx = 0;
+        }
+        if(!this.idx){
+          this.idx = 'new';
+        }
+        if(!this.sidx){
+          this.sidx = 0;
+        }
         if(this.imgidx >= 0){
           this.contents.messages[this.idx].elements[this.sidx].images[this.imgidx].card_suggestions.splice(this.csidx, 1); 
         }
@@ -96,6 +105,15 @@ Vue.component('element-carousel', {
   props: ['contents','element','suggestion_type','card_width_type','image_height_type','idx','sidx'],
   methods: {
     addCardSuggestion(imgidx){
+      if(!this.imgidx){
+        this.imgidx = 0;
+      }
+      if(!this.idx){
+        this.idx = 'new';
+      }
+      if(!this.sidx){
+        this.sidx = 0;
+      }
       console.log('idx',this.idx);
       console.log('sidx',this.sidx);
       console.log('imgidx',this.imgidx);
