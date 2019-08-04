@@ -256,6 +256,7 @@ var app = new Vue({
             }]
           }];
         }
+        app.$forceUpdate();
         console.log(this.contents.messages[this.idx].elements[sidx]);
       }
       
