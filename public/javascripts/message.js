@@ -27,8 +27,9 @@ Vue.component('suggestion', {
       if(this.element.type == 'Text'){
         this.element.suggestions.splice(this.csidx, 1);
       }      
-     
+      app.$forceUpdate();
     }
+    
   },
   template: `
   <div class="suggestion">
