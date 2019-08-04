@@ -90,7 +90,7 @@ Vue.component('element-image', {
 });
 
 Vue.component('element-carousel', {
-  props: ['element','suggestion_type','card_width_type','image_height_type','idx','sidx'],
+  props: ['contents','element','suggestion_type','card_width_type','image_height_type','idx','sidx'],
   template: `
   <div>
     <b-form-group label="Card Width" label-size="sm">
