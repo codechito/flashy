@@ -602,34 +602,37 @@ var app = new Vue({
       var recipients = this.contents.recipients.replace(" ","").split(",")
       var total = 0;
       message.elements.forEach(function(element){
-        var template = createTemplate(element);
-        console.log(template);
-        recipients.forEach(function(phone){
-          var content = {resource : JSON.stringify(template), msisdn : phone};
-          const options = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            data: JSON.stringify(content),
-            url: '/campaign/rcs/message/send'
-          };
-          axios(options)
-            .then(function(response){
-              total++;
-              console.log(response.data);
-              if(total >= message.elements.length){
-                alert('Message Sent');
-              }
-              
-            })
-            .catch(function (error) {
-              total++;
-              console.log(error);
-              if(total >= message.elements.length){
-                alert('Problem sending message');
-              }
-              
-            })
-        });
+          setInterval(function(){ 
+            var template = createTemplate(element);
+            console.log(template);
+            recipients.forEach(function(phone){
+              var content = {resource : JSON.stringify(template), msisdn : phone};
+              const options = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                data: JSON.stringify(content),
+                url: '/campaign/rcs/message/send'
+              };
+              axios(options)
+                .then(function(response){
+                  total++;
+                  console.log(response.data);
+                  if(total >= message.elements.length){
+                    alert('Message Sent');
+                  }
+                  
+                })
+                .catch(function (error) {
+                  total++;
+                  console.log(error);
+                  if(total >= message.elements.length){
+                    alert('Problem sending message');
+                  }
+                  
+                })
+            });
+        }, 3000);
+        
       });
     }
   },
