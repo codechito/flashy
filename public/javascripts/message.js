@@ -146,7 +146,7 @@ Vue.component('element-carousel', {
               <b-form-group label="Description" label-size="sm">
                 <b-form-textarea v-model="image.description" size="sm" class="form-control"></b-form-textarea>
               </b-form-group>
-              <b-button v-on:click="addCardSuggestion(imgkey)" variant="outline-info" size="sm" href="#">New Card Suggestion</b-button>
+              <b-button :disabled="image.card_suggestions.length >= 4" v-on:click="addCardSuggestion(imgkey)" variant="outline-info" size="sm" href="#">New Card Suggestion</b-button>
               <suggestion v-for="(sgstn, ckey) in image.card_suggestions" 
                 v-if="ckey < 4"
                 v-bind:csidx="ckey" 
@@ -202,7 +202,7 @@ Vue.component('element-standalone', {
     <b-form-group label="Description" label-size="sm">
       <b-form-textarea v-model="element.description" size="sm" class="form-control"></b-form-textarea>
     </b-form-group>
-    <b-button v-on:click="addCardSuggestion(sidx)" variant="outline-info" size="sm" href="#">New Card Suggestion</b-button>
+    <b-button :disabled="element.card_suggestions.length >= 4" v-on:click="addCardSuggestion(sidx)" variant="outline-info" size="sm" href="#">New Card Suggestion</b-button>
     <suggestion v-for="(suggestion, ckey) in element.card_suggestions" v-if="ckey < 4" v-bind:simgdx="ckey" v-bind:element="element" v-bind:contents="contents" v-bind:idx="idx" v-bind:sidx="sidx" v-bind:suggestion="suggestion" v-bind:suggestion_type="suggestion_type"></suggestion>
   </div>
   `
