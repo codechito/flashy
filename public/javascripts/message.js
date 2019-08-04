@@ -289,12 +289,12 @@ var app = new Vue({
       });
 
       if(!newExist){
-        this.contents.messages.push(this.blank_element);
+        this.contents.messages.push(JSON.parse(JSON.stringify(this.blank_element)));
       }
 
     },
     addElement(){
-      this.contents.messages[this.idx].elements.push(this.blank_element);
+      this.contents.messages[this.idx].elements.push(JSON.parse(JSON.stringify(this.blank_element)));
     },
     removeElement(){
       this.contents.messages[this.idx].elements.splice(this.idx, 1);
@@ -305,7 +305,7 @@ var app = new Vue({
     switchCampaign(){
       this.contents = this.campaigns[this.cidx] || {};
       if(this.contents.messages.length > 1 || this.contents.messages.length == 0 ){
-        this.contents.messages.push(this.blank_element);
+        this.contents.messages.push(JSON.parse(JSON.stringify(this.blank_element)));
       }
       
       this.idx = 0;
