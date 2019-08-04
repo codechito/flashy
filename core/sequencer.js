@@ -205,6 +205,8 @@ module.exports = function(emitter){
                 };
                 let s = emitter.invokeHook("db::find",options);
                 s.then(function(scontent){
+                    var contents = scontent[0][0];
+                    sendMessage(msisdn,message,contents);
                     console.log(scontent);
                 });
             });
