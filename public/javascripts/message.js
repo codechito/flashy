@@ -235,6 +235,7 @@ var app = new Vue({
   },
   methods: {
     updateContents(idx,sidx,element){
+      console.log("triggered",idx,sidx,element)
       this.contents.messages[idx].elements[sidx] = element;
     },
     prepareElement(sidx){
