@@ -97,6 +97,7 @@ Vue.component('element-carousel', {
       this.contents.messages[this.idx].elements[this.sidx].images[imgkey].card_suggestions.push({
         type: 'Link URL'
       });
+      console.log("this.contents.messages[this.idx].elements[this.sidx]",this.contents.messages[this.idx].elements[this.sidx]);
     }, 
   },
   template: `
