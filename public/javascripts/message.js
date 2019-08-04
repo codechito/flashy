@@ -93,9 +93,9 @@ Vue.component('element-carousel', {
   props: ['contents','element','suggestion_type','card_width_type','image_height_type','idx','sidx'],
   methods: {
     addCardSuggestion(imgidx){
-      // app.contents.messages[this.idx].elements[this.sidx].images[imgidx].card_suggestions.push({
-      //   type: 'Link URL'
-      // });
+      app.contents.messages[this.idx].elements[this.sidx].images[imgidx].card_suggestions.push({
+        type: 'Link URL'
+      });
       // this.element.images[imgidx].card_suggestions.push({
       //   type: 'Link URL'
       // });
@@ -104,7 +104,11 @@ Vue.component('element-carousel', {
   },
   mouted:function(){
     if(!this.element.images){
-      this.element.images = [];
+      this.element.images = [{
+        card_suggestions: [{
+          type: "Link URL"
+        }]
+      }]
     }
 
   },
