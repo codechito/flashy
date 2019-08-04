@@ -154,10 +154,10 @@ var sendMessage = function(msisdn,uuidv4,contents){
     var message = contents.messages.filter(function(message){
         if(message.uuidv4 == uuidv4) return message;
     });
-    console.log(message);
+    console.log("message",message);
     message.elements.forEach(function(element){
         var template = createTemplate(element);
-        console.log(template);
+        console.log("template",template);
         var content = {resource : JSON.stringify(template), msisdn : msisdn};
           const options = {
             method: 'POST',
