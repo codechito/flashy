@@ -109,7 +109,7 @@ Vue.component('element-carousel', {
         this.imgidx = 0;
       }
       if(!this.idx){
-        this.idx = 'new';
+        this.idx = 0;
       }
       if(!this.sidx){
         this.sidx = 0;
