@@ -15,7 +15,8 @@
  * limitations under the License.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-var apirequest_1 = require(__dirname + "/../node_modules/googleapis/build/src/lib/apirequest");
+console.log(__dirname + "/../node_modules/googleapis/build/src/lib/apirequest");
+var apirequest_1 = require(__dirname + "/../node_modules/googleapis-common/build/src/lib/apirequest");
 // TODO: We will eventually get the `any` in here cleared out, but in the interim we
 // want to turn on no-implicit-any.
 // tslint:disable: no-any
