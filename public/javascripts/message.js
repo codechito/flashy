@@ -12,7 +12,6 @@ Vue.component('suggestion', {
         
       }
       if(this.element.type == 'Carousel'){
-        console.log('imgidx',imgidx);
         if(imgidx >= 0){
           this.element.images[imgidx].card_suggestions.splice(this.csidx, 1); 
         }
@@ -95,12 +94,9 @@ Vue.component('element-carousel', {
   props: ['contents','element','suggestion_type','card_width_type','image_height_type','idx','sidx'],
   methods: {
     addCardSuggestion(imgidx){
-      console.log('imgidx',imgidx);
       this.element.images[imgidx].card_suggestions.push({
         type: 'Link URL'
       });
-      app.$forceUpdate();
-      console.log(app.contents);
     }, 
   },
   computed: {
@@ -256,8 +252,6 @@ var app = new Vue({
             }]
           }];
         }
-        app.$forceUpdate();
-        console.log(this.contents.messages[this.idx].elements[sidx]);
       }
       
     },
@@ -290,7 +284,6 @@ var app = new Vue({
     },
     switchCampaign(){
       this.contents = this.campaigns[this.cidx] || {};
-      console.log("this.contents.messages.length",this.contents.messages.length);
       if(this.contents.messages.length > 1 || this.contents.messages.length == 0 ){
         this.contents.messages.push({ message_name: 'New Message' ,elements:[{type: 'Text',suggestions:[],card_suggestions:[]}]});
       }
@@ -366,7 +359,6 @@ var app = new Vue({
       };
       axios(options)
         .then(function(response){
-          console.log(response.data);
           
           if(method == "POST"){
             app.cidx = response.data[0][0]._id;
