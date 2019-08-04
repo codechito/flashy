@@ -102,8 +102,8 @@ Vue.component('element-carousel', {
     }, 
   },
   mounted:function(){
-    if(!this.element.images.images){
-      this.element.images.images = [{
+    if(!this.element.images){
+      this.element.images = [{
         card_suggestions: [{
           type: "Link URL"
         }]
