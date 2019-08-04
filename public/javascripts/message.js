@@ -93,11 +93,11 @@ Vue.component('element-image', {
 Vue.component('element-carousel', {
   props: ['contents','element','suggestion_type','card_width_type','image_height_type','idx','sidx'],
   methods: {
-    addCardSuggestion(sidx,imgidx){
+    addCardSuggestion(imgidx){
       console.log('idx',this.idx);
       console.log('sidx',sidx);
       console.log('imgidx',imgidx);
-      app.contents.messages[this.idx].elements[sidx].images[imgidx].card_suggestions.push({
+      element.images[imgidx].card_suggestions.push({
         type: 'Link URL'
       });
     }, 
@@ -126,7 +126,7 @@ Vue.component('element-carousel', {
               <b-form-group label="Description" label-size="sm">
                 <b-form-textarea v-model="image.description" size="sm" class="form-control"></b-form-textarea>
               </b-form-group>
-              <b-button v-on:click="addCardSuggestion(sidx,imgkey)" variant="outline-info" size="sm" href="#">New Card Suggestion</b-button>
+              <b-button v-on:click="addCardSuggestion(imgkey)" variant="outline-info" size="sm" href="#">New Card Suggestion</b-button>
               <suggestion v-for="(suggestion, ckey) in image.card_suggestions" 
                 v-bind:csidx="ckey" 
                 v-bind:element="element" 
