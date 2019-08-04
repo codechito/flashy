@@ -247,7 +247,6 @@ var app = new Vue({
             }]
           }];
         }
-        
         console.log(this.contents.messages[this.idx].elements[sidx]);
       }
       
