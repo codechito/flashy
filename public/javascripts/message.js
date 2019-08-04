@@ -217,9 +217,12 @@ var app = new Vue({
   methods: {
     prepareElement(sidx){
       if(this.contents.messages[this.idx].elements[sidx].type == 'Carousel'){
-        this.contents.messages[this.idx].elements[sidx].images.push({
-          card_suggestions: []
-        });
+        if(!this.contents.messages[this.idx].elements[sidx].images){
+          this.contents.messages[this.idx].elements[sidx].images = [{
+            card_suggestions: []
+          }];
+        }
+        
         console.log(this.contents.messages[this.idx].elements[sidx]);
       }
       
