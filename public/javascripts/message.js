@@ -3,10 +3,22 @@ Vue.component('suggestion', {
   methods: {
     removeSuggestion(){
       if(this.contents.messages[this.idx].elements[this.sidx].type == 'Standalone'){
-        this.contents.messages[this.idx].elements[this.sidx].card_suggestions.splice(this.simgdx, 1);
+        if(this.simgdx >= 0){
+          this.contents.messages[this.idx].elements[this.sidx].card_suggestions.splice(this.simgdx, 1);
+        }
+        else{
+          this.contents.messages[this.idx].elements[this.sidx].suggestions.splice(this.csidx, 1);
+        }
+        
       }
       if(this.contents.messages[this.idx].elements[this.sidx].type == 'Carousel'){
-        this.contents.messages[this.idx].elements[this.sidx].images[this.imgidx].card_suggestions.splice(this.csidx, 1); 
+        if(this.imgidx >= 0){
+          this.contents.messages[this.idx].elements[this.sidx].images[this.imgidx].card_suggestions.splice(this.csidx, 1); 
+        }
+        else{
+          this.contents.messages[this.idx].elements[this.sidx].suggestions.splice(this.csidx, 1);
+        }
+        
       }
       if(this.contents.messages[this.idx].elements[this.sidx].type == 'Image/Video'){
         this.contents.messages[this.idx].elements[this.sidx].suggestions.splice(this.csidx, 1);
