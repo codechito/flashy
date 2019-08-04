@@ -1,33 +1,31 @@
 Vue.component('suggestion', {
   props: [ 'contents','element','suggestion','suggestion_type','idx','sidx', 'csidx','imgidx','simgdx'],
   methods: {
-    removeSuggestion(){
-      if(this.contents.messages[this.idx].elements[this.sidx].type == 'Standalone'){
+    removeSuggestion(imgidx){
+      if(this.element.type == 'Standalone'){
         if(this.simgdx >= 0){
-          this.contents.messages[this.idx].elements[this.sidx].card_suggestions.splice(this.simgdx, 1);
+          this.element.card_suggestions.splice(this.simgdx, 1);
         }
         else{
-          this.contents.messages[this.idx].elements[this.sidx].suggestions.splice(this.csidx, 1);
+          this.element.suggestions.splice(this.csidx, 1);
         }
         
       }
-      if(this.contents.messages[this.idx].elements[this.sidx].type == 'Carousel'){
-        console.log('imgidx',this.imgidx);
-        console.log('idx',app.idx);
-        console.log('csidx',this.csidx);
+      if(element.type == 'Carousel'){
+        console.log('imgidx',imgidx);
         if(this.imgidx >= 0){
-          this.contents.messages[this.idx].elements[this.sidx].images[this.imgidx].card_suggestions.splice(this.csidx, 1); 
+          this.element.images[imgidx].card_suggestions.splice(this.csidx, 1); 
         }
         else{
-          this.contents.messages[this.idx].elements[this.sidx].suggestions.splice(this.csidx, 1);
+          this.element.suggestions.splice(this.csidx, 1);
         }
         
       }
-      if(this.contents.messages[this.idx].elements[this.sidx].type == 'Image/Video'){
-        this.contents.messages[this.idx].elements[this.sidx].suggestions.splice(this.csidx, 1);
+      if(this.element.type == 'Image/Video'){
+        this.element.suggestions.splice(this.csidx, 1);
       }
-      if(this.contents.messages[this.idx].elements[this.sidx].type == 'Text'){
-        this.contents.messages[this.idx].elements[this.sidx].suggestions.splice(this.csidx, 1);
+      if(this.element.type == 'Text'){
+        this.element.suggestions.splice(this.csidx, 1);
       }      
      
     }
