@@ -220,6 +220,7 @@ var app = new Vue({
         this.contents.messages[this.idx].elements[sidx].images.push({
           card_suggestions: []
         });
+        console.log(this.contents.messages[this.idx].elements[sidx]);
       }
       
     },
