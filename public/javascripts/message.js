@@ -105,7 +105,17 @@ Vue.component('element-carousel', {
       this.element.images[imgidx].card_suggestions.push({
         type: 'Link URL'
       });
+    },
+    removeCardSuggestion(imgidx){
+      this.element.images[imgidx].card_suggestions.splice(imgidx, 1);
     }, 
+    addCardImage(){
+      this.element.images.push({
+        orientation: "VERTICAL",
+        card_suggestions:[{
+          type: 'Link URL'
+      }]});
+    },
   },
   computed: {
     contents: function(){
@@ -126,7 +136,7 @@ Vue.component('element-carousel', {
           <b-tab v-for="(image, imgkey) in element.images">
             <template slot="title">Image {{ imgkey + 1}}</template>
             <b-card-text>
-              <b-button v-b-tooltip.hover title="Remove Image" variant="info" class="float-right icon-button" @click="closeTab(i)"><h3> &times; </h3></b-button>
+              <b-button v-if="imgkey > 2" v-b-tooltip.hover title="Remove Image" variant="info" class="float-right icon-button" v-on:click="removeCardSuggestion(imgkey)" ><h3> &times; </h3></b-button>
               <b-form-group label="Image/Video URL" label-size="sm">
                 <b-form-input v-model="image.imageurl" size="sm" class="form-control"></b-form-input>
               </b-form-group>
@@ -150,7 +160,7 @@ Vue.component('element-carousel', {
             </b-card-text>
           </b-tab>
           <template v-if="element.images && element.images.length < 10" slot="tabs-end">
-            <b-nav-item v-b-tooltip.hover title="Add Image" @click.prevent="newTab" href="#"><b>+</b></b-nav-item>
+            <b-nav-item v-b-tooltip.hover title="Add Image" @click.prevent="newTab" href="#" v-on:click="addCardImage()" ><b>+</b></b-nav-item>
           </template>
         </b-tabs>
       </b-card>
