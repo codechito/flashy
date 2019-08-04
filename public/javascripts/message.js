@@ -299,6 +299,7 @@ var app = new Vue({
       axios(options)
         .then(function(response){
           var cmpgns = response.data[0];
+          console.log(cmpgns);
           var arrcampaign = [];
           var list = [];
           cmpgns.forEach(function(campaign){
@@ -323,6 +324,8 @@ var app = new Vue({
             vm.contents.messages.push(this.blank_element);
           }
           vm.idx = 0;
+          console.log(vm.campaign_list );
+          console.log(vm.campaigns );
           
         })
         .catch(function (error) {
