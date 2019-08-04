@@ -216,6 +216,7 @@ var app = new Vue({
   },
   watch: {
     contents: function () {
+      
       this.contents.messages.forEach(function(message){
         if(message.type == 'Carousel'){
           if(!message.images){
@@ -225,6 +226,7 @@ var app = new Vue({
           }
         }
       });
+      console.log('im being watched',this.contents);
     },
   },
   methods: {
