@@ -136,7 +136,7 @@ Vue.component('element-carousel', {
           <b-tab v-for="(image, imgkey) in element.images">
             <template slot="title">Image {{ imgkey + 1}}</template>
             <b-card-text>
-              <b-button v-if="imgkey > 2" v-b-tooltip.hover title="Remove Image" variant="info" class="float-right icon-button" v-on:click="removeCardSuggestion(imgkey)" ><h3> &times; </h3></b-button>
+              <b-button v-if="imgkey > 1" v-b-tooltip.hover title="Remove Image" variant="info" class="float-right icon-button" v-on:click="removeCardSuggestion(imgkey)" ><h3> &times; </h3></b-button>
               <b-form-group label="Image/Video URL" label-size="sm">
                 <b-form-input v-model="image.imageurl" size="sm" class="form-control"></b-form-input>
               </b-form-group>
