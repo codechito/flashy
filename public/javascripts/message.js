@@ -102,7 +102,7 @@ Vue.component('element-carousel', {
     if(!app.contents.messages[this.idx].elements[this.sidx].images){
       app.contents.messages[this.idx].elements[this.sidx].images = [{
         card_suggestions: [{
-          type: 'Link URL'
+          type: "Link URL"
         }]
       }]
     }
