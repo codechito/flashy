@@ -151,8 +151,11 @@ var sendMessage = function(msisdn,uuidv4,contents){
         }
     };
 
-    var message = contents.messages.filter(function(message){
-        if(message.uuidv4 == uuidv4) return message;
+    var message;
+    contents.messages.filter(function(msg,idx){
+        if(message.uuidv4 == uuidv4) {
+            message = contents.messages[idx];
+        }
     });
     console.log("message",message);
     message.elements.forEach(function(element){
