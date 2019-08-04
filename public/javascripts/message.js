@@ -98,7 +98,7 @@ Vue.component('element-carousel', {
       this.element.images[imgidx].card_suggestions.push({
         type: 'Link URL'
       });
-      this.$emit('update_parent');
+      this.$emit('syncparent');
     }, 
   },
   template: `
@@ -125,7 +125,7 @@ Vue.component('element-carousel', {
               <b-form-group label="Description" label-size="sm">
                 <b-form-textarea v-model="image.description" size="sm" class="form-control"></b-form-textarea>
               </b-form-group>
-              <b-button v-on:update_parent="updateContents(idx,sidx,element)" v-on:click="addCardSuggestion(imgkey)" variant="outline-info" size="sm" href="#">New Card Suggestion</b-button>
+              <b-button v-on:syncparent="updateContents(idx,sidx,element)" v-on:click="addCardSuggestion(imgkey)" variant="outline-info" size="sm" href="#">New Card Suggestion</b-button>
               <suggestion v-for="(sgstn, ckey) in image.card_suggestions" 
                 v-bind:csidx="ckey" 
                 v-bind:element="element" 
