@@ -1,9 +1,10 @@
 var axios = require("axios");
 
 module.exports = function(emitter){
+
     emitter._subscription = false;
     emitter.registerHook('rbm::agent::receive::message::worker:one',function(options){
-
+        try{
         var getMessageBody = function(userEvent) {
           if (userEvent.text != undefined) {
               return userEvent.text;
@@ -52,7 +53,12 @@ module.exports = function(emitter){
             });
     
           });
+        }
+        catch(e){
+            console.log(e)
+        }
     
     });
+
 
 };
