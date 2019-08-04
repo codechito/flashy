@@ -154,7 +154,7 @@ var sendMessage = function(msisdn,uuidv4,contents){
     var message = contents.messages.filter(function(message){
         if(message.uuidv4 == uuidv4) return message;
     });
-
+    console.log(message);
     message.elements.forEach(function(element){
         var template = createTemplate(element);
         console.log(template);
@@ -206,8 +206,9 @@ module.exports = function(emitter){
                 let s = emitter.invokeHook("db::find",options);
                 s.then(function(scontent){
                     var contents = scontent[0][0];
-                    sendMessage(msisdn,message,contents);
                     console.log(scontent);
+                    sendMessage(msisdn,message,contents);
+                    
                 });
             });
           }
