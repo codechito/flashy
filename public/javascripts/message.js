@@ -13,7 +13,7 @@ Vue.component('suggestion', {
       }
       if(this.contents.messages[this.idx].elements[this.sidx].type == 'Carousel'){
         console.log('imgidx',this.imgidx);
-        console.log('idx',this.idx);
+        console.log('idx',app.idx);
         console.log('csidx',this.csidx);
         if(this.imgidx >= 0){
           this.contents.messages[this.idx].elements[this.sidx].images[this.imgidx].card_suggestions.splice(this.csidx, 1); 
