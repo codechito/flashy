@@ -40,7 +40,7 @@ app.post('/invite', function(req, res) {
 
 require('./core/sequencer')(emitter);
 
-let s = emitter.invokeHook("rbm::agent::receive::message::worker:one");
+let s = emitter.invokeHook("rbm::agent::receive::message");
 s.then(function(result){
   console.log(result);
 });
