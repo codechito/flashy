@@ -75,7 +75,7 @@
                                     <hr/><br/>
                                 </div>
                                 <b-form-group label="Message Type" label-size="sm">
-                                    <b-form-select v-on:change="prepareElement(key)" v-model="element.type" :options="element_type" size="sm" class="form-control"></b-form-select>
+                                    <b-form-select v-model="element.type" :options="element_type" size="sm" class="form-control"></b-form-select>
                                 </b-form-group>
                                 <element-text v-if="element.type == 'Text'" v-bind:key="key" v-bind:element="element"></element-text>
                                 <element-image v-if="element.type == 'Image/Video'" v-bind:key="key" v-bind:element="element"></element-image>
