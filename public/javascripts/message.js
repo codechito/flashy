@@ -234,7 +234,22 @@ var app = new Vue({
       { value: 'SHORT', text: 'SHORT' },
       { value: 'MEDIUM', text: 'MEDIUM' },
       { value: 'TALL', text: 'TALL' },
-    ]
+    ],
+    blank_element:{ 
+      message_name: 'New Message' ,
+      elements:[{
+        type: 'Text', 
+        images:[{
+          orientation: "VERTICAL",
+          card_suggestions:[{
+            type: 'Link URL'
+        }]},{
+          orientation: "VERTICAL",
+          card_suggestions:[{
+            type: 'Link URL'
+        }]}], 
+        suggestions:[],
+        card_suggestions:[]}]}
   },
   computed: {
     contents: function(){
@@ -242,19 +257,6 @@ var app = new Vue({
     }
   },
   methods: {
-    prepareElement(sidx){
-      if(this.contents.messages[this.idx].elements[sidx].type == 'Carousel'){
-        if(!this.contents.messages[this.idx].elements[sidx].images){
-          this.contents.messages[this.idx].elements[sidx].images = [{
-            orientation: "VERTICAL",
-            card_suggestions:[{
-              type: 'Link URL'
-            }]
-          }];
-        }
-      }
-      
-    },
     addSuggestion(sidx){
       this.contents.messages[this.idx].elements[sidx].suggestions.push({
         type: 'Link URL'
@@ -267,18 +269,12 @@ var app = new Vue({
       });
 
       if(!newExist){
-        this.contents.messages.push({type: 'Text', images:[{orientation: "VERTICAL",
-        card_suggestions:[{
-          type: 'Link URL'
-        }]}], suggestions:[],card_suggestions:[]});
+        this.contents.messages.push(this.blank_element);
       }
 
     },
     addElement(){
-      this.contents.messages[this.idx].elements.push({type: 'Text', images:[{orientation: "VERTICAL",
-      card_suggestions:[{
-        type: 'Link URL'
-      }]}], suggestions:[],card_suggestions:[]});
+      this.contents.messages[this.idx].elements.push(this.blank_element);
     },
     removeElement(){
       this.contents.messages[this.idx].elements.splice(this.idx, 1);
@@ -289,10 +285,7 @@ var app = new Vue({
     switchCampaign(){
       this.contents = this.campaigns[this.cidx] || {};
       if(this.contents.messages.length > 1 || this.contents.messages.length == 0 ){
-        this.contents.messages.push({ message_name: 'New Message' ,elements:[{type: 'Text', images:[{orientation: "VERTICAL",
-        card_suggestions:[{
-          type: 'Link URL'
-        }]}], suggestions:[],card_suggestions:[]}]});
+        this.contents.messages.push(this.blank_element);
       }
       
       this.idx = 0;
@@ -320,20 +313,14 @@ var app = new Vue({
             value: 'new',
             text: 'New Campaign'
           });
-          arrcampaign['new'] = {messages:[{ message_name: 'New Message' ,elements:[{type: 'Text', images:[{orientation: "VERTICAL",
-          card_suggestions:[{
-            type: 'Link URL'
-          }]}], suggestions:[],card_suggestions:[]}]}]};
+          arrcampaign['new'] = {messages:[this.blank_element]};
           var campaign_list = list;
           vm.campaigns = arrcampaign,
           vm.campaign_list = campaign_list,
           vm.contents = vm.campaigns[vm.cidx] || {};
 
           if(vm.contents.messages.length > 1 || vm.contents.messages.length == 0){
-            vm.contents.messages.push({ message_name: 'New Message' ,elements:[{type: 'Text', images:[{orientation: "VERTICAL",
-            card_suggestions:[{
-              type: 'Link URL'
-            }]}], suggestions:[],card_suggestions:[]}]});
+            vm.contents.messages.push(this.blank_element);
           }
           vm.idx = 0;
           
