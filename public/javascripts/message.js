@@ -93,10 +93,12 @@ Vue.component('element-carousel', {
   props: ['contents','element','suggestion_type','card_width_type','image_height_type','idx','sidx'],
   methods: {
     addCardSuggestion(imgidx){
-      
-      this.element.images[imgidx].card_suggestions.push({
+      app.contents.messages[this.idx].elements[this.sidx].images[imgidx].card_suggestions.push({
         type: 'Link URL'
       });
+      // this.element.images[imgidx].card_suggestions.push({
+      //   type: 'Link URL'
+      // });
       console.log(this.element);
     }, 
   },
