@@ -4,7 +4,6 @@ module.exports = function(emitter){
 
     emitter._subscription = false;
     emitter.registerHook('rbm::agent::receive::message::worker:one',function(options){
-        try{
         var getMessageBody = function(userEvent) {
           if (userEvent.text != undefined) {
               return userEvent.text;
@@ -25,7 +24,7 @@ module.exports = function(emitter){
             r.then(function(_content){
                 let options = {
                     table: "MessageSet",
-                    content: { "_id" : cid}
+                    content: { "messages.uuidv4" : message}
                 };
                 let s = emitter.invokeHook("db::find",options);
                 s.then(function(scontent){
@@ -53,10 +52,6 @@ module.exports = function(emitter){
             });
     
           });
-        }
-        catch(e){
-            console.log(e)
-        }
     
     });
 
