@@ -104,11 +104,7 @@ Vue.component('element-carousel', {
   },
   mouted:function(){
     if(!this.element.images){
-      this.element.images = [{
-        card_suggestions: [{
-          type: "Link URL"
-        }]
-      }]
+      this.element.images = []
     }
 
   },
