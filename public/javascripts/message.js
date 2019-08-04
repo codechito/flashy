@@ -1,5 +1,5 @@
 Vue.component('suggestion', {
-  props: [ 'callback_list','contents','element','suggestion','suggestion_type','idx','sidx', 'csidx','imgidx','simgdx'],
+  props: [ 'contents','element','suggestion','suggestion_type','idx','sidx', 'csidx','imgidx','simgdx'],
   methods: {
     removeSuggestion(imgidx){
       if(this.element.type == 'Standalone'){
@@ -42,7 +42,9 @@ Vue.component('suggestion', {
       <b-form-input v-model="suggestion.label" size="sm" class="form-control"></b-form-input>
     </b-form-group>
     <b-form-group description="Callback" label-size="sm">
-      <b-form-select :options="callback_list" size="sm" class="form-control" v-model="suggestion.callback"></b-form-select>
+      <b-form-select size="sm" class="form-control" v-model="suggestion.callback">
+        <option v-for="(message, key) in contents.messages" :value="message.message_name">{{ message.message_name }}</option>
+      </b-form-select>
     </b-form-group>
     <b-form-group description="URL" label-size="sm" v-if="suggestion.type == 'Link URL'">
       <b-form-input v-model="suggestion.url" size="sm" class="form-control"></b-form-input>
@@ -73,7 +75,7 @@ Vue.component('suggestion', {
 });
 
 Vue.component('element-text', {
-  props: ['element','callback_list'],
+  props: ['element'],
   template: `
   <b-form-group label="Message" label-size="sm">
       <b-form-textarea v-model="element.message" size="sm" class="form-control" placeholder="Type your message here"></b-form-textarea>
@@ -82,7 +84,7 @@ Vue.component('element-text', {
 });
 
 Vue.component('element-image', {
-  props: ['element','callback_list'],
+  props: ['element'],
   template: `
   <b-form-group label="Image/Video URL" label-size="sm">
     <b-form-input v-model="element.imageurl" size="sm" class="form-control"></b-form-input>
@@ -91,7 +93,7 @@ Vue.component('element-image', {
 });
 
 Vue.component('element-carousel', {
-  props: ['callback_list','contents','element','suggestion_type','card_width_type','image_height_type','idx','sidx'],
+  props: ['contents','element','suggestion_type','card_width_type','image_height_type','idx','sidx'],
   methods: {
     addCardSuggestion(imgidx){
       this.element.images[imgidx].card_suggestions.push({
@@ -132,7 +134,6 @@ Vue.component('element-carousel', {
               <suggestion v-for="(sgstn, ckey) in image.card_suggestions" 
                 v-bind:csidx="ckey" 
                 v-bind:element="element" 
-                v-bind:callback_list="callback_list" 
                 v-bind:contents="contents" 
                 v-bind:idx="idx" 
                 v-bind:sidx="sidx" 
@@ -153,7 +154,7 @@ Vue.component('element-carousel', {
 });
 
 Vue.component('element-standalone', {
-  props: ['callback_list','contents','element','suggestion_type','card_orientation_type','thumbnail_alignment_type', 'image_height_type','idx','sidx'],
+  props: ['contents','element','suggestion_type','card_orientation_type','thumbnail_alignment_type', 'image_height_type','idx','sidx'],
   methods: {
     addCardSuggestion(sidx){
       app.contents.messages[this.idx].elements[sidx].card_suggestions.push({
@@ -185,7 +186,7 @@ Vue.component('element-standalone', {
       <b-form-textarea v-model="element.description" size="sm" class="form-control"></b-form-textarea>
     </b-form-group>
     <b-button v-on:click="addCardSuggestion(sidx)" variant="outline-info" size="sm" href="#">New Card Suggestion</b-button>
-    <suggestion v-for="(suggestion, ckey) in element.card_suggestions" v-bind:callback_list="callback_list" v-bind:simgdx="ckey" v-bind:element="element" v-bind:contents="contents" v-bind:idx="idx" v-bind:sidx="sidx" v-bind:suggestion="suggestion" v-bind:suggestion_type="suggestion_type"></suggestion>
+    <suggestion v-for="(suggestion, ckey) in element.card_suggestions" v-bind:simgdx="ckey" v-bind:element="element" v-bind:contents="contents" v-bind:idx="idx" v-bind:sidx="sidx" v-bind:suggestion="suggestion" v-bind:suggestion_type="suggestion_type"></suggestion>
   </div>
   `
 });
@@ -198,7 +199,6 @@ const options = {
 var app = new Vue({
   el: '#app',
   data: {
-    callback_list:[],
     cidx: 'new',
     campaigns: [],
     campaign_list: [],
@@ -273,10 +273,6 @@ var app = new Vue({
       if(!newExist){
         this.contents.messages.push(this.blank_element);
       }
-      this.callback_list =[];
-      this.contents.messages.forEach(function(message){
-          this.callback_list.push(message.message_name);
-      });
 
     },
     addElement(){
