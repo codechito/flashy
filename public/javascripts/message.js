@@ -311,10 +311,7 @@ var app = new Vue({
       
     },
     addElement(){
-      this.contents.messages[this.idx].elements.push({ 
-        uuidv4: uuidv4(),
-        message_name: 'New Message' ,
-        elements:[{
+      this.contents.messages[this.idx].elements.push({
           type: 'Text', 
           images:[{
             orientation: "VERTICAL",
@@ -326,7 +323,7 @@ var app = new Vue({
               type: 'Link URL'
           }]}], 
           suggestions:[],
-          card_suggestions:[]}]});
+          card_suggestions:[]});
     },
     removeElement(){
       this.contents.messages[this.idx].elements.splice(this.idx, 1);
