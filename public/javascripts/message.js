@@ -602,7 +602,7 @@ var app = new Vue({
       var recipients = this.contents.recipients.replace(" ","").split(",")
       var total = 0;
       message.elements.forEach(function(element){
-          setInterval(function(){ 
+        setTimeout(function(){ 
             var template = createTemplate(element);
             console.log(template);
             recipients.forEach(function(phone){
