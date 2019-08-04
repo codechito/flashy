@@ -11,7 +11,7 @@ Vue.component('suggestion', {
         }
         
       }
-      if(element.type == 'Carousel'){
+      if(this.element.type == 'Carousel'){
         console.log('imgidx',imgidx);
         if(this.imgidx >= 0){
           this.element.images[imgidx].card_suggestions.splice(this.csidx, 1); 
