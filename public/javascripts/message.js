@@ -98,7 +98,7 @@ Vue.component('element-carousel', {
     addCardSuggestion(imgidx){
       console.log('idx',this.idx);
       console.log('sidx',this.sidx);
-      console.log('imgidx',this.imgidx);
+      console.log('imgidx',imgidx);
       app.contents.messages[this.idx].elements[this.sidx].images[imgidx].card_suggestions.push({
         type: 'Link URL'
       });
