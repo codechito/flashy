@@ -12,6 +12,9 @@ Vue.component('suggestion', {
         
       }
       if(this.contents.messages[this.idx].elements[this.sidx].type == 'Carousel'){
+        console.log('imgidx',this.imgidx);
+        console.log('idx',this.idx);
+        console.log('csidx',this.csidx);
         if(this.imgidx >= 0){
           this.contents.messages[this.idx].elements[this.sidx].images[this.imgidx].card_suggestions.splice(this.csidx, 1); 
         }
@@ -123,7 +126,16 @@ Vue.component('element-carousel', {
                 <b-form-textarea v-model="image.description" size="sm" class="form-control"></b-form-textarea>
               </b-form-group>
               <b-button v-on:click="addCardSuggestion(imgkey)" variant="outline-info" size="sm" href="#">New Card Suggestion</b-button>
-              <suggestion v-for="(suggestion, ckey) in image.card_suggestions" v-bind:csidx="ckey" v-bind:element="element" v-bind:contents="contents" v-bind:idx="idx" v-bind:sidx="sidx" v-bind:imgidx="imgkey" v-bind:suggestion="suggestion" v-bind:suggestion_type="suggestion_type"></suggestion>
+              <suggestion v-for="(suggestion, ckey) in image.card_suggestions" 
+                v-bind:csidx="ckey" 
+                v-bind:element="element" 
+                v-bind:contents="contents" 
+                v-bind:idx="idx" 
+                v-bind:sidx="sidx" 
+                v-bind:imgidx="imgkey" 
+                v-bind:suggestion="suggestion" 
+                v-bind:suggestion_type="suggestion_type"
+              ></suggestion>
             </b-card-text>
           </b-tab>
           <template v-if="element.images && element.images.length < 10" slot="tabs-end">
