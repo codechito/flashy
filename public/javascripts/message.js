@@ -142,7 +142,7 @@ Vue.component('element-standalone', {
   props: ['contents','element','suggestion_type','card_orientation_type','thumbnail_alignment_type', 'image_height_type','idx','sidx'],
   methods: {
     addCardSuggestion(sidx){
-      this.contents.messages[this.idx].elements[sidx].card_suggestions.push({
+      app.contents.messages[this.idx].elements[sidx].card_suggestions.push({
         type: 'Link URL'
       });
     }, 
