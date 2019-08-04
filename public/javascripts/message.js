@@ -218,12 +218,16 @@ var app = new Vue({
     contents: function () {
       
       this.contents.messages.forEach(function(message){
-        if(message.type == 'Carousel'){
-          if(!message.images){
-            message.images.push({
-              card_suggestions:[]
-            });
-          }
+        if(message.elements){
+          message.elements.forEach(function(element){
+            if(element.type == 'Carousel'){
+              if(!element.images){
+                element.images.push({
+                  card_suggestions:[]
+                });
+              }
+            }
+          });
         }
       });
       console.log('im being watched',this.contents);
