@@ -104,7 +104,12 @@ Vue.component('element-carousel', {
   },
   mouted:function(){
     if(!this.element.images){
-      this.element.images = [{}];
+      this.element.images = [{
+        orientation: "VERTICAL",
+        card_suggestions:[{
+          type: 'Link URL'
+        }]
+      }];
     }
 
   },
@@ -236,7 +241,8 @@ var app = new Vue({
       if(this.contents.messages[this.idx].elements[sidx].type == 'Carousel'){
         if(!this.contents.messages[this.idx].elements[sidx].images){
           this.contents.messages[this.idx].elements[sidx].images = [{
-            card_suggestions: [{
+            orientation: "VERTICAL",
+            card_suggestions:[{
               type: 'Link URL'
             }]
           }];
