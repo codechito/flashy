@@ -99,7 +99,7 @@
                                     v-bind:sidx="key"
                                 ></element-carousel>
                                 <b-button v-on:click="addSuggestion(key)" variant="outline-info" size="sm" href="#">New Suggestion</b-button>
-                                <suggestion v-for="(suggestion, ckey) in element.suggestions" v-bind:element="element" v-bind:csidx="ckey" v-bind:key="ckey" v-bind:contents="contents" v-bind:idx="idx" v-bind:sidx="key" v-bind:suggestion="suggestion" v-bind:suggestion_type="suggestion_type"></suggestion>
+                                <suggestion v-for="(suggestion, ckey) in element.suggestions" v-if="ckey < 11" v-bind:element="element" v-bind:csidx="ckey" v-bind:key="ckey" v-bind:contents="contents" v-bind:idx="idx" v-bind:sidx="key" v-bind:suggestion="suggestion" v-bind:suggestion_type="suggestion_type"></suggestion>
                             </div>
                             
                         </template>
