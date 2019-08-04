@@ -320,14 +320,20 @@ var app = new Vue({
             value: 'new',
             text: 'New Campaign'
           });
-          arrcampaign['new'] = {messages:[{ message_name: 'New Message' ,elements:[{type: 'Text', suggestions:[],card_suggestions:[]}]}]};
+          arrcampaign['new'] = {messages:[{ message_name: 'New Message' ,elements:[{type: 'Carousel', images:[{orientation: "VERTICAL",
+          card_suggestions:[{
+            type: 'Link URL'
+          }]}], suggestions:[],card_suggestions:[]}]}]};
           var campaign_list = list;
           vm.campaigns = arrcampaign,
           vm.campaign_list = campaign_list,
           vm.contents = vm.campaigns[vm.cidx] || {};
 
           if(vm.contents.messages.length > 1 || vm.contents.messages.length == 0){
-            vm.contents.messages.push({ message_name: 'New Message' ,elements:[{type: 'Text', suggestions:[],card_suggestions:[]}]});
+            vm.contents.messages.push({ message_name: 'New Message' ,elements:[{type: 'Carousel', images:[{orientation: "VERTICAL",
+            card_suggestions:[{
+              type: 'Link URL'
+            }]}], suggestions:[],card_suggestions:[]}]});
           }
           vm.idx = 0;
           
