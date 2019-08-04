@@ -166,7 +166,7 @@ var sendMessage = function(msisdn,uuidv4,contents){
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             data: JSON.stringify(content),
-            url: '/campaign/rcs/message/send'
+            url: 'http://13.239.167.74:8080/campaign/rcs/message/send'
           };
           axios(options)
             .then(function(response){
