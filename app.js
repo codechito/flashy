@@ -7,6 +7,7 @@ var emitter = require('psharky');
 require('./core/mongo')(emitter);
  var location = require('./routes/location')(emitter);
  var rcscampaign = require('./routes/rcscampaign')(emitter);
+ require('./core/sequencer')(emitter);
  var campaign = require('./routes/campaign')(emitter);
 
 var app = express();
@@ -37,8 +38,6 @@ app.post('/invite', function(req, res) {
   res.json(req.body);
 
 });
-
-require('./core/sequencer')(emitter);
 
 let s = emitter.invokeHook("rbm::agent::receive::message::worker:one");
 s.then(function(result){
