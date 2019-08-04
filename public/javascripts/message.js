@@ -1,3 +1,9 @@
+function uuidv4() {
+  return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+    (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+  )
+}
+
 Vue.component('suggestion', {
   props: [ 'contents','element','suggestion','suggestion_type','idx','sidx', 'csidx','imgidx','simgdx'],
   methods: {
@@ -43,7 +49,7 @@ Vue.component('suggestion', {
     </b-form-group>
     <b-form-group description="Callback" label-size="sm">
       <b-form-select size="sm" class="form-control" v-model="suggestion.callback">
-        <option v-for="(message, key) in contents.messages" :value="message.message_name">{{ message.message_name }}</option>
+        <option v-for="(message, key) in contents.messages" :value="message.uuidv4">{{ message.message_name }}</option>
       </b-form-select>
     </b-form-group>
     <b-form-group description="URL" label-size="sm" v-if="suggestion.type == 'Link URL'">
@@ -203,7 +209,7 @@ var app = new Vue({
     campaigns: [],
     campaign_list: [],
     contents:{
-      messages:[{ message_name: 'New Message' ,elements:[{type: 'Text',suggestions:[],card_suggestions:[]}]}]
+      messages:[{ uuidv4: uuidv4(), message_name: 'New Message' ,elements:[{type: 'Text',suggestions:[],card_suggestions:[]}]}]
     }, 
     idx: 0,
     tester: '',
@@ -238,6 +244,7 @@ var app = new Vue({
       { value: 'TALL', text: 'TALL' },
     ],
     blank_element:{ 
+      uuidv4: uuidv4(),
       message_name: 'New Message' ,
       elements:[{
         type: 'Text', 
@@ -301,6 +308,7 @@ var app = new Vue({
       axios(options)
         .then(function(response){
           var blank_element = { 
+            uuidv4: uuidv4(),
             message_name: 'New Message' ,
             elements:[{
               type: 'Text', 

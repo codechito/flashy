@@ -101,6 +101,7 @@ const MessageSetSchema = {
   "recipients": { type: String },
   "messages": [{
     "message_name": { type: String },
+    "uuidv4": { type: String },
     "elements": [{
       "type": { type: String },
       "message": { type: String },
