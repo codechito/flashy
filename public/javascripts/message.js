@@ -25,7 +25,7 @@ Vue.component('suggestion', {
           this.sidx = 0;
         }
         if(this.imgidx >= 0){
-          console.log(app.contents.messages[this.idx],app.contents.messages[this.idx].elements[this.sidx],app.contents.messages[this.idx].elements[this.sidx].images[imgidx]);
+          console.log("|",app.contents.messages[this.idx],"|",app.contents.messages[this.idx].elements[this.sidx],"|",app.contents.messages[this.idx].elements[this.sidx].images[imgidx]);
           this.contents.messages[this.idx].elements[this.sidx].images[this.imgidx].card_suggestions.splice(this.csidx, 1); 
         }
         else{
@@ -115,7 +115,7 @@ Vue.component('element-carousel', {
       if(!this.sidx){
         this.sidx = 0;
       }
-      console.log(app.contents.messages[this.idx],app.contents.messages[this.idx].elements[this.sidx],app.contents.messages[this.idx].elements[this.sidx].images[imgidx]);
+      console.log("|",app.contents.messages[this.idx],"|",app.contents.messages[this.idx].elements[this.sidx],"|",app.contents.messages[this.idx].elements[this.sidx].images[imgidx]);
       app.contents.messages[this.idx].elements[this.sidx].images[imgidx].card_suggestions.push({
         type: 'Link URL'
       });
