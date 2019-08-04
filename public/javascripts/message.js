@@ -90,7 +90,7 @@ Vue.component('element-image', {
 });
 
 Vue.component('element-carousel', {
-  props: ['element','suggestion_type','card_width_type','image_height_type','idx','sidx',],
+  props: ['element','suggestion_type','card_width_type','image_height_type','idx','sidx'],
   template: `
   <div>
     <b-form-group label="Card Width" label-size="sm">
@@ -213,6 +213,19 @@ var app = new Vue({
       { value: 'MEDIUM', text: 'MEDIUM' },
       { value: 'TALL', text: 'TALL' },
     ]
+  },
+  watch: {
+    contents: function () {
+      this.contents.messages.forEach(function(message){
+        if(message.type == 'Carousel'){
+          if(!message.images){
+            message.images.push({
+              card_suggestions:[]
+            });
+          }
+        }
+      });
+    },
   },
   methods: {
     addSuggestion(sidx){
