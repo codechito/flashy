@@ -321,7 +321,21 @@ var app = new Vue({
           vm.contents = vm.campaigns[vm.cidx] || {};
 
           if(vm.contents.messages.length > 1 || vm.contents.messages.length == 0){
-            vm.contents.messages.push(this.blank_element);
+            vm.contents.messages.push({ 
+              message_name: 'New Message' ,
+              elements:[{
+                type: 'Text', 
+                images:[{
+                  orientation: "VERTICAL",
+                  card_suggestions:[{
+                    type: 'Link URL'
+                }]},{
+                  orientation: "VERTICAL",
+                  card_suggestions:[{
+                    type: 'Link URL'
+                }]}], 
+                suggestions:[],
+                card_suggestions:[]}]});
           }
           vm.idx = 0;
           console.log(vm.campaign_list );
