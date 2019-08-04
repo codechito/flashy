@@ -2,12 +2,6 @@ Vue.component('suggestion', {
   props: [ 'contents','element','suggestion','suggestion_type','idx','sidx', 'csidx','imgidx','simgdx'],
   methods: {
     removeSuggestion(){
-      if(!this.idx){
-        this.idx = 0;
-      }
-      if(!this.sidx){
-        this.sidx = 0;
-      }
       if(this.contents.messages[this.idx].elements[this.sidx].type == 'Standalone'){
         if(this.simgdx >= 0){
           this.contents.messages[this.idx].elements[this.sidx].card_suggestions.splice(this.simgdx, 1);
@@ -21,14 +15,7 @@ Vue.component('suggestion', {
         console.log('imgidx',this.imgidx);
         console.log('idx',app.idx);
         console.log('csidx',this.csidx);
-        if(!this.imgidx){
-          this.imgidx = 0;
-        }
-        if(!this.sidx){
-          this.sidx = 0;
-        }
-        if(this.imgidx && this.imgidx >= 0){
-          console.log("|",app.contents.messages[this.idx],"|",app.contents.messages[this.idx].elements[this.sidx],"|",app.contents.messages[this.idx].elements[this.sidx].images[imgidx]);
+        if(this.imgidx >= 0){
           this.contents.messages[this.idx].elements[this.sidx].images[this.imgidx].card_suggestions.splice(this.csidx, 1); 
         }
         else{
@@ -109,16 +96,9 @@ Vue.component('element-carousel', {
   props: ['contents','element','suggestion_type','card_width_type','image_height_type','idx','sidx'],
   methods: {
     addCardSuggestion(imgidx){
-      if(!this.imgidx){
-        this.imgidx = 0;
-      }
-      if(!this.idx){
-        this.idx = 0;
-      }
-      if(!this.sidx){
-        this.sidx = 0;
-      }
-      console.log("|",app.contents.messages[this.idx],"|",app.contents.messages[this.idx].elements[this.sidx],"|",app.contents.messages[this.idx].elements[this.sidx].images[imgidx]);
+      console.log('idx',this.idx);
+      console.log('sidx',this.sidx);
+      console.log('imgidx',this.imgidx);
       app.contents.messages[this.idx].elements[this.sidx].images[imgidx].card_suggestions.push({
         type: 'Link URL'
       });
