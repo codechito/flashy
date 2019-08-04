@@ -103,7 +103,7 @@ Vue.component('element-carousel', {
       <b-card no-body>
         <b-tabs card>
           <b-tab v-for="(image, imgkey) in element.images">
-            <template slot="title">Image {{ key + 1}}</template>
+            <template slot="title">Image {{ imgkey + 1}}</template>
             <b-card-text>
               <b-button v-b-tooltip.hover title="Remove Image" variant="info" class="float-right icon-button" @click="closeTab(i)"><h3> &times; </h3></b-button>
               <b-form-group label="Image/Video URL" label-size="sm">
