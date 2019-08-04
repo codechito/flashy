@@ -221,10 +221,16 @@ var app = new Vue({
         if(message.elements){
           message.elements.forEach(function(element){
             if(element.type == 'Carousel'){
+              console.log("been here",element);
               if(!element.images){
                 element.images.push({
                   card_suggestions:[]
                 });
+              }
+              else{
+                element.images = [{
+                  card_suggestions:[]
+                }];
               }
             }
           });
