@@ -103,6 +103,11 @@ Vue.component('element-carousel', {
       console.log(app.contents);
     }, 
   },
+  computed: {
+    contents: function(){
+      return app.contents;
+    }
+  },
   template: `
   <div>
     <b-form-group label="Card Width" label-size="sm">
@@ -234,6 +239,11 @@ var app = new Vue({
       { value: 'MEDIUM', text: 'MEDIUM' },
       { value: 'TALL', text: 'TALL' },
     ]
+  },
+  computed: {
+    contents: function(){
+      return app.contents;
+    }
   },
   methods: {
     prepareElement(sidx){
