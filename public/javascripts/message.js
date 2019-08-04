@@ -317,7 +317,7 @@ var app = new Vue({
     },
     switchCampaign(){
       this.contents = this.campaigns[this.cidx] || {};
-      if(this.contents.messages.length > 1 || this.contents.messages.length == 0 ){
+      if(this.contents.messages.length >= 0 ){
         this.contents.messages.push({ 
           uuidv4: uuidv4(),
           message_name: 'New Message' ,
