@@ -4,6 +4,7 @@ module.exports = function(emitter){
 
     emitter._subscription = false;
     emitter.registerHook('rbm::agent::receive::message::worker:one',function(options){
+        console.log("here 0");
         var getMessageBody = function(userEvent) {
           if (userEvent.text != undefined) {
               return userEvent.text;
@@ -13,8 +14,9 @@ module.exports = function(emitter){
       
           return false;
         };
-    
+        console.log("here 4");
         var handleMessage = function(userEvent){
+            console.log("here 3");
           if (userEvent.senderPhoneNumber != undefined && (userEvent.text || userEvent.suggestionResponse)) {
             let msisdn = userEvent.senderPhoneNumber;
             let message = getMessageBody(userEvent);
@@ -33,8 +35,9 @@ module.exports = function(emitter){
             });
           }
         };
-
+        console.log("here 2");
         return new Promise(function(resolve){
+            console.log("here 1");
             let r = emitter.invokeHook("init::pubsub",{	
               projectId: config.project_id,
               keyFilename: config.keyFilename,
@@ -46,8 +49,10 @@ module.exports = function(emitter){
                 let userEvent = JSON.parse(message.data);
                 console.log(userEvent);
                 handleMessage(userEvent);
+                console.log("here 5");
                 message.ack();
               });
+              console.log("here 6");
               resolve("Subscription is running");
             });
     
