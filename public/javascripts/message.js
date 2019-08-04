@@ -2,6 +2,12 @@ Vue.component('suggestion', {
   props: [ 'contents','element','suggestion','suggestion_type','idx','sidx', 'csidx','imgidx','simgdx'],
   methods: {
     removeSuggestion(){
+      if(!this.idx){
+        this.idx = 0;
+      }
+      if(!this.sidx){
+        this.sidx = 0;
+      }
       if(this.contents.messages[this.idx].elements[this.sidx].type == 'Standalone'){
         if(this.simgdx >= 0){
           this.contents.messages[this.idx].elements[this.sidx].card_suggestions.splice(this.simgdx, 1);
@@ -17,9 +23,6 @@ Vue.component('suggestion', {
         console.log('csidx',this.csidx);
         if(!this.imgidx){
           this.imgidx = 0;
-        }
-        if(!this.idx){
-          this.idx = 'new';
         }
         if(!this.sidx){
           this.sidx = 0;
