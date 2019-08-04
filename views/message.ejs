@@ -86,6 +86,7 @@
                                     v-bind:thumbnail_alignment_type="thumbnail_alignment_type"
                                     v-bind:contents="contents"
                                     v-bind:image_height_type="image_height_type"
+                                    v-bind:callback_list="callback_list"
                                     v-bind:idx="idx"
                                     v-bind:sidx="key"
                                 ></element-standalone>
@@ -95,11 +96,12 @@
                                     v-bind:suggestion_type="suggestion_type"
                                     v-bind:image_height_type="image_height_type"
                                     v-bind:contents="contents"
+                                    v-bind:callback_list="callback_list"
                                     v-bind:idx="idx"
                                     v-bind:sidx="key"
                                 ></element-carousel>
                                 <b-button v-on:click="addSuggestion(key)" variant="outline-info" size="sm" href="#">New Suggestion</b-button>
-                                <suggestion v-for="(suggestion, ckey) in element.suggestions" v-bind:element="element" v-bind:csidx="ckey" v-bind:key="ckey" v-bind:contents="contents" v-bind:idx="idx" v-bind:sidx="key" v-bind:suggestion="suggestion" v-bind:suggestion_type="suggestion_type"></suggestion>
+                                <suggestion v-for="(suggestion, ckey) in element.suggestions" v-bind:callback_list="callback_list" v-bind:element="element" v-bind:csidx="ckey" v-bind:key="ckey" v-bind:contents="contents" v-bind:idx="idx" v-bind:sidx="key" v-bind:suggestion="suggestion" v-bind:suggestion_type="suggestion_type"></suggestion>
                             </div>
                             
                         </template>
