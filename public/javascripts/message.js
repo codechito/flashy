@@ -350,7 +350,7 @@ var app = new Vue({
             value: 'new',
             text: 'New Campaign'
           });
-          arrcampaign['new'] = {messages:[blank_element]};
+          arrcampaign['new'] = {agent:'SEQUENCER', messages:[blank_element]};
           var campaign_list = list;
           vm.campaigns = arrcampaign,
           vm.campaign_list = campaign_list,
