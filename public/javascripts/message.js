@@ -289,12 +289,44 @@ var app = new Vue({
       });
 
       if(!newExist){
-        this.contents.messages.push(JSON.parse(JSON.stringify(this.blank_element)));
+        this.contents.messages.push({ 
+          uuidv4: uuidv4(),
+          message_name: 'New Message' ,
+          elements:[{
+            type: 'Text', 
+            images:[{
+              orientation: "VERTICAL",
+              card_suggestions:[{
+                type: 'Link URL'
+            }]},{
+              orientation: "VERTICAL",
+              card_suggestions:[{
+                type: 'Link URL'
+            }]}], 
+            suggestions:[],
+            card_suggestions:[]}]});
       }
 
+
+      
     },
     addElement(){
-      this.contents.messages[this.idx].elements.push(JSON.parse(JSON.stringify(this.blank_element)));
+      this.contents.messages[this.idx].elements.push({ 
+        uuidv4: uuidv4(),
+        message_name: 'New Message' ,
+        elements:[{
+          type: 'Text', 
+          images:[{
+            orientation: "VERTICAL",
+            card_suggestions:[{
+              type: 'Link URL'
+          }]},{
+            orientation: "VERTICAL",
+            card_suggestions:[{
+              type: 'Link URL'
+          }]}], 
+          suggestions:[],
+          card_suggestions:[]}]});
     },
     removeElement(){
       this.contents.messages[this.idx].elements.splice(this.idx, 1);
@@ -305,7 +337,22 @@ var app = new Vue({
     switchCampaign(){
       this.contents = this.campaigns[this.cidx] || {};
       if(this.contents.messages.length > 1 || this.contents.messages.length == 0 ){
-        this.contents.messages.push(JSON.parse(JSON.stringify(this.blank_element)));
+        this.contents.messages.push({ 
+          uuidv4: uuidv4(),
+          message_name: 'New Message' ,
+          elements:[{
+            type: 'Text', 
+            images:[{
+              orientation: "VERTICAL",
+              card_suggestions:[{
+                type: 'Link URL'
+            }]},{
+              orientation: "VERTICAL",
+              card_suggestions:[{
+                type: 'Link URL'
+            }]}], 
+            suggestions:[],
+            card_suggestions:[]}]});
       }
       
       this.idx = 0;
