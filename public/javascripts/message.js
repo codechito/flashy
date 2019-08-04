@@ -161,7 +161,7 @@ Vue.component('element-carousel', {
             </b-card-text>
           </b-tab>
           <template v-if="element.images && element.images.length < 10" slot="tabs-end">
-            <b-nav-item v-b-tooltip.hover title="Add Image" @click.prevent="newTab" href="#" v-on:click="addCardImage()" ><b>+</b></b-nav-item>
+            <b-nav-item v-b-tooltip.hover title="Add Image" href="#" v-on:click="addCardImage()" ><b>+</b></b-nav-item>
           </template>
         </b-tabs>
       </b-card>
@@ -253,23 +253,7 @@ var app = new Vue({
       { value: 'SHORT', text: 'SHORT' },
       { value: 'MEDIUM', text: 'MEDIUM' },
       { value: 'TALL', text: 'TALL' },
-    ],
-    blank_element:{ 
-      uuidv4: uuidv4(),
-      message_name: 'New Message' ,
-      elements:[{
-        type: 'Text', 
-        images:[{
-          orientation: "VERTICAL",
-          card_suggestions:[{
-            type: 'Link URL'
-        }]},{
-          orientation: "VERTICAL",
-          card_suggestions:[{
-            type: 'Link URL'
-        }]}], 
-        suggestions:[],
-        card_suggestions:[]}]}
+    ]
   },
   computed: {
     contents: function(){
