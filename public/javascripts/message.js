@@ -298,6 +298,22 @@ var app = new Vue({
       };
       axios(options)
         .then(function(response){
+          var blank_element = { 
+            message_name: 'New Message' ,
+            elements:[{
+              type: 'Text', 
+              images:[{
+                orientation: "VERTICAL",
+                card_suggestions:[{
+                  type: 'Link URL'
+              }]},{
+                orientation: "VERTICAL",
+                card_suggestions:[{
+                  type: 'Link URL'
+              }]}], 
+              suggestions:[],
+              card_suggestions:[]}]};
+
           var cmpgns = response.data[0];
           var arrcampaign = [];
           var list = [];
@@ -313,28 +329,14 @@ var app = new Vue({
             value: 'new',
             text: 'New Campaign'
           });
-          arrcampaign['new'] = {messages:[this.blank_element]};
+          arrcampaign['new'] = {messages:[blank_element]};
           var campaign_list = list;
           vm.campaigns = arrcampaign,
           vm.campaign_list = campaign_list,
           vm.contents = vm.campaigns[vm.cidx] || {};
 
           if(vm.contents.messages.length > 1 || vm.contents.messages.length == 0){
-            vm.contents.messages.push({ 
-              message_name: 'New Message' ,
-              elements:[{
-                type: 'Text', 
-                images:[{
-                  orientation: "VERTICAL",
-                  card_suggestions:[{
-                    type: 'Link URL'
-                }]},{
-                  orientation: "VERTICAL",
-                  card_suggestions:[{
-                    type: 'Link URL'
-                }]}], 
-                suggestions:[],
-                card_suggestions:[]}]});
+            vm.contents.messages.push(blank_element);
           }
           vm.idx = 0;
         })
