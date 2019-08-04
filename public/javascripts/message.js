@@ -96,9 +96,7 @@ Vue.component('element-carousel', {
   methods: {
     addCardSuggestion(imgidx){
       console.log('imgidx',imgidx);
-      this.element.images[imgidx].card_suggestions.push({
-        type: 'Link URL'
-      });
+      this.element.images[imgidx].card_suggestions.push({});
 
       console.log(app.contents);
     }, 
@@ -241,9 +239,7 @@ var app = new Vue({
         if(!this.contents.messages[this.idx].elements[sidx].images){
           this.contents.messages[this.idx].elements[sidx].images = [{
             orientation: "VERTICAL",
-            card_suggestions:[{
-              type: 'Link URL'
-            }]
+            card_suggestions:[]
           }];
         }
         console.log(this.contents.messages[this.idx].elements[sidx]);
