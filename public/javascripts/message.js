@@ -27,7 +27,7 @@ Vue.component('suggestion', {
       if(this.element.type == 'Text'){
         this.element.suggestions.splice(this.csidx, 1);
       }      
-      app.$forceUpdate();
+     app.$forceUpdate();
     }
     
   },
@@ -96,9 +96,11 @@ Vue.component('element-carousel', {
   methods: {
     addCardSuggestion(imgidx){
       console.log('imgidx',imgidx);
-      this.element.images[imgidx].card_suggestions.push({});
-
+      this.element.images[imgidx].card_suggestions.push({
+        type: 'Link URL'
+      });
       app.$forceUpdate();
+      console.log(app.contents);
     }, 
   },
   template: `
@@ -239,7 +241,9 @@ var app = new Vue({
         if(!this.contents.messages[this.idx].elements[sidx].images){
           this.contents.messages[this.idx].elements[sidx].images = [{
             orientation: "VERTICAL",
-            card_suggestions:[]
+            card_suggestions:[{
+              type: 'Link URL'
+            }]
           }];
         }
         console.log(this.contents.messages[this.idx].elements[sidx]);
