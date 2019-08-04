@@ -228,7 +228,9 @@ var app = new Vue({
       if(this.contents.messages[this.idx].elements[sidx].type == 'Carousel'){
         if(!this.contents.messages[this.idx].elements[sidx].images){
           this.contents.messages[this.idx].elements[sidx].images = [{
-            card_suggestions: []
+            card_suggestions: [{
+              type: 'Link URL'
+            }]
           }];
         }
         
