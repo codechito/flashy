@@ -96,22 +96,7 @@ Vue.component('element-carousel', {
       app.contents.messages[this.idx].elements[this.sidx].images[imgidx].card_suggestions.push({
         type: 'Link URL'
       });
-      // this.element.images[imgidx].card_suggestions.push({
-      //   type: 'Link URL'
-      // });
-      console.log(this.element);
     }, 
-  },
-  mouted:function(){
-    if(!this.element.images){
-      this.element.images = [{
-        orientation: "VERTICAL",
-        card_suggestions:[{
-          type: 'Link URL'
-        }]
-      }];
-    }
-
   },
   template: `
   <div>
