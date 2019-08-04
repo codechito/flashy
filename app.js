@@ -5,9 +5,9 @@ var logger = require('morgan');
 
 var emitter = require('psharky');
 require('./core/mongo')(emitter);
-var location = require('./routes/location')(emitter);
-var rcscampaign = require('./routes/rcscampaign')(emitter);
-var campaign = require('./routes/campaign')(emitter);
+ var location = require('./routes/location')(emitter);
+ var rcscampaign = require('./routes/rcscampaign')(emitter);
+ var campaign = require('./routes/campaign')(emitter);
 
 var app = express();
 
@@ -27,9 +27,20 @@ app.all('/whatsapp/webhook', function(req,res){
    console.log("thank you for sending these:","query",req.query,"body",req.body);
    res.json("thank you for sending these");
 });
+app.all('/message', function(req,res){
+  res.render('message');
+});
 
+app.post('/invite', function(req, res) {
 
-let s = emitter.invokeHook("rbm::agent::receive::message");
+  console.log(req.body.msisdn);
+  res.json(req.body);
+
+});
+
+require('./core/sequencer')(emitter);
+
+let s = emitter.invokeHook("rbm::agent::receive::message::worker:one");
 s.then(function(result){
   console.log(result);
 });
