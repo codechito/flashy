@@ -214,32 +214,15 @@ var app = new Vue({
       { value: 'TALL', text: 'TALL' },
     ]
   },
-  watch: {
-    contents: function () {
-      
-      this.contents.messages.forEach(function(message){
-        if(message.elements){
-          message.elements.forEach(function(element){
-            if(element.type == 'Carousel'){
-              console.log("been here",element);
-              if(!element.images){
-                element.images.push({
-                  card_suggestions:[]
-                });
-              }
-              else{
-                element.images = [{
-                  card_suggestions:[]
-                }];
-              }
-            }
-          });
-        }
-      });
-      console.log('im being watched',this.contents);
-    },
-  },
   methods: {
+    prepareElement(sidx){
+      if(this.contents.messages[this.idx].elements[sidx].type == 'Carousel'){
+        this.contents.messages[this.idx].elements[sidx].images.push({
+          card_suggestions: []
+        });
+      }
+      
+    },
     addSuggestion(sidx){
       this.contents.messages[this.idx].elements[sidx].suggestions.push({
         type: 'Link URL'
