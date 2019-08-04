@@ -94,21 +94,18 @@ Vue.component('element-carousel', {
   methods: {
     addCardSuggestion(imgidx){
       
-      if(!this.element.images){
-        this.element.images = [{
-          card_suggestions:[]
-        }];
-      }
       this.element.images[imgidx].card_suggestions.push({
         type: 'Link URL'
       });
       console.log(this.element);
     }, 
   },
-  mounted:function(){
+  created:function(){
     if(!this.element.images){
       this.element.images = [{
+
         card_suggestions: [{
+
           type: "Link URL"
         }]
       }]
