@@ -13,7 +13,7 @@ Vue.component('suggestion', {
       }
       if(this.element.type == 'Carousel'){
         console.log('imgidx',imgidx);
-        if(this.imgidx >= 0){
+        if(imgidx >= 0){
           this.element.images[imgidx].card_suggestions.splice(this.csidx, 1); 
         }
         else{
@@ -98,7 +98,8 @@ Vue.component('element-carousel', {
       this.element.images[imgidx].card_suggestions.push({
         type: 'Link URL'
       });
-      this.$emit('syncparent');
+
+      console.log(app.contents);
     }, 
   },
   template: `
@@ -125,7 +126,7 @@ Vue.component('element-carousel', {
               <b-form-group label="Description" label-size="sm">
                 <b-form-textarea v-model="image.description" size="sm" class="form-control"></b-form-textarea>
               </b-form-group>
-              <b-button v-on:syncparent="updateContents(idx,sidx,element)" v-on:click="addCardSuggestion(imgkey)" variant="outline-info" size="sm" href="#">New Card Suggestion</b-button>
+              <b-button v-on:click="addCardSuggestion(imgkey)" variant="outline-info" size="sm" href="#">New Card Suggestion</b-button>
               <suggestion v-for="(sgstn, ckey) in image.card_suggestions" 
                 v-bind:csidx="ckey" 
                 v-bind:element="element" 
@@ -234,10 +235,6 @@ var app = new Vue({
     ]
   },
   methods: {
-    updateContents(idx,sidx,element){
-      console.log("triggered",idx,sidx,element)
-      this.contents.messages[idx].elements[sidx] = element;
-    },
     prepareElement(sidx){
       if(this.contents.messages[this.idx].elements[sidx].type == 'Carousel'){
         if(!this.contents.messages[this.idx].elements[sidx].images){
