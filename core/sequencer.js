@@ -153,7 +153,7 @@ var sendMessage = function(msisdn,uuidv4,contents){
 
     var message;
     contents.messages.filter(function(msg,idx){
-        if(message.uuidv4 == uuidv4) {
+        if(msg.uuidv4 == uuidv4) {
             message = contents.messages[idx];
         }
     });
