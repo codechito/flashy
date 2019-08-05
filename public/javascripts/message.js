@@ -48,7 +48,7 @@ Vue.component('suggestion', {
       <b-form-input v-model="suggestion.label" size="sm" class="form-control"></b-form-input>
     </b-form-group>
     <b-form-group description="Link to Message" label-size="sm">
-      <b-form-select size="sm" class="form-control" v-model="suggestion.callback">
+      <b-form-select size="sm" class="form-control" v-if="suggestion.type == 'Reply'" v-model="suggestion.callback">
         <option value="xxxxx">Do not link</option>
         <option v-for="(message, key) in contents.messages" :value="message.uuidv4">{{ message.message_name }}</option>
       </b-form-select>
@@ -471,7 +471,7 @@ var app = new Vue({
               suggestions.push({
                 action:{
                   text: suggestion.label,
-                  postbackData: suggestion.callback,
+                  postbackData: suggestion.callback || 'xxxxxxx',
                   openUrlAction: { url: suggestion.url }
                 }
               });
@@ -480,7 +480,7 @@ var app = new Vue({
               suggestions.push({
                 action: {
                   text: suggestion.label,
-                  postbackData: suggestion.callback,
+                  postbackData: suggestion.callback || 'xxxxxxx',
                   dialAction: { phoneNumber: suggestion.phoneNumber }
                 }
               });
@@ -489,7 +489,7 @@ var app = new Vue({
               suggestions.push({
                 action: {
                   text: suggestion.label,
-                  postbackData: suggestion.callback,
+                  postbackData: suggestion.callback || 'xxxxxxx',
                   createCalendarEventAction: { 
                     startTime: suggestion.startTime,
                     endTime: suggestion.endTime,
@@ -503,7 +503,7 @@ var app = new Vue({
               suggestions.push({
                 action: {
                   text: suggestion.label,
-                  postbackData: suggestion.callback,
+                  postbackData: suggestion.callback || 'xxxxxxx',
                   viewLocationAction: { 
                     latLong: {
                       latitude: suggestion.latitude,
