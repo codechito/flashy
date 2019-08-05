@@ -605,8 +605,7 @@ var app = new Vue({
       var recipients = this.contents.recipients.replace(" ","").split(",")
       var total = 0;
       message.elements.forEach(function(element){
-        setTimeout(function(){ 
-            var template = createTemplate(element);
+        var template = createTemplate(element);
             console.log(template);
             recipients.forEach(function(phone){
               var content = {resource : JSON.stringify(template), msisdn : phone};
@@ -634,7 +633,6 @@ var app = new Vue({
                   
                 })
             });
-        }, 3000);
         
       });
     }
