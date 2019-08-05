@@ -271,8 +271,10 @@ var app = new Vue({
     }, 
     element_change(){
       var newExist = false;
-      newExist = this.contents.messages.filter(function(elem){
-          if(elem.message_name == "New Message") return true;
+      this.contents.messages.forEach(function(message){
+        if(message.message_name == "New Message"){
+          newExist = true;
+        }
       });
 
       if(!newExist){
@@ -320,7 +322,7 @@ var app = new Vue({
     },
     switchCampaign(){
       this.contents = this.campaigns[this.cidx] || {};
-      if(this.contents.messages.length >= 0 ){
+      if(!(this.contents.messages.length >= 0) ){
         this.contents.messages.push({ 
           uuidv4: uuidv4(),
           message_name: 'New Message' ,
