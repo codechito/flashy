@@ -20,7 +20,7 @@ var sendMessage = function(msisdn,uuidv4,contents){
             suggestions.push({
               action:{
                 text: suggestion.label,
-                postbackData: suggestion.callback,
+                postbackData: suggestion.callback || 'xxxxxxx',
                 openUrlAction: { url: suggestion.url }
               }
             });
@@ -29,7 +29,7 @@ var sendMessage = function(msisdn,uuidv4,contents){
             suggestions.push({
               action: {
                 text: suggestion.label,
-                postbackData: suggestion.callback,
+                postbackData: suggestion.callback || 'xxxxxxx',
                 dialAction: { phoneNumber: suggestion.phoneNumber }
               }
             });
@@ -38,7 +38,7 @@ var sendMessage = function(msisdn,uuidv4,contents){
             suggestions.push({
               action: {
                 text: suggestion.label,
-                postbackData: suggestion.callback,
+                postbackData: suggestion.callback || 'xxxxxxx',
                 createCalendarEventAction: { 
                   startTime: suggestion.startTime,
                   endTime: suggestion.endTime,
@@ -52,7 +52,7 @@ var sendMessage = function(msisdn,uuidv4,contents){
             suggestions.push({
               action: {
                 text: suggestion.label,
-                postbackData: suggestion.callback,
+                postbackData: suggestion.callback || 'xxxxxxx',
                 viewLocationAction: { 
                   latLong: {
                     latitude: suggestion.latitude,
