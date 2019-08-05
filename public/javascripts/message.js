@@ -324,24 +324,34 @@ var app = new Vue({
       this.contents.messages.splice(this.idx, 1);
     },
     switchCampaign(){
+
       this.contents = this.campaigns[this.cidx] || {};
-      if(!(this.contents.messages.length >= 0) ){
-        this.contents.messages.push({ 
-          uuidv4: uuidv4(),
-          message_name: 'New Message' ,
-          elements:[{
-            type: 'Text', 
-            images:[{
-              orientation: "VERTICAL",
-              card_suggestions:[{
-                type: 'Link URL'
-            }]},{
-              orientation: "VERTICAL",
-              card_suggestions:[{
-                type: 'Link URL'
-            }]}], 
-            suggestions:[],
-            card_suggestions:[]}]});
+      if((this.contents.messages.length >= 0) ){
+
+        var newExist = false;
+        this.contents.messages.forEach(function(message){
+          if(message.message_name == "New Message"){
+            newExist = true;
+          }
+        });
+        if(!newExist){
+          this.contents.messages.push({ 
+            uuidv4: uuidv4(),
+            message_name: 'New Message' ,
+            elements:[{
+              type: 'Text', 
+              images:[{
+                orientation: "VERTICAL",
+                card_suggestions:[{
+                  type: 'Link URL'
+              }]},{
+                orientation: "VERTICAL",
+                card_suggestions:[{
+                  type: 'Link URL'
+              }]}], 
+              suggestions:[],
+              card_suggestions:[]}]});
+        }
       }
       
       this.idx = 0;
