@@ -263,7 +263,7 @@ var app = new Vue({
   methods: {
     addSuggestion(sidx){
       this.contents.messages[this.idx].elements[sidx].suggestions.push({
-        type: 'Link URL'
+        type: 'Reply'
       });
     }, 
     element_change(){
