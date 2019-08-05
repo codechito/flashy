@@ -271,7 +271,7 @@ var app = new Vue({
     }, 
     element_change(){
       var newExist = false;
-      this.contents.messages.filter(function(elem){
+      newExist = this.contents.messages.filter(function(elem){
           if(elem.message_name == "New Message") return true;
       });
 
