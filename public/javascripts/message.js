@@ -41,10 +41,10 @@ Vue.component('suggestion', {
     <span>{{suggestion.type}}</span>
     <b-button v-on:click="removeSuggestion(imgidx)" v-b-tooltip.hover title="Remove suggestion" variant="info" class="icon-button float-right" ><h3> &times; </h3></b-button>
     <hr/><br/>
-    <b-form-group description="Suggestion Type" label-size="sm">
+    <b-form-group v-show="suggestion_type.length > 1" description="Suggestion Type" label-size="sm">
       <b-form-select :options="suggestion_type" size="sm" class="form-control" v-model="suggestion.type"></b-form-select>
     </b-form-group>
-    <b-form-group description="Label" label-size="sm">
+    <b-form-group description="Reply Text" label-size="sm">
       <b-form-input v-model="suggestion.label" size="sm" class="form-control"></b-form-input>
     </b-form-group>
     <b-form-group description="Link to Message" label-size="sm">
