@@ -81,7 +81,7 @@
                                 <element-image v-if="element.type == 'Image/Video'" v-bind:key="key" v-bind:element="element"></element-image>
                                 <element-standalone v-if="element.type == 'Standalone'" v-bind:key="key" 
                                     v-bind:element="element" 
-                                    v-bind:suggestion_type="suggestion_type"
+                                    v-bind:suggestion_type="suggestion_action"
                                     v-bind:card_orientation_type="card_orientation_type"
                                     v-bind:thumbnail_alignment_type="thumbnail_alignment_type"
                                     v-bind:contents="contents"
@@ -92,14 +92,14 @@
                                 <element-carousel v-if="element.type == 'Carousel'"
                                     v-bind:element="element"
                                     v-bind:card_width_type="card_width_type"
-                                    v-bind:suggestion_type="suggestion_type"
+                                    v-bind:suggestion_type="suggestion_action"
                                     v-bind:image_height_type="image_height_type"
                                     v-bind:contents="contents"
                                     v-bind:idx="idx"
                                     v-bind:sidx="key"
                                 ></element-carousel>
                                 
-                                <suggestion v-for="(suggestion, ckey) in element.suggestions" v-if="ckey < 11" v-bind:element="element" v-bind:csidx="ckey" v-bind:key="ckey" v-bind:contents="contents" v-bind:idx="idx" v-bind:sidx="key" v-bind:suggestion="suggestion" v-bind:suggestion_type="suggestion_type"></suggestion>
+                                <suggestion v-for="(suggestion, ckey) in element.suggestions" v-if="ckey < 11" v-bind:element="element" v-bind:csidx="ckey" v-bind:key="ckey" v-bind:contents="contents" v-bind:idx="idx" v-bind:sidx="key" v-bind:suggestion="suggestion" v-bind:suggestion_type="suggestion_reply"></suggestion>
                                 <b-button :disabled="element.suggestions && element.suggestions.length >= 11" v-on:click="addSuggestion(key)" variant="outline-info" size="sm" href="#">New Suggested Reply</b-button>
                             </div>
                             

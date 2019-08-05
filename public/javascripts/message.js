@@ -230,8 +230,10 @@ var app = new Vue({
       { value: 'Standalone', text: 'Standalone' },
       { value: 'Carousel', text: 'Carousel' }
     ],
-    suggestion_type: [
-      { value: 'Reply', text: 'Reply' },
+    suggestion_reply: [
+      { value: 'Reply', text: 'Reply' }, 
+    ],
+    suggestion_action: [
       { value: 'Link URL', text: 'Link URL' },
       { value: 'Dial Number', text: 'Dial Number' },
       { value: 'Calendar Invite', text: 'Calendar Invite' },
