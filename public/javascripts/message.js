@@ -621,10 +621,14 @@ var app = new Vue({
       }
 
       var recipients = this.contents.recipients.replace(" ","").split(",")
-      var total = 0;
-      message.elements.forEach(function(element){
-        var template = createTemplate(element);
-            console.log(template);
+      var alert = 0;
+
+      var i = 0;
+
+      function send(){
+        if(message.elements[i]){
+          var template = createTemplate(message.elements[i]);
+          console.log(template);
             recipients.forEach(function(phone){
               var content = {resource : JSON.stringify(template), msisdn : phone};
               const options = {
@@ -637,22 +641,26 @@ var app = new Vue({
                 .then(function(response){
                   total++;
                   console.log(response.data);
-                  if(total >= message.elements.length){
-                    alert('Message Sent');
+                  if(alert == 0){
+                    alert++;
+                    alert('Message Sent');                 
+                  }
+                  i++;
+                  if(i < message.elements.length){
+                    send();
                   }
                   
                 })
                 .catch(function (error) {
-                  total++;
+                  alert++;
                   console.log(error);
-                  if(total >= message.elements.length){
-                    alert('Problem sending message');
-                  }
-                  
+                  alert('Problem sending message');
                 })
             });
-        
-      });
+        }
+      }
+
+      send();
     }
   },
   mounted : function () {
