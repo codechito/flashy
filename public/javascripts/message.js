@@ -164,7 +164,7 @@ Vue.component('element-carousel', {
                 v-bind:suggestion="sgstn" 
                 v-bind:suggestion_type="suggestion_type"
               ></suggestion>
-              <b-button :disabled="image.card_suggestions && image.card_suggestions.length >= 4" v-on:click="addCardSuggestion(imgkey)" variant="outline-info" size="sm" href="#">New Action</b-button>
+              <b-button :disabled="image.card_suggestions && image.card_suggestions.length >= 4" v-on:click="addCardSuggestion(imgkey)" variant="outline-info" size="sm" href="#">New Card Action</b-button>
             </b-card-text>
           </b-tab>
           <template v-if="element.images && element.images.length < 10" slot="tabs-end">
@@ -210,7 +210,7 @@ Vue.component('element-standalone', {
       <b-form-textarea v-model="element.description" size="sm" class="form-control"></b-form-textarea>
     </b-form-group>
     <suggestion v-for="(suggestion, ckey) in element.card_suggestions" v-if="ckey < 4" v-bind:simgdx="ckey" v-bind:element="element" v-bind:contents="contents" v-bind:idx="idx" v-bind:sidx="sidx" v-bind:suggestion="suggestion" v-bind:suggestion_type="suggestion_type"></suggestion>
-    <b-button :disabled="element.card_suggestions && element.card_suggestions.length >= 4" v-on:click="addCardSuggestion(sidx)" variant="outline-info" size="sm" href="#">New Action</b-button>
+    <b-button :disabled="element.card_suggestions && element.card_suggestions.length >= 4" v-on:click="addCardSuggestion(sidx)" variant="outline-info" size="sm" href="#">New Card Action</b-button>
     </div>
   `
 });
@@ -238,9 +238,10 @@ var app = new Vue({
       { value: 'Carousel', text: 'Carousel' }
     ],
     suggestion_reply: [
-      { value: 'Reply', text: 'Reply' }, 
+      { value: 'Reply', text: 'Suggested Reply' }, 
     ],
     suggestion_action: [
+      { value: 'Reply', text: 'Reply' },
       { value: 'Link URL', text: 'Link URL' },
       { value: 'Dial Number', text: 'Dial Number' },
       { value: 'Calendar Invite', text: 'Calendar Invite' },
