@@ -165,7 +165,7 @@ var sendMessage = function(msisdn,uuidv4,contents){
         if(message.elements[i]){
           var template = createTemplate(message.elements[i]);
           console.log(template);
-          var content = {resource : JSON.stringify(template), msisdn : phone};
+          var content = {resource : JSON.stringify(template), msisdn : msisdn};
           const options = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
