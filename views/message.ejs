@@ -54,7 +54,8 @@
                   <div class="col-sm-12 main shadow rounded ">
                     <div class="header" >
                         <span>{{contents.messages[idx].message_name}}</span>
-                        <b-button v-if="contents.messages[idx].message_name != 'New Message'" v-on:click="removeMessage()" v-b-tooltip.hover title="Remove Message" variant="info" class="icon-button float-right" ><h3> &times; </h3></b-button>
+                        <b-button v-if="contents.messages[idx].message_name != 'New Message'" v-on:click="removeMessage(idx)" v-b-tooltip.hover title="Remove Message" variant="info" class="icon-button float-right" ><h3> &times; </h3></b-button>
+                        <b-button v-if="contents.messages[idx].message_name != 'New Message'" v-on:click="copyMessage(idx)" v-b-tooltip.hover title="Copy Message" variant="info" class="icon-button float-right" ><span> &plusmn; </span></b-button>
                         <hr/><br/>
                     </div>
                     <div>
@@ -71,7 +72,8 @@
                             <div class="list-group shadow-sm rounded">
                                 <div class="header">
                                     <span>{{element.type}}</span>
-                                    <b-button v-on:click="removeElement(key)" v-b-tooltip.hover title="Remove element" variant="info" class="icon-button float-right" ><h3> &times; </h3></b-button>
+                                    <b-button v-on:click="removeElement(idx,key)" v-b-tooltip.hover title="Remove element" variant="info" class="icon-button float-right" ><h3> &times; </h3></b-button>
+                                    <b-button v-on:click="copyElement(idx,key)" v-b-tooltip.hover title="Copy element" variant="info" class="icon-button float-right" ><h3> &plusmn; </h3></b-button>
                                     <hr/><br/>
                                 </div>
                                 <b-form-group label="Message Type" label-size="sm">

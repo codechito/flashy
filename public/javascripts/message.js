@@ -322,11 +322,25 @@ var app = new Vue({
           suggestions:[],
           card_suggestions:[]});
     },
-    removeElement(){
-      this.contents.messages[this.idx].elements.splice(this.idx, 1);
+    removeElement(idx,elx){
+      this.contents.messages[idx].elements.splice(elx, 1);
     },
-    removeMessage(){
+    copyElement(idx,elx){
+      console.log(idx,elx,this.contents.messages[idx].elements[elx]);
+      var copy = JSON.parse(JSON.stringify(this.contents.messages[idx].elements[elx]));
+      this.contents.messages[idx].elements.push(copy);
+      alert("Copy Element successfull");
+
+    },
+    removeMessage(idx){
       this.contents.messages.splice(this.idx, 1);
+    },
+    copyMessage(idx){
+      var copy = JSON.parse(JSON.stringify(this.contents.messages[idx]));
+      copy.uuidv4 = uuidv4();
+      copy.message_name =  copy.message_name + ' copy';
+      this.contents.messages.push(copy);
+      alert("Copy Message successfull");
     },
     switchCampaign(){
 
