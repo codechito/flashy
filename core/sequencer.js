@@ -152,30 +152,33 @@ var sendMessage = function(msisdn,uuidv4,contents){
     };
 
     var message;
-    contents.messages.filter(function(msg,idx){
-        if(msg.uuidv4 == uuidv4) {
-            message = contents.messages[idx];
-        }
-    });
-    console.log("message",message);
-    message.elements.forEach(function(element){
-        var template = createTemplate(element);
-        console.log("template",template);
-        var content = {resource : JSON.stringify(template), msisdn : msisdn};
-          const options = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            data: JSON.stringify(content),
-            url: 'http://13.239.167.74:8080/campaign/rcs/message/send'
-          };
-          axios(options)
-            .then(function(response){
-              console.log(response.data);
-            })
-            .catch(function (error) {
-              console.log(error);
-            });
-    })
+    if(contents){
+        contents.messages.filter(function(msg,idx){
+            if(msg.uuidv4 == uuidv4) {
+                message = contents.messages[idx];
+            }
+        });
+        console.log("message",message);
+        message.elements.forEach(function(element){
+            var template = createTemplate(element);
+            console.log("template",template);
+            var content = {resource : JSON.stringify(template), msisdn : msisdn};
+              const options = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                data: JSON.stringify(content),
+                url: 'http://13.239.167.74:8080/campaign/rcs/message/send'
+              };
+              axios(options)
+                .then(function(response){
+                  console.log(response.data);
+                })
+                .catch(function (error) {
+                  console.log(error);
+                });
+        })
+    }
+    
 
 }
 
