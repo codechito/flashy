@@ -640,7 +640,6 @@ var app = new Vue({
               };
               axios(options)
                 .then(function(response){
-                  total++;
                   console.log(response.data);
                   if(alert == 0){
                     alert++;
