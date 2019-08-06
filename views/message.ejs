@@ -3,6 +3,7 @@
   <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
   <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css" />
   <link rel="stylesheet" type="text/css" href="/campaign/stylesheets/nstyle.css" />
+  <link href="https://static.fontawesome.com/css/fontawesome-app.css" rel="stylesheet">
   <head>
 	<meta charset="utf-8" />
 	<title>RCS Campaign Creator</title>
@@ -52,10 +53,11 @@
               </div>
               <div class="row justify-content-center">
                   <div class="col-sm-12 main shadow rounded ">
+                        
                     <div class="header" >
                         <span>{{contents.messages[idx].message_name}}</span>
                         <b-button v-if="contents.messages[idx].message_name != 'New Message'" v-on:click="removeMessage(idx)" v-b-tooltip.hover title="Remove Message" variant="info" class="icon-button float-right" ><h3> &times; </h3></b-button>
-                        <b-button v-if="contents.messages[idx].message_name != 'New Message'" v-on:click="copyMessage(idx)" v-b-tooltip.hover title="Copy Message" variant="info" class="icon-button float-right" ><h3> &plusmn; </h3></b-button>
+                        <b-button v-if="contents.messages[idx].message_name != 'New Message'" v-on:click="copyMessage(idx)" v-b-tooltip.hover title="Copy Message" variant="info" class="icon-button float-right" ><i class="far fa-copy"></i></b-button>
                         <hr/><br/>
                     </div>
                     <div>
@@ -73,7 +75,7 @@
                                 <div class="header">
                                     <span>{{element.type}}</span>
                                     <b-button v-on:click="removeElement(idx,key)" v-b-tooltip.hover title="Remove element" variant="info" class="icon-button float-right" ><h3> &times; </h3></b-button>
-                                    <b-button v-on:click="copyElement(idx,key)" v-b-tooltip.hover title="Copy element" variant="info" class="icon-button float-right" ><h3> &plusmn; </h3></b-button>
+                                    <b-button v-on:click="copyElement(idx,key)" v-b-tooltip.hover title="Copy element" variant="info" class="icon-button float-right" ><i class="far fa-copy"></i></b-button>
                                     <hr/><br/>
                                 </div>
                                 <b-form-group label="Message Type" label-size="sm">
@@ -131,6 +133,7 @@
   <script src="//unpkg.com/vue@latest/dist/vue.min.js"></script>
   <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
   <script type="text/javascript" src="/campaign/javascripts/message.js"></script>
+  <script src="https://kit.fontawesome.com/1ccfc954f6.js"></script>
 </body>
 
 </html>
