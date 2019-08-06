@@ -622,7 +622,7 @@ var app = new Vue({
       }
 
       var recipients = this.contents.recipients.replace(" ","").split(",")
-      var alert = 0;
+      var alertctr = 0;
 
       var i = 0;
 
@@ -641,8 +641,8 @@ var app = new Vue({
               axios(options)
                 .then(function(response){
                   console.log(response.data);
-                  if(alert == 0){
-                    alert++;
+                  if(alertctr == 0){
+                    alertctr++;
                     alert('Message Sent');                 
                   }
                   i++;
@@ -652,7 +652,7 @@ var app = new Vue({
                   
                 })
                 .catch(function (error) {
-                  alert++;
+                  alertctr++;
                   console.log(error);
                   alert('Problem sending message');
                 })
