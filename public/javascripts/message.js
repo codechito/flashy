@@ -38,7 +38,8 @@ Vue.component('suggestion', {
   },
   template: `
   <div class="suggestion">
-    <span>{{suggestion.type}}</span>
+    <span v-if="imgidx >= 0 || simgdx >= 0" >{{suggestion.type}}</span>
+    <span v-else >Suggested Reply</span>
     <b-button v-on:click="removeSuggestion(imgidx)" v-b-tooltip.hover title="Remove suggestion" variant="info" class="icon-button float-right" ><h3> &times; </h3></b-button>
     <hr/><br/>
     <b-form-group v-show="suggestion_type.length > 1" description="Suggestion Type" label-size="sm">
