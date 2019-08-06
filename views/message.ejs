@@ -55,7 +55,7 @@
                     <div class="header" >
                         <span>{{contents.messages[idx].message_name}}</span>
                         <b-button v-if="contents.messages[idx].message_name != 'New Message'" v-on:click="removeMessage(idx)" v-b-tooltip.hover title="Remove Message" variant="info" class="icon-button float-right" ><h3> &times; </h3></b-button>
-                        <b-button v-if="contents.messages[idx].message_name != 'New Message'" v-on:click="copyMessage(idx)" v-b-tooltip.hover title="Copy Message" variant="info" class="icon-button float-right" ><span> &plusmn; </span></b-button>
+                        <b-button v-if="contents.messages[idx].message_name != 'New Message'" v-on:click="copyMessage(idx)" v-b-tooltip.hover title="Copy Message" variant="info" class="icon-button float-right" ><h3> &plusmn; </h3></b-button>
                         <hr/><br/>
                     </div>
                     <div>
