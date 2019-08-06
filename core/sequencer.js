@@ -179,7 +179,6 @@ var sendMessage = function(msisdn,uuidv4,contents){
 
 }
 
-
 module.exports = function(emitter){
 
     emitter._subscription = false;
@@ -201,12 +200,6 @@ module.exports = function(emitter){
             let msisdn = userEvent.senderPhoneNumber;
             let message = getMessageBody(userEvent);
             let messageId = userEvent.messageId;
-            if(messageId && userEvent.eventType){
-                let cr = emitter.invokeHook("rbm::agent::event::response::"+message_id); 
-                cr.then(function(_content){
-                    console.log("received");
-                });
-            }
     
             let r = emitter.invokeHook("rbm::agent::event::create",{msisdn: msisdn, resource: {"eventType": "READ","messageId": messageId} }); 
             r.then(function(_content){
@@ -238,7 +231,6 @@ module.exports = function(emitter){
                 let userEvent = JSON.parse(message.data);
                 console.log(userEvent);
                 handleMessage(userEvent);
-                
                 console.log("here 5");
                 message.ack();
               });

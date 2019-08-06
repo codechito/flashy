@@ -110,10 +110,9 @@ module.exports = function(emitter){
       };
       let p = emitter.invokeHook("init::rbmapi",initOptions);
       p.then(function(content){
-        message_id = uuidv4();
         let params = {
           parent: 'phones/' + options.msisdn,
-          messageId: message_id,
+          messageId: uuidv4(),
           auth: emitter._authClient,
           resource: options.resource, 
         };
@@ -123,16 +122,10 @@ module.exports = function(emitter){
             reject("Problem sending the message!");
           }
           if(response){
-            emitter.registerHook("rbm::agent::event::response::"+message_id,function(options){
-              return new Promise(function(cresolve, creject){
-                cresolve(true);
-                resolve({
-                  status : response.status,
-                  statusText : response.statusText
-                });         
-              })
+            resolve({
+              status : response.status,
+              statusText : response.statusText
             });
-            
           } 
         });
       },function(err){
