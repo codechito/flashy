@@ -623,7 +623,7 @@ var app = new Vue({
       }
 
       var recipients = this.contents.recipients.replace(" ","").split(",")
-      var alertctr = 0;
+      var alertctr = 1;
 
       var i = 0;
 
@@ -642,10 +642,10 @@ var app = new Vue({
               axios(options)
                 .then(function(response){
                   console.log(response.data);
-                  if(alertctr == 0){
-                    alertctr++;
+                  if(alertctr == message.elements.length){              
                     alert('Message Sent');                 
                   }
+                  alertctr++;
                   i++;
                   if(i < message.elements.length){
                     send();
