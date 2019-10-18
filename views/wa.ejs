@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<title>Whatsapp Messaging</title>
+	<link rel="stylesheet" type="text/css" href="/campaign/stylesheets/style.css" />
+</head>
+
+<body>
+	<div class="container-fluid">
+      <div class="row">
+          <div class="col-xs-23 col-md-12" style="text-align:center;"><h4><b>Whatsapp Messaging</b></h4></div>
+        </div>
+      <div class="row">
+          <div class="col-xs-5 col-md-2"></div>
+          <div class="col-xs-9 col-md-4">
+            <h4>Invite a number</h4>
+            <form class="tester well"></form>
+          </div>
+          <div class="col-xs-9 col-md-4">           
+            <h4>Send a message</h4>
+              <form class="set well"></form>
+          </div>
+          <div class="col-xs-5 col-md-2"></div>
+      </div>
+    </div>
+	<div id="res" class="alert"></div>
+	<script type="text/javascript" src="/campaign/deps/jquery.min.js"></script>
+  <script type="text/javascript" src="/campaign/deps/underscore.js"></script>
+  <script type="text/javascript" src="/campaign/deps/opt/jsv.js"></script>
+  <script type="text/javascript" src="/campaign/deps/opt/jquery.ui.core.js"></script>
+  <script type="text/javascript" src="/campaign/deps/opt/jquery.ui.widget.js"></script>
+  <script type="text/javascript" src="/campaign/deps/opt/jquery.ui.mouse.js"></script>
+  <script type="text/javascript" src="/campaign/deps/opt/jquery.ui.sortable.js"></script>
+  <script type="text/javascript" src="/campaign/deps/opt/bootstrap-dropdown.js"></script>
+  <script type="text/javascript" src="/campaign/lib/jsonform.js"></script>
+  <script type="text/javascript">
+  jQuery.browser = {};
+  jQuery.curCSS = function(element, prop, val) {
+    return jQuery(element).css(prop, val);
+  };
+  (function () {
+      jQuery.browser.msie = false;
+      jQuery.browser.version = 0;
+      if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+          jQuery.browser.msie = true;
+          jQuery.browser.version = RegExp.$1;
+      }
+  })();
+
+  $('form.tester').jsonForm({
+  "schema": {
+    "msisdn": {
+      "type": "string",
+      "title": "Mobile Number"
+    },
+    "template": {
+      "type": "string",
+      "title": "Template",
+      "enum": [
+            "burst_ticket_update",
+            "burst_shipping_update",
+            "burst_reservation_update",
+            "burst_appointment_update"
+        ]
+    }
+  },
+  "form": [
+    "msisdn",
+    "template",
+    {
+      "type": "actions",
+      "items": [
+        {
+          "type": "button",
+          "title": "Invite",
+          "onClick": function (evt) {
+            var values = $('form.tester').jsonFormValue();
+            $.ajax({
+              type: "POST",
+              url: '/campaign/rcs/invite',
+              data: values
+            }).done(function (result) {
+              console.log("result",result);
+              alert(result[0].statusText);
+            }).fail(function (error) {
+              console.log("error",error);
+              alert(error.responseText);
+            });
+          }
+        }
+      ]
+    }
+  ]
+});
+
+$('form.set').jsonForm({
+
+"schema": {
+  "text": {
+    "type": "string",
+    "title": "Message"
+  },
+  "msisdn": {
+    "type": "string",
+    "title": "Mobile Number"
+  },
+},
+"form": [
+  "msisdn",
+  {
+    "key": "text",
+    "type": "textarea"
+  },
+  {
+    "type": "actions",
+    "items": [
+      {
+        "type": "button",
+        "title": "Create",
+        "onClick": function (evt) {
+          
+          var values = $('form.set').jsonFormValue();
+    
+        }
+      }
+    ]
+  }
+]
+});
+
+  window.setInterval( function() {  
+    $('form.set').find("select.nav").each(function(){
+                  $(this).change();
+    });
+  },5);
+
+	</script>
+</body>
+
+</html>

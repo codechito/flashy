@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    
+<head>
+	<title>Login</title>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css" rel="stylesheet">
+	<link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+	<link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css" />
+    <link rel='stylesheet' href='/campaign/stylesheets/login.css' />
+</head>
+<!--Coded with love by Mutiullah Samim-->
+<body>
+	<div class="container h-100" id="container">
+		<div class="d-flex justify-content-center h-100">
+			<div class="user_card">
+				<div class="d-flex justify-content-center">
+					<div class="brand_logo_container">
+						<img src="/campaign/images/Burst-RCS-Logo.png" class="brand_logo" alt="Logo">
+					</div>
+				</div>
+				<div class="d-flex justify-content-center form_container">
+					<form>
+						<div class="input-group mb-3">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fa fa-user"></i></span>
+							</div>
+							<b-form-input
+								id="username"
+								v-model="username"
+								v-bind:class="{ 'input_user': true }"
+								required
+							></b-form-input>
+						</div>
+						<div class="input-group mb-2">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fa fa-key"></i></span>
+							</div>
+							<b-form-input
+								id="password"
+								type="password"
+								v-model="password"
+								v-bind:class="{ 'input_pass': true }"
+								required
+							></b-form-input>
+						</div>
+						<div class="form-group">
+							<div class="custom-control custom-checkbox">
+								<input type="checkbox" class="custom-control-input" id="customControlInline">
+								<label class="custom-control-label" for="customControlInline">Remember me</label>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="d-flex justify-content-center mt-3 login_container">
+					<b-button v-on:click="logon()" variant="success" v-bind:class="{ 'login_btn': true }" >Login</b-button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="//polyfill.io/v3/polyfill.min.js?features=es2015%2CIntersectionObserver" crossorigin="anonymous"></script>
+      <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+      <script src="//unpkg.com/vue@latest/dist/vue.min.js"></script>
+	  <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
+	  <script type="text/javascript" src="/campaign/javascripts/login.js"></script>
+</body>
+</html>

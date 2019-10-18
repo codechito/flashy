@@ -93,9 +93,28 @@ module.exports = function(emitter){
 
   });
 
-  router.get('/message', function(req, res, next) {
-    res.render('message');      
+  router.all('/login', function(req, res, next) {
+    if(req.session.burstadmin){
+      res.redirect('/campaign/rcs/message');
+    }
+    else{
+      if(req.body.username == "keep" && req.body.password == "off"){
+        req.session.burstadmin = true;
+        res.redirect('/campaign/rcs/message');
+      }
+      else{
+        res.render('login');
+      }
+    }
+  });
 
+  router.get('/message', function(req, res, next) {
+    if(req.session.burstadmin){
+      res.render('message');  
+    }
+    else{
+      res.redirect('/campaign/rcs/login');
+    }
  });
 
   router.get('/demo/:id', function(req, res, next) {
